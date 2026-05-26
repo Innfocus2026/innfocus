@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InnFocus — De la idea al proyecto en 2 horas</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f7f5; color: #1a1a1a; }
+  .page { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0 1.5rem; border-bottom: 0.5px solid #e5e5e5; margin-bottom: 2.5rem; }
+  .brand { font-size: 20px; font-weight: 600; color: #1a1a1a; }
+  .brand span { color: #1D9E75; }
+  .nav-cta { background: #1D9E75; color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; }
+  .hero { margin-bottom: 2.5rem; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; background: #E1F5EE; color: #085041; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; margin-bottom: 1rem; }
+  .hero h1 { font-size: 28px; font-weight: 600; color: #1a1a1a; line-height: 1.3; margin-bottom: 1rem; }
+  .hero h1 em { color: #1D9E75; font-style: normal; }
+  .hero p { font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 1.5rem; max-width: 540px; }
+  .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-primary { background: #1D9E75; color: white; border: none; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; }
+  .btn-secondary { background: transparent; color: #1a1a1a; border: 0.5px solid #ccc; padding: 12px 24px; border-radius: 8px; font-size: 15px; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 2.5rem; }
+  .stat { background: white; border-radius: 10px; padding: 1rem; text-align: center; border: 0.5px solid #e5e5e5; }
+  .stat-num { font-size: 22px; font-weight: 600; color: #1D9E75; }
+  .stat-label { font-size: 11px; color: #888; margin-top: 2px; }
+  .section-label { font-size: 11px; color: #aaa; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 8px; }
+  .section-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 1.2rem; }
+  .steps { border: 0.5px solid #e5e5e5; border-radius: 12px; overflow: hidden; margin-bottom: 2.5rem; background: white; }
+  .step-row { display: flex; align-items: flex-start; gap: 14px; padding: 16px; border-bottom: 0.5px solid #e5e5e5; }
+  .step-row:last-child { border-bottom: none; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: #E1F5EE; color: #0F6E56; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-text h3 { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+  .step-text p { font-size: 13px; color: #666; line-height: 1.6; }
+  .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 2.5rem; }
+  .benefit-card { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1rem 1.2rem; }
+  .benefit-icon { font-size: 22px; margin-bottom: 8px; }
+  .benefit-card h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .benefit-card p { font-size: 12px; color: #666; line-height: 1.5; }
+  .for-who { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 2.5rem; }
+  .who-card { border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1rem 1.2rem; background: white; }
+  .who-card h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 8px; }
+  .who-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .who-card ul li { font-size: 12px; color: #666; display: flex; align-items: flex-start; gap: 6px; }
+
+  /* REGISTRO */
+  .form-section { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem; }
+  .form-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .form-sub { font-size: 13px; color: #888; margin-bottom: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .form-section input, .form-section select { width: 100%; padding: 10px 12px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: white; color: #1a1a1a; font-family: inherit; outline: none; margin-bottom: 10px; }
+  .form-section input:focus, .form-section select:focus { border-color: #1D9E75; box-shadow: 0 0 0 3px rgba(29,158,117,0.12); }
+  .form-section select { appearance: none; }
+  .code-box { background: #f7f7f5; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+  .code-label { font-size: 12px; color: #888; margin-bottom: 6px; }
+  .code-input-row { display: flex; gap: 8px; }
+  .code-input-row input { margin-bottom: 0; flex: 1; }
+  .btn-code { background: #1a1a1a; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; white-space: nowrap; }
+  .btn-form { width: 100%; background: #1D9E75; border: none; color: white; padding: 13px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; margin-top: 4px; }
+  .btn-form:hover { background: #0F6E56; }
+  .form-note { font-size: 11px; color: #aaa; text-align: center; margin-top: 8px; }
+  .msg-box { border-radius: 8px; padding: 12px 14px; font-size: 13px; margin-top: 10px; display: none; }
+  .msg-success { background: #E1F5EE; color: #085041; }
+  .msg-error { background: #FAEAEA; color: #8B1A1A; }
+  .msg-wait { background: #FFF8E6; color: #7A5000; }
+
+  /* HERRAMIENTA */
+  .tool-section { background: white; border: 2px solid #1D9E75; border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem; display: none; }
+  .tool-section.visible { display: block; }
+  .tool-header { margin-bottom: 1.5rem; }
+  .tool-header h2 { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .tool-header p { font-size: 13px; color: #666; }
+  .progress-bar { height: 3px; background: #e5e5e5; border-radius: 2px; margin-bottom: 1.5rem; }
+  .progress-fill { height: 100%; background: #1D9E75; border-radius: 2px; transition: width 0.4s ease; }
+  .q-step { display: none; }
+  .q-step.active { display: block; }
+  .q-label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .q-text { font-size: 17px; font-weight: 500; color: #1a1a1a; margin-bottom: 4px; line-height: 1.4; }
+  .q-hint { font-size: 13px; color: #888; margin-bottom: 1rem; }
+  .q-step textarea, .q-step input[type=text] { width: 100%; padding: 11px 13px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: #f7f7f5; color: #1a1a1a; font-family: inherit; resize: vertical; outline: none; }
+  .q-step textarea:focus, .q-step input[type=text]:focus { border-color: #1D9E75; background: white; }
+  .radio-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1rem; }
+  .radio-opt { padding: 10px 14px; border: 0.5px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 14px; color: #1a1a1a; transition: all 0.2s; background: white; }
+  .radio-opt:hover { border-color: #1D9E75; background: #E1F5EE; }
+  .radio-opt.selected { border-color: #1D9E75; background: #E1F5EE; color: #085041; font-weight: 500; }
+  .q-nav { display: flex; gap: 10px; margin-top: 1.2rem; }
+  .btn-back { background: transparent; border: 0.5px solid #ccc; color: #888; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: inherit; }
+  .btn-next { background: #1D9E75; border: none; color: white; padding: 10px 28px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; font-family: inherit; flex: 1; }
+  .loading-box { text-align: center; padding: 2rem; display: none; }
+  .spinner { width: 32px; height: 32px; border: 3px solid #e5e5e5; border-top-color: #1D9E75; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .result-card { border: 0.5px solid #e5e5e5; border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+  .result-head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #f7f7f5; border-bottom: 0.5px solid #e5e5e5; font-size: 13px; font-weight: 500; color: #1a1a1a; }
+  .result-body { padding: 12px 14px; font-size: 13px; color: #444; line-height: 1.7; white-space: pre-wrap; }
+  .alert-card .result-head { background: #FFF4E0; border-color: #F0C060; color: #7A5000; }
+  .btn-print { width: 100%; background: transparent; border: 0.5px solid #ccc; color: #888; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: inherit; margin-top: 8px; }
+
+  .footer { border-top: 0.5px solid #e5e5e5; padding-top: 1.2rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
+  .footer-brand { font-size: 15px; font-weight: 600; color: #1a1a1a; }
+  .footer-brand span { color: #1D9E75; }
+  .footer-text { font-size: 11px; color: #aaa; }
+  @media (max-width: 480px) {
+    .stats, .for-who, .form-row { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 22px; }
+  }
+  @media print { .navbar, .hero, .stats, .steps, .benefits, .for-who, .form-section, .footer { display: none; } .tool-section { border: none; padding: 0; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="navbar">
+    <div class="brand">Inn<span>Focus</span></div>
+    <a class="nav-cta" href="#registro">Reserva tu cupo</a>
+  </div>
+
+  <div class="hero">
+    <div class="badge">✨ Taller con IA · 2 horas · Cupos limitados</div>
+    <h1>Tu idea lleva tiempo en tu cabeza.<br><em>Hoy la convertimos en un proyecto.</em></h1>
+    <p>InnFocus es un taller práctico donde aprenderás por qué el enfoque estratégico importa, cómo definirlo y lo harás tú mismo con ayuda de inteligencia artificial. Sin tecnicismos. Sin consultores caros.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#registro">Quiero mi cupo →</a>
+      <a class="btn-secondary" href="#como">¿Cómo funciona?</a>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">2 h</div><div class="stat-label">Duración del taller</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Preguntas para tu plan</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Práctico y aplicable</div></div>
+  </div>
+
+  <div id="como">
+    <p class="section-label">Cómo funciona</p>
+    <p class="section-title">Tres momentos. Una sola sesión.</p>
+    <div class="steps">
+      <div class="step-row"><div class="step-num">1</div><div class="step-text"><h3>Por qué hacerlo</h3><p>Entenderás por qué los empresarios pierden el foco y qué le cuesta a tu negocio no tener claridad estratégica.</p></div></div>
+      <div class="step-row"><div class="step-num">2</div><div class="step-text"><h3>Cómo hacerlo</h3><p>Aprenderás a usar la herramienta InnFocus paso a paso. Verás en vivo cómo la IA convierte una idea en un plan completo.</p></div></div>
+      <div class="step-row"><div class="step-num">3</div><div class="step-text"><h3>Hazlo tú mismo</h3><p>Con tu idea real generarás tu propio plan estratégico. Te vas con el documento listo para ejecutar.</p></div></div>
+    </div>
+  </div>
+
+  <p class="section-label">Lo que obtienes</p>
+  <p class="section-title">No es otro taller de teoría.</p>
+  <div class="benefits">
+    <div class="benefit-card"><div class="benefit-icon">📄</div><h3>Tu plan estratégico</h3><p>Generado con IA sobre tu propia idea. Listo para imprimir y ejecutar.</p></div>
+    <div class="benefit-card"><div class="benefit-icon">🛠️</div><h3>Acceso a la herramienta</h3><p>Acceso a InnFocus para que sigas usando la herramienta con tu equipo.</p></div>
+    <div class="benefit-card"><div class="benefit-icon">🤝</div><h3>Red de empresarios</h3><p>Conecta con otros empresarios de tu sector que comparten el mismo reto.</p></div>
+  </div>
+
+  <!-- REGISTRO -->
+  <div class="form-section" id="registro">
+    <p class="form-title">Reserva tu cupo</p>
+    <p class="form-sub">Cupos limitados por sesión. Acceso al taller incluido con tu inscripción.</p>
+    <div class="form-row">
+      <input type="text" id="f-nombre" placeholder="Tu nombre completo" />
+      <input type="text" id="f-empresa" placeholder="Nombre de tu empresa" />
+    </div>
+    <input type="text" id="f-email" placeholder="Correo electrónico" />
+    <input type="text" id="f-tel" placeholder="WhatsApp" />
+    <select id="f-sector">
+      <option value="" disabled selected>¿A qué se dedica tu empresa?</option>
+      <option>Alimentos y bebidas</option>
+      <option>Comercio y ventas</option>
+      <option>Servicios profesionales</option>
+      <option>Manufactura y producción</option>
+      <option>Salud y bienestar</option>
+      <option>Tecnología</option>
+      <option>Agro y ganadería</option>
+      <option>Otro</option>
+    </select>
+    <select id="f-ciudad">
+      <option value="" disabled selected>¿En qué ciudad estás?</option>
+      <option>Bucaramanga</option>
+      <option>Bogotá</option>
+      <option>Medellín</option>
+      <option>Cali</option>
+      <option>Barranquilla</option>
+      <option>Otra ciudad</option>
+    </select>
+
+    <div class="code-box">
+      <div class="code-label">¿Tienes código de acceso? (lo recibiste en el taller o de tu consultor)</div>
+      <div class="code-input-row">
+        <input type="text" id="f-codigo" placeholder="Ej: CAMARA2026" style="text-transform:uppercase" />
+        <button class="btn-code" onclick="validarCodigo()">Ingresar →</button>
+      </div>
+    </div>
+
+    <div class="msg-box msg-error" id="msg-error">Código no válido. Verifica e intenta de nuevo.</div>
+    <div class="msg-box msg-wait" id="msg-wait">✓ Datos recibidos. Pronto te contactamos para darte acceso a la herramienta o al próximo taller.</div>
+
+    <button class="btn-form" onclick="registrarSinCodigo()">Reservar mi cupo →</button>
+    <p class="form-note">🔒 Tus datos son confidenciales. Solo te contactamos para confirmar tu cupo.</p>
+  </div>
+
+  <!-- HERRAMIENTA -->
+  <div class="tool-section" id="tool-section">
+    <div class="tool-header">
+      <h2>Construye tu plan estratégico</h2>
+      <p>Responde 7 preguntas y la IA generará tu plan personalizado.</p>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+    <!-- P1 -->
+    <div class="q-step active" id="q1">
+      <p class="q-label">Pregunta 1 de 7</p>
+      <p class="q-text">¿Cuál es tu idea o iniciativa?</p>
+      <p class="q-hint">Descríbela con tus propias palabras, sin preocuparte por ser formal.</p>
+      <textarea rows="4" id="a1" placeholder="Ej: Quiero abrir una panadería artesanal en mi barrio..."></textarea>
+      <div class="q-nav"><button class="btn-next" onclick="nextQ(1)">Siguiente →</button></div>
+    </div>
+
+    <!-- P2 -->
+    <div class="q-step" id="q2">
+      <p class="q-label">Pregunta 2 de 7</p>
+      <p class="q-text">¿Esta idea es para tu negocio actual o para emprender algo nuevo?</p>
+      <div class="radio-group" id="rg2">
+        <div class="radio-opt" onclick="selOpt('rg2',this,'Mi negocio actual')">Mi negocio actual</div>
+        <div class="radio-opt" onclick="selOpt('rg2',this,'Un emprendimiento nuevo')">Un emprendimiento nuevo</div>
+        <div class="radio-opt" onclick="selOpt('rg2',this,'Un proyecto interno (no comercial)')">Un proyecto interno (no comercial)</div>
+      </div>
+      <div class="q-nav"><button class="btn-back" onclick="backQ(2)">← Volver</button><button class="btn-next" onclick="nextQ(2)">Siguiente →</button></div>
+    </div>
+
+    <!-- P3 -->
+    <div class="q-step" id="q3">
+      <p class="q-label">Pregunta 3 de 7</p>
+      <p class="q-text">¿Qué problema resuelve o qué oportunidad aprovecha?</p>
+      <p class="q-hint">Piensa: ¿por qué alguien pagaría o se beneficiaría de esto?</p>
+      <textarea rows="4" id="a3" placeholder="Ej: En mi barrio no hay panaderías artesanales..."></textarea>
+      <div class="q-nav"><button class="btn-back" onclick="backQ(3)">← Volver</button><button class="btn-next" onclick="nextQ(3)">Siguiente →</button></div>
+    </div>
+
+    <!-- P4 -->
+    <div class="q-step" id="q4">
+      <p class="q-label">Pregunta 4 de 7</p>
+      <p class="q-text">¿A quién va dirigida esta idea?</p>
+      <div class="radio-group" id="rg4">
+        <div class="radio-opt" onclick="selOpt('rg4',this,'Mis clientes actuales')">Mis clientes actuales</div>
+        <div class="radio-opt" onclick="selOpt('rg4',this,'Un nuevo tipo de cliente')">Un nuevo tipo de cliente</div>
+        <div class="radio-opt" onclick="selOpt('rg4',this,'Mis empleados o equipo interno')">Mis empleados o equipo interno</div>
+        <div class="radio-opt" onclick="selOpt('rg4',this,'El público en general')">El público en general</div>
+      </div>
+      <div class="q-nav"><button class="btn-back" onclick="backQ(4)">← Volver</button><button class="btn-next" onclick="nextQ(4)">Siguiente →</button></div>
+    </div>
+
+    <!-- P5 -->
+    <div class="q-step" id="q5">
+      <p class="q-label">Pregunta 5 de 7</p>
+      <p class="q-text">¿Tienes algún recurso o ventaja para hacerla realidad?</p>
+      <p class="q-hint">Puede ser dinero, conocimiento, red de contactos, local, equipo...</p>
+      <textarea rows="3" id="a5" placeholder="Ej: Tengo experiencia en el tema, contactos en el sector..."></textarea>
+      <div class="q-nav"><button class="btn-back" onclick="backQ(5)">← Volver</button><button class="btn-next" onclick="nextQ(5)">Siguiente →</button></div>
+    </div>
+
+    <!-- P6 -->
+    <div class="q-step" id="q6">
+      <p class="q-label">Pregunta 6 de 7</p>
+      <p class="q-text">¿Cuál crees que es el mayor obstáculo para hacerla realidad?</p>
+      <div class="radio-group" id="rg6">
+        <div class="radio-opt" onclick="selOpt('rg6',this,'Falta de dinero o financiación')">Falta de dinero o financiación</div>
+        <div class="radio-opt" onclick="selOpt('rg6',this,'Falta de tiempo')">Falta de tiempo</div>
+        <div class="radio-opt" onclick="selOpt('rg6',this,'No sé por dónde empezar')">No sé por dónde empezar</div>
+        <div class="radio-opt" onclick="selOpt('rg6',this,'Necesito más personas o equipo')">Necesito más personas o equipo</div>
+        <div class="radio-opt" onclick="selOpt('rg6',this,'No estoy seguro de que funcione')">No estoy seguro de que funcione</div>
+      </div>
+      <div class="q-nav"><button class="btn-back" onclick="backQ(6)">← Volver</button><button class="btn-next" onclick="nextQ(6)">Siguiente →</button></div>
+    </div>
+
+    <!-- P7 -->
+    <div class="q-step" id="q7">
+      <p class="q-label">Pregunta 7 de 7</p>
+      <p class="q-text">¿En cuánto tiempo quieres verla funcionando?</p>
+      <div class="radio-group" id="rg7">
+        <div class="radio-opt" onclick="selOpt('rg7',this,'Menos de 3 meses')">Menos de 3 meses</div>
+        <div class="radio-opt" onclick="selOpt('rg7',this,'Entre 3 y 6 meses')">Entre 3 y 6 meses</div>
+        <div class="radio-opt" onclick="selOpt('rg7',this,'Entre 6 meses y 1 año')">Entre 6 meses y 1 año</div>
+        <div class="radio-opt" onclick="selOpt('rg7',this,'Más de 1 año')">Más de 1 año</div>
+      </div>
+      <div class="q-nav"><button class="btn-back" onclick="backQ(7)">← Volver</button><button class="btn-next" onclick="generarPlan()">Generar mi plan ✨</button></div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-box" id="loading-box">
+      <div class="spinner"></div>
+      <p style="font-size:14px;color:#888" id="loading-msg">Analizando tu idea...</p>
+    </div>
+
+    <!-- Resultado -->
+    <div id="resultado"></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">Inn<span>Focus</span> · parte de <a href="https://colapp.com.co" style="color:#378ADD;text-decoration:none">ColApp</a></div>
+    <div class="footer-text">josuefgutierrezconsultor@gmail.com</div>
+  </div>
+
+</div>
+
+<script>
+  // ===== CÓDIGOS VÁLIDOS =====
+  const CODIGOS = ["CAMARA2026", "JOSUE2026", "INNFOCUS01"];
+  // CAMARA2026 = código para talleres en Cámara de Comercio
+  // JOSUE2026  = código universal para clientes de consultoría
+  // INNFOCUS01 = código de respaldo
+
+  const ans = { rg2:'', rg4:'', rg6:'', rg7:'' };
+  let usuarioRegistrado = false;
+
+  function validarCodigo() {
+    const nombre = document.getElementById('f-nombre').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const tel = document.getElementById('f-tel').value.trim();
+    const codigo = document.getElementById('f-codigo').value.trim().toUpperCase();
+
+    if (!nombre || !email || !tel) { alert('Por favor completa nombre, correo y WhatsApp antes de ingresar el código.'); return; }
+    if (!codigo) { alert('Por favor ingresa tu código de acceso.'); return; }
+
+    document.getElementById('msg-error').style.display = 'none';
+
+    if (CODIGOS.includes(codigo)) {
+      document.getElementById('registro').style.display = 'none';
+      document.getElementById('tool-section').classList.add('visible');
+      document.getElementById('tool-section').scrollIntoView({ behavior: 'smooth' });
+    } else {
+      document.getElementById('msg-error').style.display = 'block';
+    }
+  }
+
+  function registrarSinCodigo() {
+    const nombre = document.getElementById('f-nombre').value.trim();
+    const empresa = document.getElementById('f-empresa').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const tel = document.getElementById('f-tel').value.trim();
+    const sector = document.getElementById('f-sector').value;
+    const ciudad = document.getElementById('f-ciudad').value;
+
+    if (!nombre || !email || !tel) { alert('Por favor completa nombre, correo y WhatsApp.'); return; }
+
+    const msg = `Hola Josue, nueva inscripción InnFocus sin código:%0ANombre: ${encodeURIComponent(nombre)}%0AEmpresa: ${encodeURIComponent(empresa)}%0AEmail: ${encodeURIComponent(email)}%0AWhatsApp: ${encodeURIComponent(tel)}%0ASector: ${encodeURIComponent(sector)}%0ACiudad: ${encodeURIComponent(ciudad)}`;
+    window.open(`https://wa.me/573132524042?text=${msg}`, '_blank');
+
+    document.querySelector('.btn-form').style.display = 'none';
+    document.getElementById('msg-wait').style.display = 'block';
+  }
+
+  function showQ(n) {
+    document.querySelectorAll('.q-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('q' + n).classList.add('active');
+    document.getElementById('progress').style.width = ((n-1)/7*100) + '%';
+  }
+
+  function nextQ(n) {
+    if (n === 1 && !document.getElementById('a1').value.trim()) { alert('Por favor describe tu idea.'); return; }
+    if (n === 2 && !ans.rg2) { alert('Por favor selecciona una opción.'); return; }
+    if (n === 3 && !document.getElementById('a3').value.trim()) { alert('Por favor completa este campo.'); return; }
+    if (n === 4 && !ans.rg4) { alert('Por favor selecciona una opción.'); return; }
+    if (n === 5 && !document.getElementById('a5').value.trim()) { alert('Por favor completa este campo.'); return; }
+    if (n === 6 && !ans.rg6) { alert('Por favor selecciona una opción.'); return; }
+    showQ(n + 1);
+  }
+
+  function backQ(n) { showQ(n - 1); }
+
+  function selOpt(group, el, val) {
+    document.querySelectorAll('#' + group + ' .radio-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    ans[group] = val;
+  }
+
+  const loadMsgs = ['Analizando tu idea...', 'Definiendo la oportunidad...', 'Construyendo el plan de acción...', 'Casi listo...'];
+  let msgI = 0, msgInt;
+
+  async function generarPlan() {
+    if (!ans.rg7) { alert('Por favor selecciona un horizonte de tiempo.'); return; }
+
+    document.getElementById('q7').classList.remove('active');
+    document.getElementById('loading-box').style.display = 'block';
+    msgI = 0;
+    document.getElementById('loading-msg').textContent = loadMsgs[0];
+    msgInt = setInterval(() => { msgI = (msgI+1)%4; document.getElementById('loading-msg').textContent = loadMsgs[msgI]; }, 2500);
+
+    const idea = document.getElementById('a1').value.trim();
+    const tipo = ans.rg2;
+    const problema = document.getElementById('a3').value.trim();
+    const dirigido = ans.rg4;
+    const recursos = document.getElementById('a5').value.trim();
+    const obstaculo = ans.rg6;
+    const tiempo = ans.rg7;
+
+    const prompt = `Eres un consultor estratégico especializado en famiempresas y microempresas colombianas. Genera un plan estratégico claro y práctico. Responde SOLO en JSON válido, sin markdown.
+
+Idea: ${idea}
+Tipo: ${tipo}
+Problema/Oportunidad: ${problema}
+Dirigido a: ${dirigido}
+Recursos disponibles: ${recursos}
+Mayor obstáculo: ${obstaculo}
+Tiempo esperado: ${tiempo}
+
+JSON exacto:
+{
+  "definicion": "Definición concreta en 2-3 oraciones.",
+  "justificacion": "Por qué es necesario hacerlo ahora.",
+  "oportunidad": "Oportunidad de mercado o mejora según el tipo.",
+  "cliente": "Perfil del cliente o beneficiario y cómo llegar a él.",
+  "objetivos": ["Objetivo 1", "Objetivo 2", "Objetivo 3"],
+  "hitos": [{"fase":"Fase 1","descripcion":"Acción"},{"fase":"Fase 2","descripcion":"Acción"},{"fase":"Fase 3","descripcion":"Acción"}],
+  "metas": ["Meta medible 1", "Meta medible 2", "Meta medible 3"],
+  "obstaculo": "Cómo superar el obstáculo identificado: ${obstaculo}",
+  "alerta": "Riesgo principal que no debe ignorar."
+}`;
+
+    try {
+      const res = await fetch('/.netlify/functions/plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+      const data = await res.json();
+      const text = data.content.map(i => i.text||'').join('');
+      const plan = JSON.parse(text.replace(/```json|```/g,'').trim());
+      clearInterval(msgInt);
+      document.getElementById('loading-box').style.display = 'none';
+      renderPlan(plan, idea);
+    } catch(e) {
+      clearInterval(msgInt);
+      document.getElementById('loading-box').style.display = 'none';
+      document.getElementById('resultado').innerHTML = '<p style="color:#c00;padding:1rem">Ocurrió un error. Por favor intenta de nuevo.</p>';
+    }
+  }
+
+  function renderPlan(p, idea) {
+    const secs = [
+      { t:'📌 Definición de la idea', c: p.definicion },
+      { t:'💡 Por qué hacerlo ahora', c: p.justificacion },
+      { t:'📈 Oportunidad identificada', c: p.oportunidad },
+      { t:'👥 Cliente o beneficiario', c: p.cliente },
+      { t:'🎯 Objetivos estratégicos', c: p.objetivos ? p.objetivos.map(o=>'• '+o).join('\n') : '' },
+      { t:'🗺️ Plan de acción por fases', c: p.hitos ? p.hitos.map(h=>`${h.fase}\n${h.descripcion}`).join('\n\n') : '' },
+      { t:'✅ Metas clave', c: p.metas ? p.metas.map(m=>'✓ '+m).join('\n') : '' },
+      { t:'🧱 Cómo superar el obstáculo', c: p.obstaculo },
+    ];
+
+    let html = `<p style="font-size:13px;color:#888;margin-bottom:1rem">Plan generado para: <strong>${idea.substring(0,60)}${idea.length>60?'...':''}</strong></p>`;
+    secs.forEach(s => {
+      html += `<div class="result-card"><div class="result-head">${s.t}</div><div class="result-body">${s.c}</div></div>`;
+    });
+    html += `<div class="result-card alert-card"><div class="result-head">⚠️ Punto crítico de atención</div><div class="result-body">${p.alerta}</div></div>`;
+    html += `<button class="btn-print" onclick="window.print()">🖨️ Imprimir mi plan</button>`;
+
+    document.getElementById('resultado').innerHTML = html;
+    document.getElementById('progress').style.width = '100%';
+  }
+</script>
+</body>
+</html>
