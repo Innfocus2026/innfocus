@@ -42,8 +42,6 @@
   .who-card h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 8px; }
   .who-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
   .who-card ul li { font-size: 12px; color: #666; display: flex; align-items: flex-start; gap: 6px; }
-
-  /* REGISTRO */
   .form-section { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem; }
   .form-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
   .form-sub { font-size: 13px; color: #888; margin-bottom: 1.2rem; }
@@ -63,8 +61,6 @@
   .msg-success { background: #E1F5EE; color: #085041; }
   .msg-error { background: #FAEAEA; color: #8B1A1A; }
   .msg-wait { background: #FFF8E6; color: #7A5000; }
-
-  /* HERRAMIENTA */
   .tool-section { background: white; border: 2px solid #1D9E75; border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem; display: none; }
   .tool-section.visible { display: block; }
   .tool-header { margin-bottom: 1.5rem; }
@@ -77,8 +73,8 @@
   .q-label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
   .q-text { font-size: 17px; font-weight: 500; color: #1a1a1a; margin-bottom: 4px; line-height: 1.4; }
   .q-hint { font-size: 13px; color: #888; margin-bottom: 1rem; }
-  .q-step textarea, .q-step input[type=text] { width: 100%; padding: 11px 13px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: #f7f7f5; color: #1a1a1a; font-family: inherit; resize: vertical; outline: none; }
-  .q-step textarea:focus, .q-step input[type=text]:focus { border-color: #1D9E75; background: white; }
+  .q-step textarea { width: 100%; padding: 11px 13px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: #f7f7f5; color: #1a1a1a; font-family: inherit; resize: vertical; outline: none; }
+  .q-step textarea:focus { border-color: #1D9E75; background: white; }
   .radio-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1rem; }
   .radio-opt { padding: 10px 14px; border: 0.5px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 14px; color: #1a1a1a; transition: all 0.2s; background: white; }
   .radio-opt:hover { border-color: #1D9E75; background: #E1F5EE; }
@@ -89,12 +85,7 @@
   .loading-box { text-align: center; padding: 2rem; display: none; }
   .spinner { width: 32px; height: 32px; border: 3px solid #e5e5e5; border-top-color: #1D9E75; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .result-card { border: 0.5px solid #e5e5e5; border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
-  .result-head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #f7f7f5; border-bottom: 0.5px solid #e5e5e5; font-size: 13px; font-weight: 500; color: #1a1a1a; }
-  .result-body { padding: 12px 14px; font-size: 13px; color: #444; line-height: 1.7; white-space: pre-wrap; }
-  .alert-card .result-head { background: #FFF4E0; border-color: #F0C060; color: #7A5000; }
   .btn-print { width: 100%; background: transparent; border: 0.5px solid #ccc; color: #888; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: inherit; margin-top: 8px; }
-
   .footer { border-top: 0.5px solid #e5e5e5; padding-top: 1.2rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
   .footer-brand { font-size: 15px; font-weight: 600; color: #1a1a1a; }
   .footer-brand span { color: #1D9E75; }
@@ -108,7 +99,6 @@
 </head>
 <body>
 <div class="page">
-
   <div class="navbar">
     <div class="brand">Inn<span>Focus</span></div>
     <a class="nav-cta" href="#registro">Reserva tu cupo</a>
@@ -148,7 +138,6 @@
     <div class="benefit-card"><div class="benefit-icon">🤝</div><h3>Red de empresarios</h3><p>Conecta con otros empresarios de tu sector que comparten el mismo reto.</p></div>
   </div>
 
-  <!-- REGISTRO -->
   <div class="form-section" id="registro">
     <p class="form-title">Reserva tu cupo</p>
     <p class="form-sub">Cupos limitados por sesión. Acceso al taller incluido con tu inscripción.</p>
@@ -188,13 +177,13 @@
     </div>
 
     <div class="msg-box msg-error" id="msg-error">Código no válido. Verifica e intenta de nuevo.</div>
-    <div class="msg-box msg-wait" id="msg-wait">✓ Datos recibidos. Pronto te contactamos para darte acceso a la herramienta o al próximo taller.</div>
+    <div class="msg-box msg-wait" id="msg-wait">✓ Datos recibidos. Pronto te contactamos para darte acceso o al próximo taller.</div>
 
-    <button class="btn-form" onclick="registrarSinCodigo()">Reservar mi cupo →</button>
+    <button class="btn-form" onclick="submitForm()">Reservar mi cupo →</button>
     <p class="form-note">🔒 Tus datos son confidenciales. Solo te contactamos para confirmar tu cupo.</p>
+    <div class="msg-box msg-success" id="success-box">✓ ¡Cupo reservado! Pronto recibirás la confirmación.</div>
   </div>
 
-  <!-- HERRAMIENTA -->
   <div class="tool-section" id="tool-section">
     <div class="tool-header">
       <h2>Construye tu plan estratégico</h2>
@@ -202,7 +191,6 @@
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
 
-    <!-- P1 -->
     <div class="q-step active" id="q1">
       <p class="q-label">Pregunta 1 de 7</p>
       <p class="q-text">¿Cuál es tu idea o iniciativa?</p>
@@ -211,7 +199,6 @@
       <div class="q-nav"><button class="btn-next" onclick="nextQ(1)">Siguiente →</button></div>
     </div>
 
-    <!-- P2 -->
     <div class="q-step" id="q2">
       <p class="q-label">Pregunta 2 de 7</p>
       <p class="q-text">¿Esta idea es para tu negocio actual o para emprender algo nuevo?</p>
@@ -223,7 +210,6 @@
       <div class="q-nav"><button class="btn-back" onclick="backQ(2)">← Volver</button><button class="btn-next" onclick="nextQ(2)">Siguiente →</button></div>
     </div>
 
-    <!-- P3 -->
     <div class="q-step" id="q3">
       <p class="q-label">Pregunta 3 de 7</p>
       <p class="q-text">¿Qué problema resuelve o qué oportunidad aprovecha?</p>
@@ -232,7 +218,6 @@
       <div class="q-nav"><button class="btn-back" onclick="backQ(3)">← Volver</button><button class="btn-next" onclick="nextQ(3)">Siguiente →</button></div>
     </div>
 
-    <!-- P4 -->
     <div class="q-step" id="q4">
       <p class="q-label">Pregunta 4 de 7</p>
       <p class="q-text">¿A quién va dirigida esta idea?</p>
@@ -245,7 +230,6 @@
       <div class="q-nav"><button class="btn-back" onclick="backQ(4)">← Volver</button><button class="btn-next" onclick="nextQ(4)">Siguiente →</button></div>
     </div>
 
-    <!-- P5 -->
     <div class="q-step" id="q5">
       <p class="q-label">Pregunta 5 de 7</p>
       <p class="q-text">¿Tienes algún recurso o ventaja para hacerla realidad?</p>
@@ -254,7 +238,6 @@
       <div class="q-nav"><button class="btn-back" onclick="backQ(5)">← Volver</button><button class="btn-next" onclick="nextQ(5)">Siguiente →</button></div>
     </div>
 
-    <!-- P6 -->
     <div class="q-step" id="q6">
       <p class="q-label">Pregunta 6 de 7</p>
       <p class="q-text">¿Cuál crees que es el mayor obstáculo para hacerla realidad?</p>
@@ -268,7 +251,6 @@
       <div class="q-nav"><button class="btn-back" onclick="backQ(6)">← Volver</button><button class="btn-next" onclick="nextQ(6)">Siguiente →</button></div>
     </div>
 
-    <!-- P7 -->
     <div class="q-step" id="q7">
       <p class="q-label">Pregunta 7 de 7</p>
       <p class="q-text">¿En cuánto tiempo quieres verla funcionando?</p>
@@ -281,13 +263,11 @@
       <div class="q-nav"><button class="btn-back" onclick="backQ(7)">← Volver</button><button class="btn-next" onclick="generarPlan()">Generar mi plan ✨</button></div>
     </div>
 
-    <!-- Loading -->
     <div class="loading-box" id="loading-box">
       <div class="spinner"></div>
       <p style="font-size:14px;color:#888" id="loading-msg">Analizando tu idea...</p>
     </div>
 
-    <!-- Resultado -->
     <div id="resultado"></div>
   </div>
 
@@ -295,91 +275,84 @@
     <div class="footer-brand">Inn<span>Focus</span> · parte de <a href="https://colapp.com.co" style="color:#378ADD;text-decoration:none">ColApp</a></div>
     <div class="footer-text">josuefgutierrezconsultor@gmail.com</div>
   </div>
-
 </div>
 
 <script>
-  // ===== CÓDIGOS VÁLIDOS =====
   const CODIGOS = ["CAMARA2026", "JOSUE2026", "INNFOCUS01"];
-  // CAMARA2026 = código para talleres en Cámara de Comercio
-  // JOSUE2026  = código universal para clientes de consultoría
-  // INNFOCUS01 = código de respaldo
-
   const ans = { rg2:'', rg4:'', rg6:'', rg7:'' };
-  let usuarioRegistrado = false;
+  const loadMsgs = ['Analizando tu idea...','Definiendo la oportunidad...','Construyendo el plan de acción...','Casi listo...'];
+  let msgI = 0, msgInt;
+
+  function submitForm() {
+    const nombre = document.getElementById('f-nombre').value.trim();
+    const empresa = document.getElementById('f-empresa').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const tel = document.getElementById('f-tel').value.trim();
+    const sector = document.getElementById('f-sector').value || '';
+    const ciudad = document.getElementById('f-ciudad').value || '';
+    if (!nombre || !email || !tel) { alert('Por favor completa nombre, correo y WhatsApp.'); return; }
+    document.querySelector('.btn-form').style.display = 'none';
+    document.getElementById('success-box').style.display = 'block';
+    const fecha = new Date().toLocaleDateString('es-CO', {year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdRxesSw0aqydJ7kZ1MUUi-VLNjHUSPkAVW7atEF1n3Xqkajg/formResponse';
+    const body = new FormData();
+    body.append('entry.355478119', nombre);
+    body.append('entry.85124564', empresa);
+    body.append('entry.927513716', email);
+    body.append('entry.1941689868', tel);
+    body.append('entry.792765129', sector);
+    body.append('entry.1633529629', ciudad + ' — ' + fecha);
+    fetch(formUrl, {method:'POST', mode:'no-cors', body:body});
+  }
 
   function validarCodigo() {
     const nombre = document.getElementById('f-nombre').value.trim();
     const email = document.getElementById('f-email').value.trim();
     const tel = document.getElementById('f-tel').value.trim();
     const codigo = document.getElementById('f-codigo').value.trim().toUpperCase();
-
     if (!nombre || !email || !tel) { alert('Por favor completa nombre, correo y WhatsApp antes de ingresar el código.'); return; }
     if (!codigo) { alert('Por favor ingresa tu código de acceso.'); return; }
-
     document.getElementById('msg-error').style.display = 'none';
-
     if (CODIGOS.includes(codigo)) {
       document.getElementById('registro').style.display = 'none';
       document.getElementById('tool-section').classList.add('visible');
-      document.getElementById('tool-section').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('tool-section').scrollIntoView({behavior:'smooth'});
     } else {
       document.getElementById('msg-error').style.display = 'block';
     }
   }
 
-  function registrarSinCodigo() {
-    const nombre = document.getElementById('f-nombre').value.trim();
-    const empresa = document.getElementById('f-empresa').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const tel = document.getElementById('f-tel').value.trim();
-    const sector = document.getElementById('f-sector').value;
-    const ciudad = document.getElementById('f-ciudad').value;
-
-    if (!nombre || !email || !tel) { alert('Por favor completa nombre, correo y WhatsApp.'); return; }
-
-    const msg = `Hola Josue, nueva inscripción InnFocus sin código:%0ANombre: ${encodeURIComponent(nombre)}%0AEmpresa: ${encodeURIComponent(empresa)}%0AEmail: ${encodeURIComponent(email)}%0AWhatsApp: ${encodeURIComponent(tel)}%0ASector: ${encodeURIComponent(sector)}%0ACiudad: ${encodeURIComponent(ciudad)}`;
-    window.open(`https://wa.me/573132524042?text=${msg}`, '_blank');
-
-    document.querySelector('.btn-form').style.display = 'none';
-    document.getElementById('msg-wait').style.display = 'block';
-  }
-
   function showQ(n) {
     document.querySelectorAll('.q-step').forEach(s => s.classList.remove('active'));
-    document.getElementById('q' + n).classList.add('active');
-    document.getElementById('progress').style.width = ((n-1)/7*100) + '%';
+    document.getElementById('q'+n).classList.add('active');
+    document.getElementById('progress').style.width = ((n-1)/7*100)+'%';
   }
 
   function nextQ(n) {
-    if (n === 1 && !document.getElementById('a1').value.trim()) { alert('Por favor describe tu idea.'); return; }
-    if (n === 2 && !ans.rg2) { alert('Por favor selecciona una opción.'); return; }
-    if (n === 3 && !document.getElementById('a3').value.trim()) { alert('Por favor completa este campo.'); return; }
-    if (n === 4 && !ans.rg4) { alert('Por favor selecciona una opción.'); return; }
-    if (n === 5 && !document.getElementById('a5').value.trim()) { alert('Por favor completa este campo.'); return; }
-    if (n === 6 && !ans.rg6) { alert('Por favor selecciona una opción.'); return; }
-    showQ(n + 1);
+    if (n===1 && !document.getElementById('a1').value.trim()) { alert('Por favor describe tu idea.'); return; }
+    if (n===2 && !ans.rg2) { alert('Por favor selecciona una opción.'); return; }
+    if (n===3 && !document.getElementById('a3').value.trim()) { alert('Por favor completa este campo.'); return; }
+    if (n===4 && !ans.rg4) { alert('Por favor selecciona una opción.'); return; }
+    if (n===5 && !document.getElementById('a5').value.trim()) { alert('Por favor completa este campo.'); return; }
+    if (n===6 && !ans.rg6) { alert('Por favor selecciona una opción.'); return; }
+    showQ(n+1);
   }
 
-  function backQ(n) { showQ(n - 1); }
+  function backQ(n) { showQ(n-1); }
 
   function selOpt(group, el, val) {
-    document.querySelectorAll('#' + group + ' .radio-opt').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('#'+group+' .radio-opt').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
     ans[group] = val;
   }
 
-  const loadMsgs = ['Analizando tu idea...', 'Definiendo la oportunidad...', 'Construyendo el plan de acción...', 'Casi listo...'];
-  let msgI = 0, msgInt;
-
   async function generarPlan() {
     if (!ans.rg7) { alert('Por favor selecciona un horizonte de tiempo.'); return; }
-
     document.getElementById('q7').classList.remove('active');
     document.getElementById('loading-box').style.display = 'block';
     msgI = 0;
     document.getElementById('loading-msg').textContent = loadMsgs[0];
-    msgInt = setInterval(() => { msgI = (msgI+1)%4; document.getElementById('loading-msg').textContent = loadMsgs[msgI]; }, 2500);
+    msgInt = setInterval(() => { msgI=(msgI+1)%4; document.getElementById('loading-msg').textContent=loadMsgs[msgI]; }, 2500);
 
     const idea = document.getElementById('a1').value.trim();
     const tipo = ans.rg2;
@@ -388,8 +361,7 @@
     const recursos = document.getElementById('a5').value.trim();
     const obstaculo = ans.rg6;
     const tiempo = ans.rg7;
-
-    const tieneCapital = recursos.toLowerCase().includes('dinero') || recursos.toLowerCase().includes('capital') || recursos.toLowerCase().includes('ahorro') || recursos.toLowerCase().includes('inversion') || recursos.toLowerCase().includes('presupuesto');
+    const tieneCapital = recursos.toLowerCase().includes('dinero')||recursos.toLowerCase().includes('capital')||recursos.toLowerCase().includes('ahorro')||recursos.toLowerCase().includes('inversion')||recursos.toLowerCase().includes('presupuesto');
 
     const prompt = `Eres un consultor estratégico especializado en famiempresas y microempresas colombianas. Genera un plan estratégico claro y práctico. Responde SOLO en JSON válido, sin markdown.
 
@@ -400,7 +372,7 @@ Dirigido a: ${dirigido}
 Recursos disponibles: ${recursos}
 Mayor obstáculo: ${obstaculo}
 Tiempo esperado: ${tiempo}
-Tiene capital disponible: ${tieneCapital ? 'Sí' : 'No - plan debe ser 100% orgánico sin inversión en pauta'}
+Tiene capital disponible: ${tieneCapital?'Sí':'No - plan debe ser 100% orgánico sin inversión en pauta'}
 
 JSON exacto:
 {
@@ -412,50 +384,48 @@ JSON exacto:
   "viabilidad_razon": "Una oración explicando el nivel de viabilidad.",
   "objetivos": ["Objetivo 1", "Objetivo 2", "Objetivo 3"],
   "hoja_de_ruta": [
-    {"semanas": "Semana 1-2", "fase": "Nombre de la fase", "acciones": "Acciones concretas de esta semana"},
+    {"semanas": "Semana 1-2", "fase": "Nombre de la fase", "acciones": "Acciones concretas"},
     {"semanas": "Semana 3-4", "fase": "Nombre de la fase", "acciones": "Acciones concretas"},
     {"semanas": "Semana 5-6", "fase": "Nombre de la fase", "acciones": "Acciones concretas"},
     {"semanas": "Semana 7-8", "fase": "Nombre de la fase", "acciones": "Acciones concretas"}
   ],
   "kpis": [
-    {"nombre": "Nombre del KPI", "descripcion": "Qué mide y por qué es clave"},
-    {"nombre": "Nombre del KPI 2", "descripcion": "Qué mide y por qué es clave"},
-    {"nombre": "Nombre del KPI 3", "descripcion": "Qué mide y por qué es clave"}
+    {"nombre": "KPI 1", "descripcion": "Que mide y por que es clave"},
+    {"nombre": "KPI 2", "descripcion": "Que mide y por que es clave"},
+    {"nombre": "KPI 3", "descripcion": "Que mide y por que es clave"}
   ],
-  "pauta": ${tieneCapital ? '"Sugerencia concreta de pauta digital (Meta Ads o Google Ads) con presupuesto y objetivo."' : 'null'},
-  "obstaculo": "Cómo superar el obstáculo identificado: ${obstaculo}",
+  "pauta": ${tieneCapital?'"Sugerencia concreta de pauta digital con presupuesto y objetivo."':'null'},
+  "obstaculo": "Como superar el obstáculo identificado.",
   "alerta": "Riesgo principal que no debe ignorar."
 }`;
 
     try {
       const res = await fetch('/.netlify/functions/plan', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt })
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({prompt})
       });
       const data = await res.json();
-      const text = data.content.map(i => i.text||'').join('');
+      const text = data.content.map(i=>i.text||'').join('');
       const plan = JSON.parse(text.replace(/```json|```/g,'').trim());
       clearInterval(msgInt);
-      document.getElementById('loading-box').style.display = 'none';
+      document.getElementById('loading-box').style.display='none';
       renderPlan(plan, idea);
     } catch(e) {
       clearInterval(msgInt);
-      document.getElementById('loading-box').style.display = 'none';
-      document.getElementById('resultado').innerHTML = '<p style="color:#c00;padding:1rem">Ocurrió un error. Por favor intenta de nuevo.</p>';
+      document.getElementById('loading-box').style.display='none';
+      document.getElementById('resultado').innerHTML='<p style="color:#c00;padding:1rem">Ocurrió un error. Por favor intenta de nuevo.</p>';
     }
   }
 
   function renderPlan(p, idea) {
     const semaforo = {
-      'VERDE': { color: '#1D9E75', bg: '#E1F5EE', label: 'Alta viabilidad', icon: '✓' },
-      'AMARILLO': { color: '#BA7517', bg: '#FAEEDA', label: 'Requiere ajustes', icon: '!' },
-      'ROJO': { color: '#D85A30', bg: '#FAECE7', label: 'Pivotar idea', icon: '✕' }
+      'VERDE': {color:'#1D9E75', bg:'#E1F5EE', label:'Alta viabilidad', icon:'✓'},
+      'AMARILLO': {color:'#BA7517', bg:'#FAEEDA', label:'Requiere ajustes', icon:'!'},
+      'ROJO': {color:'#D85A30', bg:'#FAECE7', label:'Pivotar idea', icon:'✕'}
     };
-    const sv = semaforo[p.viabilidad] || semaforo['AMARILLO'];
-
+    const sv = semaforo[p.viabilidad]||semaforo['AMARILLO'];
     let html = `<p style="font-size:13px;color:#888;margin-bottom:1rem">Plan generado para: <strong>${idea.substring(0,60)}${idea.length>60?'...':''}</strong></p>`;
-
     html += `<div style="display:flex;align-items:center;gap:14px;background:${sv.bg};border-radius:10px;padding:14px 16px;margin-bottom:12px;border:2px solid ${sv.color}">
       <div style="width:44px;height:44px;border-radius:50%;background:${sv.color};display:flex;align-items:center;justify-content:center;font-size:22px;color:white;font-weight:700;flex-shrink:0">${sv.icon}</div>
       <div>
@@ -464,13 +434,12 @@ JSON exacto:
         <div style="font-size:13px;color:#444;margin-top:2px">${p.viabilidad_razon||''}</div>
       </div>
     </div>`;
-
     const secs = [
-      { t: '📌 Definición de la idea', c: p.definicion },
-      { t: '💡 Por qué hacerlo ahora', c: p.justificacion },
-      { t: '📈 Oportunidad identificada', c: p.oportunidad },
-      { t: '👥 Cliente o beneficiario', c: p.cliente },
-      { t: '🎯 Objetivos estratégicos', c: p.objetivos ? p.objetivos.map(o=>'• '+o).join('\n') : '' },
+      {t:'📌 Definición de la idea', c:p.definicion},
+      {t:'💡 Por qué hacerlo ahora', c:p.justificacion},
+      {t:'📈 Oportunidad identificada', c:p.oportunidad},
+      {t:'👥 Cliente o beneficiario', c:p.cliente},
+      {t:'🎯 Objetivos estratégicos', c:p.objetivos?p.objetivos.map(o=>'• '+o).join('\n'):''},
     ];
     secs.forEach(s => {
       html += `<div style="border:0.5px solid #e5e5e5;border-radius:10px;overflow:hidden;margin-bottom:10px">
@@ -478,12 +447,11 @@ JSON exacto:
         <div style="padding:12px 14px;font-size:13px;color:#444;line-height:1.7;white-space:pre-wrap">${s.c}</div>
       </div>`;
     });
-
-    if (p.hoja_de_ruta && p.hoja_de_ruta.length) {
+    if (p.hoja_de_ruta&&p.hoja_de_ruta.length) {
       html += `<div style="border:0.5px solid #e5e5e5;border-radius:10px;overflow:hidden;margin-bottom:10px">
         <div style="padding:10px 14px;background:#f7f7f5;border-bottom:0.5px solid #e5e5e5;font-size:13px;font-weight:600;color:#1a1a1a">🗓️ Hoja de ruta semanizada</div>
         <div style="padding:12px 14px">`;
-      p.hoja_de_ruta.forEach((h, i) => {
+      p.hoja_de_ruta.forEach((h,i) => {
         html += `<div style="display:flex;gap:12px;margin-bottom:${i<p.hoja_de_ruta.length-1?'12px':'0'};align-items:flex-start">
           <div style="background:#E1F5EE;color:#085041;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;margin-top:2px">${h.semanas}</div>
           <div><div style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:2px">${h.fase}</div><div style="font-size:12px;color:#666;line-height:1.5">${h.acciones}</div></div>
@@ -491,8 +459,7 @@ JSON exacto:
       });
       html += `</div></div>`;
     }
-
-    if (p.kpis && p.kpis.length) {
+    if (p.kpis&&p.kpis.length) {
       html += `<div style="border:0.5px solid #e5e5e5;border-radius:10px;overflow:hidden;margin-bottom:10px">
         <div style="padding:10px 14px;background:#f7f7f5;border-bottom:0.5px solid #e5e5e5;font-size:13px;font-weight:600;color:#1a1a1a">📊 KPIs que debes medir</div>
         <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">`;
@@ -504,32 +471,26 @@ JSON exacto:
       });
       html += `</div></div>`;
     }
-
     if (p.pauta) {
       html += `<div style="border:0.5px solid #378ADD;border-radius:10px;overflow:hidden;margin-bottom:10px">
         <div style="padding:10px 14px;background:#E6F1FB;border-bottom:0.5px solid #378ADD;font-size:13px;font-weight:600;color:#0C447C">📢 Estrategia de pauta digital recomendada</div>
         <div style="padding:12px 14px;font-size:13px;color:#1a1a1a;line-height:1.7">${p.pauta}</div>
       </div>`;
     }
-
     html += `<div style="border:2px solid #BA7517;border-radius:10px;overflow:hidden;margin-bottom:10px">
       <div style="padding:10px 14px;background:#FAEEDA;border-bottom:1px solid #BA7517;font-size:13px;font-weight:600;color:#633806">🧱 Cómo superar el obstáculo</div>
       <div style="padding:12px 14px;font-size:13px;color:#444;line-height:1.7">${p.obstaculo||''}</div>
     </div>`;
-
     html += `<div style="border:2px solid #D85A30;border-radius:10px;overflow:hidden;margin-bottom:16px">
       <div style="padding:10px 14px;background:#FAECE7;border-bottom:1px solid #D85A30;font-size:13px;font-weight:600;color:#993C1D">⚠️ Punto crítico de atención</div>
       <div style="padding:12px 14px;font-size:13px;color:#993C1D;line-height:1.7;font-weight:500">${p.alerta||''}</div>
     </div>`;
-
     html += `<div style="background:#1D9E75;border-radius:12px;padding:18px 16px;text-align:center;margin-bottom:10px">
       <div style="font-size:14px;color:rgba(255,255,255,0.85);margin-bottom:6px">Ya tienes tu mapa de ruta estratégico</div>
       <div style="font-size:16px;font-weight:600;color:white;margin-bottom:12px">¿Quieres que te acompañemos a ejecutarlo y asegurar tus primeros resultados?</div>
       <a href="https://wa.me/573132524042?text=Hola%20Josue%2C%20acabo%20de%20generar%20mi%20plan%20en%20InnFocus%20y%20quiero%20una%20mentoria" target="_blank" style="display:inline-block;background:white;color:#0F6E56;font-weight:700;font-size:14px;padding:10px 24px;border-radius:24px;text-decoration:none">Agenda tu sesion de mentoria 1 a 1 →</a>
     </div>`;
-
     html += `<button class="btn-print" onclick="window.print()">🖨️ Imprimir mi plan</button>`;
-
     document.getElementById('resultado').innerHTML = html;
     document.getElementById('progress').style.width = '100%';
   }
