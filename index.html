@@ -378,6 +378,8 @@
     const tiempo = ans.rg7;
     const detallePublico = document.getElementById('a4-detalle') ? document.getElementById('a4-detalle').value.trim() : '';
     const dirigidoFinal = ans.rg4 === 'El público en general' && detallePublico ? `El público en general (${detallePublico})` : ans.rg4;
+   const tieneCapital = recursos.toLowerCase().includes('dinero')||recursos.toLowerCase().includes('capital')||recursos.toLowerCase().includes('ahorro')||recursos.toLowerCase().includes('inversion')||recursos.toLowerCase().includes('presupuesto');
+const dirigido = dirigidoFinal;
 
     const prompt = `Eres un consultor estratégico especializado en famiempresas y microempresas colombianas. Genera un plan estratégico claro y práctico. Responde SOLO en JSON válido, sin markdown.
 
