@@ -148,14 +148,11 @@
     <input type="text" id="f-email" placeholder="Correo electrónico" />
     <input type="text" id="f-tel" placeholder="WhatsApp" />
     <select id="f-sector">
-      <option value="" disabled selected>¿A qué se dedica tu empresa?</option>
-      <option>Alimentos y bebidas</option>
-      <option>Comercio y ventas</option>
-      <option>Servicios profesionales</option>
-      <option>Manufactura y producción</option>
-      <option>Salud y bienestar</option>
-      <option>Tecnología</option>
-      <option>Agro y ganadería</option>
+      <option value="" disabled selected>¿Cómo describirías tu situación actual?</option>
+      <option>Tengo una empresa constituida</option>
+      <option>Tengo un negocio informal</option>
+      <option>Estoy desarrollando una idea</option>
+      <option>Soy profesional independiente</option>
       <option>Otro</option>
     </select>
     <select id="f-ciudad">
@@ -225,7 +222,10 @@
         <div class="radio-opt" onclick="selOpt('rg4',this,'Mis clientes actuales')">Mis clientes actuales</div>
         <div class="radio-opt" onclick="selOpt('rg4',this,'Un nuevo tipo de cliente')">Un nuevo tipo de cliente</div>
         <div class="radio-opt" onclick="selOpt('rg4',this,'Mis empleados o equipo interno')">Mis empleados o equipo interno</div>
-        <div class="radio-opt" onclick="selOpt('rg4',this,'El público en general')">El público en general</div>
+        <div class="radio-opt" id="opt-publico" onclick="selOpt('rg4',this,'El público en general')">El público en general</div>
+      </div>
+      <div id="publico-detalle" style="display:none;margin-top:8px">
+        <input type="text" id="a4-detalle" placeholder="Descríbelo un poco más (ej: amas de casa, estudiantes universitarios...)" style="width:100%;padding:11px 13px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;background:#f7f7f5;color:#1a1a1a;font-family:inherit;outline:none;">
       </div>
       <div class="q-nav"><button class="btn-back" onclick="backQ(4)">← Volver</button><button class="btn-next" onclick="nextQ(4)">Siguiente →</button></div>
     </div>
@@ -242,12 +242,13 @@
       <p class="q-label">Pregunta 6 de 7</p>
       <p class="q-text">¿Cuál crees que es el mayor obstáculo para hacerla realidad?</p>
       <div class="radio-group" id="rg6">
-        <div class="radio-opt" onclick="selOpt('rg6',this,'Falta de dinero o financiación')">Falta de dinero o financiación</div>
-        <div class="radio-opt" onclick="selOpt('rg6',this,'Falta de tiempo')">Falta de tiempo</div>
-        <div class="radio-opt" onclick="selOpt('rg6',this,'No sé por dónde empezar')">No sé por dónde empezar</div>
-        <div class="radio-opt" onclick="selOpt('rg6',this,'Necesito más personas o equipo')">Necesito más personas o equipo</div>
-        <div class="radio-opt" onclick="selOpt('rg6',this,'No estoy seguro de que funcione')">No estoy seguro de que funcione</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this,'Falta de dinero o financiación')">Falta de dinero o financiación</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this,'Falta de tiempo')">Falta de tiempo</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this,'No sé por dónde empezar')">No sé por dónde empezar</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this,'Necesito más personas o equipo')">Necesito más personas o equipo</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this,'No estoy seguro de que funcione')">No estoy seguro de que funcione</div>
       </div>
+      <p style="font-size:11px;color:#aaa;margin-top:4px">Puedes seleccionar varios</p>
       <div class="q-nav"><button class="btn-back" onclick="backQ(6)">← Volver</button><button class="btn-next" onclick="nextQ(6)">Siguiente →</button></div>
     </div>
 
@@ -294,15 +295,19 @@
     document.querySelector('.btn-form').style.display = 'none';
     document.getElementById('success-box').style.display = 'block';
     const fecha = new Date().toLocaleDateString('es-CO', {year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
-    const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdRxesSw0aqydJ7kZ1MUUi-VLNjHUSPkAVW7atEF1n3Xqkajg/formResponse';
-    const body = new FormData();
-    body.append('entry.355478119', nombre);
-    body.append('entry.85124564', empresa);
-    body.append('entry.927513716', email);
-    body.append('entry.1941689868', tel);
-    body.append('entry.792765129', sector);
-    body.append('entry.1633529629', ciudad + ' — ' + fecha);
-    fetch(formUrl, {method:'POST', mode:'no-cors', body:body});
+    const base = 'https://docs.google.com/forms/d/e/1FAIpQLSdRxesSw0aqydJ7kZ1MUUi-VLNjHUSPkAVW7atEF1n3Xqkajg/formResponse';
+    const params = new URLSearchParams();
+    params.append('entry.355478119', nombre);
+    params.append('entry.85124564', empresa);
+    params.append('entry.927513716', email);
+    params.append('entry.1941689868', tel);
+    params.append('entry.792765129', sector);
+    params.append('entry.1633529629', ciudad + ' — ' + fecha);
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = base + '?' + params.toString();
+    document.body.appendChild(iframe);
+    setTimeout(() => document.body.removeChild(iframe), 5000);
   }
 
   function validarCodigo() {
@@ -334,7 +339,7 @@
     if (n===3 && !document.getElementById('a3').value.trim()) { alert('Por favor completa este campo.'); return; }
     if (n===4 && !ans.rg4) { alert('Por favor selecciona una opción.'); return; }
     if (n===5 && !document.getElementById('a5').value.trim()) { alert('Por favor completa este campo.'); return; }
-    if (n===6 && !ans.rg6) { alert('Por favor selecciona una opción.'); return; }
+    if (n===6 && !ans.rg6) { alert('Por favor selecciona al menos una opción.'); return; }
     showQ(n+1);
   }
 
@@ -344,6 +349,16 @@
     document.querySelectorAll('#'+group+' .radio-opt').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
     ans[group] = val;
+    if (group === 'rg4') {
+      const detalle = document.getElementById('publico-detalle');
+      detalle.style.display = val === 'El público en general' ? 'block' : 'none';
+    }
+  }
+
+  function toggleMulti(el, val) {
+    el.classList.toggle('selected');
+    const seleccionados = [...document.querySelectorAll('#rg6 .radio-opt.selected')].map(o => o.textContent.trim());
+    ans.rg6 = seleccionados.join(', ');
   }
 
   async function generarPlan() {
@@ -361,7 +376,8 @@
     const recursos = document.getElementById('a5').value.trim();
     const obstaculo = ans.rg6;
     const tiempo = ans.rg7;
-    const tieneCapital = recursos.toLowerCase().includes('dinero')||recursos.toLowerCase().includes('capital')||recursos.toLowerCase().includes('ahorro')||recursos.toLowerCase().includes('inversion')||recursos.toLowerCase().includes('presupuesto');
+    const detallePublico = document.getElementById('a4-detalle') ? document.getElementById('a4-detalle').value.trim() : '';
+    const dirigidoFinal = ans.rg4 === 'El público en general' && detallePublico ? `El público en general (${detallePublico})` : ans.rg4;
 
     const prompt = `Eres un consultor estratégico especializado en famiempresas y microempresas colombianas. Genera un plan estratégico claro y práctico. Responde SOLO en JSON válido, sin markdown.
 
