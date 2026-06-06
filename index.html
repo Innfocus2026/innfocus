@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InnFocus — De la idea al proyecto en 2 horas</title>
+<title>InnFocus — Convierte tu idea en un proyecto</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f7f5; color: #1a1a1a; }
@@ -11,61 +11,76 @@
   .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0 1.5rem; border-bottom: 0.5px solid #e5e5e5; margin-bottom: 2.5rem; }
   .brand { font-size: 20px; font-weight: 600; color: #1a1a1a; }
   .brand span { color: #1D9E75; }
-  .nav-cta { background: #1D9E75; color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; }
-  .hero { margin-bottom: 2.5rem; }
+
+  /* HERO */
+  .hero { margin-bottom: 2rem; }
   .badge { display: inline-flex; align-items: center; gap: 6px; background: #E1F5EE; color: #085041; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; margin-bottom: 1rem; }
   .hero h1 { font-size: 28px; font-weight: 600; color: #1a1a1a; line-height: 1.3; margin-bottom: 1rem; }
   .hero h1 em { color: #1D9E75; font-style: normal; }
-  .hero p { font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 1.5rem; max-width: 540px; }
-  .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-  .btn-primary { background: #1D9E75; color: white; border: none; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; }
-  .btn-secondary { background: transparent; color: #1a1a1a; border: 0.5px solid #ccc; padding: 12px 24px; border-radius: 8px; font-size: 15px; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 2.5rem; }
-  .stat { background: white; border-radius: 10px; padding: 1rem; text-align: center; border: 0.5px solid #e5e5e5; }
-  .stat-num { font-size: 22px; font-weight: 600; color: #1D9E75; }
-  .stat-label { font-size: 11px; color: #888; margin-top: 2px; }
-  .section-label { font-size: 11px; color: #aaa; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 8px; }
-  .section-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 1.2rem; }
-  .steps { border: 0.5px solid #e5e5e5; border-radius: 12px; overflow: hidden; margin-bottom: 2.5rem; background: white; }
-  .step-row { display: flex; align-items: flex-start; gap: 14px; padding: 16px; border-bottom: 0.5px solid #e5e5e5; }
+  .hero p { font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 1.5rem; }
+
+  /* COMO FUNCIONA */
+  .steps { border: 0.5px solid #e5e5e5; border-radius: 12px; overflow: hidden; margin-bottom: 2rem; background: white; }
+  .step-row { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; border-bottom: 0.5px solid #e5e5e5; }
   .step-row:last-child { border-bottom: none; }
-  .step-num { width: 28px; height: 28px; border-radius: 50%; background: #E1F5EE; color: #0F6E56; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-  .step-text h3 { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
-  .step-text p { font-size: 13px; color: #666; line-height: 1.6; }
-  .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 2.5rem; }
-  .benefit-card { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1rem 1.2rem; }
-  .benefit-icon { font-size: 22px; margin-bottom: 8px; }
-  .benefit-card h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-  .benefit-card p { font-size: 12px; color: #666; line-height: 1.5; }
-  .for-who { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 2.5rem; }
-  .who-card { border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1rem 1.2rem; background: white; }
-  .who-card h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 8px; }
-  .who-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-  .who-card ul li { font-size: 12px; color: #666; display: flex; align-items: flex-start; gap: 6px; }
-  .form-section { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem; }
-  .form-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .step-num { width: 26px; height: 26px; border-radius: 50%; background: #E1F5EE; color: #0F6E56; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-text h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
+  .step-text p { font-size: 13px; color: #666; line-height: 1.5; }
+
+  /* ACCESOS */
+  .section-label { font-size: 11px; color: #aaa; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 8px; }
+  .section-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; }
+
+  .accesos { display: flex; flex-direction: column; gap: 12px; margin-bottom: 2rem; }
+
+  /* PAQUETES */
+  .paquetes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .paquete { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.2rem; position: relative; }
+  .paquete.popular { border: 2px solid #1D9E75; }
+  .popular-tag { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #1D9E75; color: white; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 10px; white-space: nowrap; }
+  .paquete-icon { font-size: 22px; margin-bottom: 8px; }
+  .paquete-nombre { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
+  .paquete-desc { font-size: 12px; color: #888; margin-bottom: 10px; line-height: 1.4; }
+  .paquete-precio { font-size: 22px; font-weight: 600; color: #1D9E75; margin-bottom: 2px; }
+  .paquete-precio-cop { font-size: 12px; color: #aaa; margin-bottom: 10px; }
+  .btn-paquete { width: 100%; background: #1D9E75; color: white; border: none; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; }
+  .btn-paquete.outline { background: transparent; color: #1D9E75; border: 1px solid #1D9E75; }
+
+  /* CODIGO */
+  .codigo-box { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.2rem; }
+  .codigo-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .codigo-sub { font-size: 12px; color: #888; margin-bottom: 12px; }
+  .codigo-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .codigo-row input { flex: 1; padding: 10px 12px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: #f7f7f5; color: #1a1a1a; font-family: inherit; outline: none; text-transform: uppercase; }
+  .codigo-row input:focus { border-color: #1D9E75; background: white; }
+  .btn-codigo { background: #1a1a1a; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; white-space: nowrap; }
+  .msg-error { background: #FAEAEA; color: #8B1A1A; border-radius: 8px; padding: 8px 12px; font-size: 13px; display: none; }
+
+  /* TALLER */
+  .taller-box { background: #f7f7f5; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.2rem; display: flex; gap: 14px; align-items: flex-start; }
+  .taller-icon { font-size: 24px; flex-shrink: 0; }
+  .taller-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .taller-desc { font-size: 12px; color: #666; line-height: 1.5; margin-bottom: 10px; }
+  .btn-taller { background: transparent; color: #1D9E75; border: 1px solid #1D9E75; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; }
+
+  /* REGISTRO TALLER */
+  .form-section { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; display: none; }
+  .form-section.visible { display: block; }
+  .form-title { font-size: 16px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
   .form-sub { font-size: 13px; color: #888; margin-bottom: 1.2rem; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
   .form-section input, .form-section select { width: 100%; padding: 10px 12px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: white; color: #1a1a1a; font-family: inherit; outline: none; margin-bottom: 10px; }
-  .form-section input:focus, .form-section select:focus { border-color: #1D9E75; box-shadow: 0 0 0 3px rgba(29,158,117,0.12); }
+  .form-section input:focus, .form-section select:focus { border-color: #1D9E75; }
   .form-section select { appearance: none; }
-  .code-box { background: #f7f7f5; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
-  .code-label { font-size: 12px; color: #888; margin-bottom: 6px; }
-  .code-input-row { display: flex; gap: 8px; }
-  .code-input-row input { margin-bottom: 0; flex: 1; }
-  .btn-code { background: #1a1a1a; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; white-space: nowrap; }
-  .btn-form { width: 100%; background: #1D9E75; border: none; color: white; padding: 13px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; margin-top: 4px; }
-  .btn-form:hover { background: #0F6E56; }
+  .btn-form { width: 100%; background: #1D9E75; border: none; color: white; padding: 13px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; }
   .form-note { font-size: 11px; color: #aaa; text-align: center; margin-top: 8px; }
-  .msg-box { border-radius: 8px; padding: 12px 14px; font-size: 13px; margin-top: 10px; display: none; }
-  .msg-success { background: #E1F5EE; color: #085041; }
-  .msg-error { background: #FAEAEA; color: #8B1A1A; }
-  .msg-wait { background: #FFF8E6; color: #7A5000; }
-  .tool-section { background: white; border: 2px solid #1D9E75; border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem; display: none; }
+  .success-box { background: #E1F5EE; border-radius: 8px; padding: 12px; text-align: center; font-size: 13px; color: #085041; display: none; margin-top: 10px; }
+
+  /* HERRAMIENTA */
+  .tool-section { background: white; border: 2px solid #1D9E75; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; display: none; }
   .tool-section.visible { display: block; }
-  .tool-header { margin-bottom: 1.5rem; }
   .tool-header h2 { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-  .tool-header p { font-size: 13px; color: #666; }
+  .tool-header p { font-size: 13px; color: #666; margin-bottom: 1.2rem; }
   .progress-bar { height: 3px; background: #e5e5e5; border-radius: 2px; margin-bottom: 1.5rem; }
   .progress-fill { height: 100%; background: #1D9E75; border-radius: 2px; transition: width 0.4s ease; }
   .q-step { display: none; }
@@ -76,9 +91,8 @@
   .q-step textarea { width: 100%; padding: 11px 13px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: #f7f7f5; color: #1a1a1a; font-family: inherit; resize: vertical; outline: none; }
   .q-step textarea:focus { border-color: #1D9E75; background: white; }
   .radio-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1rem; }
-  .radio-opt { padding: 10px 14px; border: 0.5px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 14px; color: #1a1a1a; transition: all 0.2s; background: white; }
-  .radio-opt:hover { border-color: #1D9E75; background: #E1F5EE; }
-  .radio-opt.selected { border-color: #1D9E75; background: #E1F5EE; color: #085041; font-weight: 500; }
+  .radio-opt { padding: 10px 14px; border: 0.5px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 14px; color: #1a1a1a; background: white; }
+  .radio-opt:hover, .radio-opt.selected { border-color: #1D9E75; background: #E1F5EE; color: #085041; font-weight: 500; }
   .q-nav { display: flex; gap: 10px; margin-top: 1.2rem; }
   .btn-back { background: transparent; border: 0.5px solid #ccc; color: #888; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: inherit; }
   .btn-next { background: #1D9E75; border: none; color: white; padding: 10px 28px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; font-family: inherit; flex: 1; }
@@ -86,75 +100,138 @@
   .spinner { width: 32px; height: 32px; border: 3px solid #e5e5e5; border-top-color: #1D9E75; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .btn-print { width: 100%; background: transparent; border: 0.5px solid #ccc; color: #888; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: inherit; margin-top: 8px; }
+
   .footer { border-top: 0.5px solid #e5e5e5; padding-top: 1.2rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
   .footer-brand { font-size: 15px; font-weight: 600; color: #1a1a1a; }
   .footer-brand span { color: #1D9E75; }
   .footer-text { font-size: 11px; color: #aaa; }
-  @media (max-width: 480px) {
-    .stats, .for-who, .form-row { grid-template-columns: 1fr; }
+
+  :root {
+    --inn: #6B21FF;
+    --inn-light: #F0E8FF;
+    --inn-dark: #4A0FBF;
+  }
+  .brand span { color: var(--inn); }
+  .badge { background: var(--inn-light); color: var(--inn-dark); }
+  .hero h1 em { color: var(--inn); }
+  .step-num { background: var(--inn-light); color: var(--inn-dark); }
+  .btn-next { background: var(--inn); }
+  .btn-next:hover { background: var(--inn-dark); }
+  .btn-codigo { background: var(--inn); }
+  .btn-taller { color: var(--inn); border-color: var(--inn); }
+  .btn-form { background: var(--inn); }
+  .btn-paquete { background: var(--inn); }
+  .btn-paquete.outline { color: var(--inn); border-color: var(--inn); }
+  .paquete.popular { border-color: var(--inn); }
+  .popular-tag { background: var(--inn); }
+  .paquete-precio { color: var(--inn); }
+  .radio-opt:hover, .radio-opt.selected { border-color: var(--inn); background: var(--inn-light); color: var(--inn-dark); }
+  .progress-fill { background: var(--inn); }
+  .tool-section { border-color: var(--inn); }
+  .tool-section.visible { border-color: var(--inn); }
+  .q-step textarea:focus { border-color: var(--inn); }
+  .footer-brand span { color: var(--inn); }
+    .paquetes { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
     .hero h1 { font-size: 22px; }
   }
-  @media print { .navbar, .hero, .stats, .steps, .benefits, .for-who, .form-section, .footer { display: none; } .tool-section { border: none; padding: 0; } }
+  @media print { .navbar,.hero,.steps,.accesos,.taller-box,.form-section,.footer { display:none; } .tool-section { border:none;padding:0; } }
 </style>
 </head>
 <body>
 <div class="page">
+
   <div class="navbar">
-    <div class="brand">Inn<span>Focus</span></div>
-    <a class="nav-cta" href="#registro">Reserva tu cupo</a>
+    <div style="display:flex;align-items:center;gap:10px">
+      <img src="iNN.png" alt="InnFocus" style="height:40px;width:auto;">
+    </div>
+    <div style="font-size:12px;color:#888">innfocus2025@gmail.com</div>
   </div>
 
+  <!-- HERO -->
   <div class="hero">
-    <div class="badge">✨ Taller con IA · 2 horas · Cupos limitados</div>
-    <h1>Tu idea lleva tiempo en tu cabeza.<br><em>Hoy la convertimos en un proyecto.</em></h1>
-    <p>InnFocus es un taller práctico donde aprenderás por qué el enfoque estratégico importa, cómo definirlo y lo harás tú mismo con ayuda de inteligencia artificial. Sin tecnicismos. Sin consultores caros.</p>
-    <div class="hero-btns">
-      <a class="btn-primary" href="#registro">Quiero mi cupo →</a>
-      <a class="btn-secondary" href="#como">¿Cómo funciona?</a>
+    <div class="badge">✨ Inteligencia artificial · Plan en minutos</div>
+    <h1>Convierte tu idea en un<br><em>proyecto con hoja de ruta.</em></h1>
+    <p>Responde 7 preguntas y la IA genera tu plan estratégico personalizado — con semáforo de viabilidad, KPIs, hoja de ruta semanizada y recomendaciones de acción.</p>
+  </div>
+
+  <!-- COMO FUNCIONA -->
+  <p class="section-label">Cómo funciona</p>
+  <div class="steps" style="margin-bottom:2rem">
+    <div class="step-row"><div class="step-num">1</div><div class="step-text"><h3>Describes tu idea</h3><p>7 preguntas simples sobre tu idea, tu mercado y tus recursos.</p></div></div>
+    <div class="step-row"><div class="step-num">2</div><div class="step-text"><h3>La IA analiza y genera</h3><p>En segundos recibes un plan con viabilidad, objetivos, KPIs y hoja de ruta semanal.</p></div></div>
+    <div class="step-row"><div class="step-num">3</div><div class="step-text"><h3>Ejecutas con claridad</h3><p>Te vas con el documento listo para arrancar — sin consultores caros.</p></div></div>
+  </div>
+
+  <!-- FORMAS DE ACCEDER -->
+  <p class="section-label">Elige cómo acceder</p>
+  <p class="section-title">Tres formas de usar InnFocus</p>
+
+  <div class="accesos">
+
+    <!-- PAQUETES -->
+    <div style="background:white;border:0.5px solid #e5e5e5;border-radius:12px;padding:1.2rem">
+      <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:4px">💳 Compra tu acceso</div>
+      <div style="font-size:12px;color:#888;margin-bottom:14px">Sin suscripción. Úsalo cuando quieras, sin vencimiento.</div>
+      <div class="paquetes">
+        <div class="paquete">
+          <div class="paquete-icon">📄</div>
+          <div class="paquete-nombre">Básico</div>
+          <div class="paquete-desc">20 planes estratégicos</div>
+          <div class="paquete-precio">$5 USD</div>
+          <div class="paquete-precio-cop">~$18.500 COP</div>
+          <button class="btn-paquete outline" onclick="alert('Próximamente — conectando Mercado Pago')">Comprar →</button>
+        </div>
+        <div class="paquete popular">
+          <div class="popular-tag">Más popular</div>
+          <div class="paquete-icon">📦</div>
+          <div class="paquete-nombre">Pro</div>
+          <div class="paquete-desc">50 planes estratégicos</div>
+          <div class="paquete-precio">$10 USD</div>
+          <div class="paquete-precio-cop">~$37.000 COP</div>
+          <button class="btn-paquete" onclick="alert('Próximamente — conectando Mercado Pago')">Comprar →</button>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="stats">
-    <div class="stat"><div class="stat-num">2 h</div><div class="stat-label">Duración del taller</div></div>
-    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Preguntas para tu plan</div></div>
-    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Práctico y aplicable</div></div>
-  </div>
-
-  <div id="como">
-    <p class="section-label">Cómo funciona</p>
-    <p class="section-title">Tres momentos. Una sola sesión.</p>
-    <div class="steps">
-      <div class="step-row"><div class="step-num">1</div><div class="step-text"><h3>Por qué hacerlo</h3><p>Entenderás por qué los empresarios pierden el foco y qué le cuesta a tu negocio no tener claridad estratégica.</p></div></div>
-      <div class="step-row"><div class="step-num">2</div><div class="step-text"><h3>Cómo hacerlo</h3><p>Aprenderás a usar la herramienta InnFocus paso a paso. Verás en vivo cómo la IA convierte una idea en un plan completo.</p></div></div>
-      <div class="step-row"><div class="step-num">3</div><div class="step-text"><h3>Hazlo tú mismo</h3><p>Con tu idea real generarás tu propio plan estratégico. Te vas con el documento listo para ejecutar.</p></div></div>
+    <!-- CODIGO -->
+    <div class="codigo-box">
+      <div class="codigo-title">🔑 Tengo un código de acceso</div>
+      <div class="codigo-sub">Lo recibiste en un taller, de tu consultor o al comprar un paquete.</div>
+      <div style="margin-bottom:10px">
+        <input type="text" id="reg-nombre" placeholder="Tu nombre" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;background:#f7f7f5;font-family:inherit;outline:none;margin-bottom:8px">
+        <input type="email" id="reg-email" placeholder="Correo electrónico" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;background:#f7f7f5;font-family:inherit;outline:none;margin-bottom:8px">
+        <input type="tel" id="reg-tel" placeholder="WhatsApp" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;background:#f7f7f5;font-family:inherit;outline:none;margin-bottom:8px">
+      </div>
+      <div class="codigo-row">
+        <input type="text" id="f-codigo" placeholder="Tu código (ej: CAMARA2026)" />
+        <button class="btn-codigo" onclick="validarCodigo()">Ingresar →</button>
+      </div>
+      <div class="msg-error" id="msg-error">Código no válido. Verifica e intenta de nuevo.</div>
     </div>
+
+    <!-- TALLER -->
+    <div class="taller-box">
+      <div class="taller-icon">🏫</div>
+      <div>
+        <div class="taller-title">Asiste a un taller presencial</div>
+        <div class="taller-desc">Para organizaciones, Cámaras de Comercio y gremios. Taller de 2 horas donde aprendes el método y generas tu plan en vivo con acompañamiento.</div>
+        <button class="btn-taller" onclick="mostrarFormTaller()">Quiero info del taller →</button>
+      </div>
+    </div>
+
   </div>
 
-  <p class="section-label">Lo que obtienes</p>
-  <p class="section-title">No es otro taller de teoría.</p>
-  <div class="benefits">
-    <div class="benefit-card"><div class="benefit-icon">📄</div><h3>Tu plan estratégico</h3><p>Generado con IA sobre tu propia idea. Listo para imprimir y ejecutar.</p></div>
-    <div class="benefit-card"><div class="benefit-icon">🛠️</div><h3>Acceso a la herramienta</h3><p>Acceso a InnFocus para que sigas usando la herramienta con tu equipo.</p></div>
-    <div class="benefit-card"><div class="benefit-icon">🤝</div><h3>Red de empresarios</h3><p>Conecta con otros empresarios de tu sector que comparten el mismo reto.</p></div>
-  </div>
-
-  <div class="form-section" id="registro">
-    <p class="form-title">Reserva tu cupo</p>
-    <p class="form-sub">Cupos limitados por sesión. Acceso al taller incluido con tu inscripción.</p>
+  <!-- FORMULARIO TALLER -->
+  <div class="form-section" id="form-taller">
+    <p class="form-title">Información sobre el taller</p>
+    <p class="form-sub">Déjanos tus datos y te contactamos con fechas y detalles.</p>
     <div class="form-row">
       <input type="text" id="f-nombre" placeholder="Tu nombre completo" />
-      <input type="text" id="f-empresa" placeholder="Nombre de tu empresa" />
+      <input type="text" id="f-empresa" placeholder="Empresa u organización" />
     </div>
-    <input type="text" id="f-email" placeholder="Correo electrónico" />
-    <input type="text" id="f-tel" placeholder="WhatsApp" />
-    <select id="f-sector">
-      <option value="" disabled selected>¿Cómo describirías tu situación actual?</option>
-      <option>Tengo una empresa constituida</option>
-      <option>Tengo un negocio informal</option>
-      <option>Estoy desarrollando una idea</option>
-      <option>Soy profesional independiente</option>
-      <option>Otro</option>
-    </select>
+    <input type="text" id="f-email-taller" placeholder="Correo electrónico" />
+    <input type="text" id="f-tel-taller" placeholder="WhatsApp" />
     <select id="f-ciudad">
       <option value="" disabled selected>¿En qué ciudad estás?</option>
       <option>Bucaramanga</option>
@@ -164,23 +241,20 @@
       <option>Barranquilla</option>
       <option>Otra ciudad</option>
     </select>
-
-    <div class="code-box">
-      <div class="code-label">¿Tienes código de acceso? (lo recibiste en el taller o de tu consultor)</div>
-      <div class="code-input-row">
-        <input type="text" id="f-codigo" placeholder="Ej: CAMARA2026" style="text-transform:uppercase" />
-        <button class="btn-code" onclick="validarCodigo()">Ingresar →</button>
-      </div>
-    </div>
-
-    <div class="msg-box msg-error" id="msg-error">Código no válido. Verifica e intenta de nuevo.</div>
-    <div class="msg-box msg-wait" id="msg-wait">✓ Datos recibidos. Pronto te contactamos para darte acceso o al próximo taller.</div>
-
-    <button class="btn-form" onclick="submitForm()">Reservar mi cupo →</button>
-    <p class="form-note">🔒 Tus datos son confidenciales. Solo te contactamos para confirmar tu cupo.</p>
-    <div class="msg-box msg-success" id="success-box">✓ ¡Cupo reservado! Pronto recibirás la confirmación.</div>
+    <select id="f-tipo">
+      <option value="" disabled selected>¿Qué describe mejor tu situación?</option>
+      <option>Tengo una empresa constituida</option>
+      <option>Tengo un negocio informal</option>
+      <option>Estoy desarrollando una idea</option>
+      <option>Soy profesional independiente</option>
+      <option>Represento una organización o gremio</option>
+    </select>
+    <button class="btn-form" onclick="submitTaller()">Enviar solicitud →</button>
+    <p class="form-note">🔒 Tus datos son confidenciales.</p>
+    <div class="success-box" id="success-taller">✓ ¡Solicitud recibida! Te contactamos pronto con los detalles del taller.</div>
   </div>
 
+  <!-- HERRAMIENTA -->
   <div class="tool-section" id="tool-section">
     <div class="tool-header">
       <h2>Construye tu plan estratégico</h2>
@@ -242,11 +316,11 @@
       <p class="q-label">Pregunta 6 de 7</p>
       <p class="q-text">¿Cuál crees que es el mayor obstáculo para hacerla realidad?</p>
       <div class="radio-group" id="rg6">
-        <div class="radio-opt multi" onclick="toggleMulti(this,'Falta de dinero o financiación')">Falta de dinero o financiación</div>
-        <div class="radio-opt multi" onclick="toggleMulti(this,'Falta de tiempo')">Falta de tiempo</div>
-        <div class="radio-opt multi" onclick="toggleMulti(this,'No sé por dónde empezar')">No sé por dónde empezar</div>
-        <div class="radio-opt multi" onclick="toggleMulti(this,'Necesito más personas o equipo')">Necesito más personas o equipo</div>
-        <div class="radio-opt multi" onclick="toggleMulti(this,'No estoy seguro de que funcione')">No estoy seguro de que funcione</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this)">Falta de dinero o financiación</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this)">Falta de tiempo</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this)">No sé por dónde empezar</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this)">Necesito más personas o equipo</div>
+        <div class="radio-opt multi" onclick="toggleMulti(this)">No estoy seguro de que funcione</div>
       </div>
       <p style="font-size:11px;color:#aaa;margin-top:4px">Puedes seleccionar varios</p>
       <div class="q-nav"><button class="btn-back" onclick="backQ(6)">← Volver</button><button class="btn-next" onclick="nextQ(6)">Siguiente →</button></div>
@@ -268,12 +342,11 @@
       <div class="spinner"></div>
       <p style="font-size:14px;color:#888" id="loading-msg">Analizando tu idea...</p>
     </div>
-
     <div id="resultado"></div>
   </div>
 
   <div class="footer">
-    <div class="footer-brand">Inn<span>Focus</span> · parte de <a href="https://colapp.com.co" style="color:#378ADD;text-decoration:none">ColApp</a></div>
+    <div class="footer-brand">Inn<span>Focus</span> · <a href="https://colapp.com.co" style="color:#378ADD;text-decoration:none;font-weight:400;font-size:13px">ColApp</a></div>
     <div class="footer-text">innfocus2025@gmail.com</div>
   </div>
 </div>
@@ -284,42 +357,45 @@
   const loadMsgs = ['Analizando tu idea...','Definiendo la oportunidad...','Construyendo el plan de acción...','Casi listo...'];
   let msgI = 0, msgInt;
 
-  function submitForm() {
+  function mostrarFormTaller() {
+    const f = document.getElementById('form-taller');
+    f.classList.add('visible');
+    f.scrollIntoView({behavior:'smooth'});
+  }
+
+  function submitTaller() {
     const nombre = document.getElementById('f-nombre').value.trim();
-    const empresa = document.getElementById('f-empresa').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const tel = document.getElementById('f-tel').value.trim();
-    const sector = document.getElementById('f-sector').value || '';
-    const ciudad = document.getElementById('f-ciudad').value || '';
+    const email = document.getElementById('f-email-taller').value.trim();
+    const tel = document.getElementById('f-tel-taller').value.trim();
     if (!nombre || !email || !tel) { alert('Por favor completa nombre, correo y WhatsApp.'); return; }
-    document.querySelector('.btn-form').style.display = 'none';
-    document.getElementById('success-box').style.display = 'block';
+    document.querySelector('#form-taller .btn-form').style.display = 'none';
+    document.getElementById('success-taller').style.display = 'block';
     const fecha = new Date().toLocaleDateString('es-CO', {year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
-    const base = 'https://docs.google.com/forms/d/e/1FAIpQLSdRxesSw0aqydJ7kZ1MUUi-VLNjHUSPkAVW7atEF1n3Xqkajg/formResponse';
-    const params = new URLSearchParams();
-    params.append('entry.355478119', nombre);
-    params.append('entry.85124564', empresa);
-    params.append('entry.927513716', email);
-    params.append('entry.1941689868', tel);
-    params.append('entry.792765129', sector);
-    params.append('entry.1633529629', ciudad + ' — ' + fecha);
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = base + '?' + params.toString();
-    document.body.appendChild(iframe);
-    setTimeout(() => document.body.removeChild(iframe), 5000);
+    const empresa = document.getElementById('f-empresa').value.trim();
+    const ciudad = document.getElementById('f-ciudad').value || '';
+    const tipo = document.getElementById('f-tipo').value || '';
+    const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdRxesSw0aqydJ7kZ1MUUi-VLNjHUSPkAVW7atEF1n3Xqkajg/formResponse';
+    const body = new FormData();
+    body.append('entry.355478119', nombre);
+    body.append('entry.85124564', empresa);
+    body.append('entry.927513716', email);
+    body.append('entry.1941689868', tel);
+    body.append('entry.792765129', tipo);
+    body.append('entry.1633529629', ciudad + ' — ' + fecha);
+    fetch(formUrl, {method:'POST', mode:'no-cors', body:body});
   }
 
   function validarCodigo() {
-    const nombre = document.getElementById('f-nombre').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const tel = document.getElementById('f-tel').value.trim();
+    const nombre = document.getElementById('reg-nombre').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const tel = document.getElementById('reg-tel').value.trim();
     const codigo = document.getElementById('f-codigo').value.trim().toUpperCase();
-    if (!nombre || !email || !tel) { alert('Por favor completa nombre, correo y WhatsApp antes de ingresar el código.'); return; }
+    if (!nombre || !email || !tel) { alert('Por favor completa tu nombre, correo y WhatsApp antes de ingresar el código.'); return; }
     if (!codigo) { alert('Por favor ingresa tu código de acceso.'); return; }
     document.getElementById('msg-error').style.display = 'none';
     if (CODIGOS.includes(codigo)) {
-      document.getElementById('registro').style.display = 'none';
+      document.querySelector('.accesos').style.display = 'none';
+      document.getElementById('form-taller').style.display = 'none';
       document.getElementById('tool-section').classList.add('visible');
       document.getElementById('tool-section').scrollIntoView({behavior:'smooth'});
     } else {
@@ -350,15 +426,14 @@
     el.classList.add('selected');
     ans[group] = val;
     if (group === 'rg4') {
-      const detalle = document.getElementById('publico-detalle');
-      detalle.style.display = val === 'El público en general' ? 'block' : 'none';
+      document.getElementById('publico-detalle').style.display = val === 'El público en general' ? 'block' : 'none';
     }
   }
 
-  function toggleMulti(el, val) {
+  function toggleMulti(el) {
     el.classList.toggle('selected');
-    const seleccionados = [...document.querySelectorAll('#rg6 .radio-opt.selected')].map(o => o.textContent.trim());
-    ans.rg6 = seleccionados.join(', ');
+    const sel = [...document.querySelectorAll('#rg6 .radio-opt.selected')].map(o => o.textContent.trim());
+    ans.rg6 = sel.join(', ');
   }
 
   async function generarPlan() {
@@ -372,21 +447,19 @@
     const idea = document.getElementById('a1').value.trim();
     const tipo = ans.rg2;
     const problema = document.getElementById('a3').value.trim();
-    let dirigido = ans.rg4;
     const recursos = document.getElementById('a5').value.trim();
     const obstaculo = ans.rg6;
     const tiempo = ans.rg7;
     const detallePublico = document.getElementById('a4-detalle') ? document.getElementById('a4-detalle').value.trim() : '';
     const dirigidoFinal = ans.rg4 === 'El público en general' && detallePublico ? `El público en general (${detallePublico})` : ans.rg4;
-   const tieneCapital = recursos.toLowerCase().includes('dinero')||recursos.toLowerCase().includes('capital')||recursos.toLowerCase().includes('ahorro')||recursos.toLowerCase().includes('inversion')||recursos.toLowerCase().includes('presupuesto');
-dirigido = dirigidoFinal;
+    const tieneCapital = recursos.toLowerCase().includes('dinero')||recursos.toLowerCase().includes('capital')||recursos.toLowerCase().includes('ahorro')||recursos.toLowerCase().includes('inversion')||recursos.toLowerCase().includes('presupuesto');
 
     const prompt = `Eres un consultor estratégico especializado en famiempresas y microempresas colombianas. Genera un plan estratégico claro y práctico. Responde SOLO en JSON válido, sin markdown.
 
 Idea: ${idea}
 Tipo: ${tipo}
 Problema/Oportunidad: ${problema}
-Dirigido a: ${dirigido}
+Dirigido a: ${dirigidoFinal}
 Recursos disponibles: ${recursos}
 Mayor obstáculo: ${obstaculo}
 Tiempo esperado: ${tiempo}
@@ -443,7 +516,7 @@ JSON exacto:
       'ROJO': {color:'#D85A30', bg:'#FAECE7', label:'Pivotar idea', icon:'✕'}
     };
     const sv = semaforo[p.viabilidad]||semaforo['AMARILLO'];
-    let html = `<p style="font-size:13px;color:#888;margin-bottom:1rem">Plan generado para: <strong>${idea.substring(0,60)}${idea.length>60?'...':''}</strong></p>`;
+    let html = `<p style="font-size:13px;color:#888;margin-bottom:1rem">Plan para: <strong>${idea.substring(0,60)}${idea.length>60?'...':''}</strong></p>`;
     html += `<div style="display:flex;align-items:center;gap:14px;background:${sv.bg};border-radius:10px;padding:14px 16px;margin-bottom:12px;border:2px solid ${sv.color}">
       <div style="width:44px;height:44px;border-radius:50%;background:${sv.color};display:flex;align-items:center;justify-content:center;font-size:22px;color:white;font-weight:700;flex-shrink:0">${sv.icon}</div>
       <div>
@@ -503,10 +576,10 @@ JSON exacto:
       <div style="padding:10px 14px;background:#FAECE7;border-bottom:1px solid #D85A30;font-size:13px;font-weight:600;color:#993C1D">⚠️ Punto crítico de atención</div>
       <div style="padding:12px 14px;font-size:13px;color:#993C1D;line-height:1.7;font-weight:500">${p.alerta||''}</div>
     </div>`;
-    html += `<div style="background:#1D9E75;border-radius:12px;padding:18px 16px;text-align:center;margin-bottom:10px">
+    html += `<div style="background:#6B21FF;border-radius:12px;padding:18px 16px;text-align:center;margin-bottom:10px">
       <div style="font-size:14px;color:rgba(255,255,255,0.85);margin-bottom:6px">Ya tienes tu mapa de ruta estratégico</div>
-      <div style="font-size:16px;font-weight:600;color:white;margin-bottom:12px">¿Quieres que te acompañemos a ejecutarlo y asegurar tus primeros resultados?</div>
-      <a href="https://wa.me/573132524042?text=Hola%20Josue%2C%20acabo%20de%20generar%20mi%20plan%20en%20InnFocus%20y%20quiero%20una%20mentoria" target="_blank" style="display:inline-block;background:white;color:#0F6E56;font-weight:700;font-size:14px;padding:10px 24px;border-radius:24px;text-decoration:none">Agenda tu sesion de mentoria 1 a 1 →</a>
+      <div style="font-size:16px;font-weight:600;color:white;margin-bottom:12px">¿Quieres que te acompañemos a ejecutarlo?</div>
+      <a href="https://wa.me/573132524042?text=Hola%20Josue%2C%20acabo%20de%20generar%20mi%20plan%20en%20InnFocus%20y%20quiero%20una%20mentoria" target="_blank" style="display:inline-block;background:white;color:#4A0FBF;font-weight:700;font-size:14px;padding:10px 24px;border-radius:24px;text-decoration:none">Agenda tu sesión de mentoría 1 a 1 →</a>
     </div>`;
     html += `<button class="btn-print" onclick="window.print()">🖨️ Imprimir mi plan</button>`;
     document.getElementById('resultado').innerHTML = html;
