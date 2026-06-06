@@ -1,5 +1,3 @@
-const { getStore } = require('@netlify/blobs');
-
 exports.handler = async function(event) {
   const headers = {
     'Content-Type': 'application/json',
@@ -23,7 +21,6 @@ exports.handler = async function(event) {
     }
 
     // Leer códigos desde variable de entorno
-    // Formato: CODIGO1:usos,CODIGO2:usos  ej: JOSUE2026:50,CAMARA2026:20
     const codigosEnv = process.env.CODIGOS_ACTIVOS || '';
     const codigosMap = {};
     codigosEnv.split(',').forEach(item => {
@@ -33,17 +30,24 @@ exports.handler = async function(event) {
 
     const codigoUp = codigo.toUpperCase().trim();
 
-    // Verificar si el código existe en la lista
     if (!(codigoUp in codigosMap)) {
       return { statusCode: 200, headers, body: JSON.stringify({ valido: false, error: 'Código no válido' }) };
     }
 
-    // Obtener usos actuales desde Netlify Blobs
-    const store = getStore('innfocus-codigos');
+    // Leer usos actuales desde Netlify Blobs via REST API
+    const siteId = process.env.INNFOCUS_SITE_ID;
+    const token = process.env.NETLIFY_TOKEN;
+    const blobUrl = `https://api.netlify.com/api/v1/blobs/${siteId}/innfocus-codigos/${codigoUp}`;
+
     let usosActuales = 0;
     try {
-      const stored = await store.get(codigoUp);
-      usosActuales = stored ? parseInt(stored) : 0;
+      const getRes = await fetch(blobUrl, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (getRes.ok) {
+        const text = await getRes.text();
+        usosActuales = parseInt(text) || 0;
+      }
     } catch(e) {
       usosActuales = 0;
     }
@@ -58,8 +62,15 @@ exports.handler = async function(event) {
       };
     }
 
-    // Descontar un uso
-    await store.set(codigoUp, String(usosActuales + 1));
+    // Guardar nuevo conteo
+    await fetch(blobUrl, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'text/plain'
+      },
+      body: String(usosActuales + 1)
+    });
 
     return {
       statusCode: 200, headers,
