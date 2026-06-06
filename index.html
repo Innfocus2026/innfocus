@@ -385,7 +385,7 @@
     fetch(formUrl, {method:'POST', mode:'no-cors', body:body});
   }
 
-  function validarCodigo() {
+  async function validarCodigo() {
     const nombre = document.getElementById('reg-nombre').value.trim();
     const email = document.getElementById('reg-email').value.trim();
     const tel = document.getElementById('reg-tel').value.trim();
@@ -393,13 +393,32 @@
     if (!nombre || !email || !tel) { alert('Por favor completa tu nombre, correo y WhatsApp antes de ingresar el código.'); return; }
     if (!codigo) { alert('Por favor ingresa tu código de acceso.'); return; }
     document.getElementById('msg-error').style.display = 'none';
-    if (CODIGOS.includes(codigo)) {
-      document.querySelector('.accesos').style.display = 'none';
-      document.getElementById('form-taller').style.display = 'none';
-      document.getElementById('tool-section').classList.add('visible');
-      document.getElementById('tool-section').scrollIntoView({behavior:'smooth'});
-    } else {
+    const btnCodigo = document.querySelector('.btn-codigo');
+    btnCodigo.textContent = 'Verificando...';
+    btnCodigo.disabled = true;
+    try {
+      const res = await fetch('/.netlify/functions/codigos', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({codigo})
+      });
+      const data = await res.json();
+      if (data.valido) {
+        document.querySelector('.accesos').style.display = 'none';
+        document.getElementById('form-taller').style.display = 'none';
+        document.getElementById('tool-section').classList.add('visible');
+        document.getElementById('tool-section').scrollIntoView({behavior:'smooth'});
+      } else {
+        document.getElementById('msg-error').textContent = data.error || 'Código no válido.';
+        document.getElementById('msg-error').style.display = 'block';
+        btnCodigo.textContent = 'Ingresar →';
+        btnCodigo.disabled = false;
+      }
+    } catch(e) {
+      document.getElementById('msg-error').textContent = 'Error al verificar. Intenta de nuevo.';
       document.getElementById('msg-error').style.display = 'block';
+      btnCodigo.textContent = 'Ingresar →';
+      btnCodigo.disabled = false;
     }
   }
 
