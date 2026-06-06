@@ -170,7 +170,19 @@
   <div class="accesos">
 
     <!-- PAQUETES -->
-    <div style="background:white;border:0.5px solid #e5e5e5;border-radius:12px;padding:1.2rem">
+          <!-- MODAL PAGO -->
+      <div id="modal-pago" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:white;border-radius:16px;padding:1.5rem;max-width:360px;width:90%;margin:auto;margin-top:20vh;">
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:4px" id="modal-titulo">Completa tu compra</h3>
+          <p style="font-size:13px;color:#888;margin-bottom:1rem" id="modal-desc"></p>
+          <input type="text" id="mp-nombre" placeholder="Tu nombre" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;margin-bottom:8px;font-family:inherit;outline:none;">
+          <input type="email" id="mp-email" placeholder="Correo electrónico" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;margin-bottom:12px;font-family:inherit;outline:none;">
+          <button onclick="procesarPago()" style="width:100%;background:#6B21FF;color:white;border:none;padding:12px;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;">Ir a pagar →</button>
+          <button onclick="cerrarModal()" style="width:100%;background:transparent;border:none;color:#888;font-size:13px;cursor:pointer;margin-top:8px;font-family:inherit;">Cancelar</button>
+        </div>
+      </div>
+
+      <div style="background:white;border:0.5px solid #e5e5e5;border-radius:12px;padding:1.2rem">
       <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:4px">💳 Compra tu acceso</div>
       <div style="font-size:12px;color:#888;margin-bottom:14px">Sin suscripción. Úsalo cuando quieras, sin vencimiento.</div>
       <div class="paquetes">
@@ -180,7 +192,7 @@
           <div class="paquete-desc">20 planes estratégicos</div>
           <div class="paquete-precio">$5 USD</div>
           <div class="paquete-precio-cop">~$18.500 COP</div>
-          <button class="btn-paquete outline" onclick="alert('Próximamente — conectando Mercado Pago')">Comprar →</button>
+          <button class="btn-paquete outline" onclick="abrirModal('basico')">Comprar →</button>
         </div>
         <div class="paquete popular">
           <div class="popular-tag">Más popular</div>
@@ -189,7 +201,7 @@
           <div class="paquete-desc">50 planes estratégicos</div>
           <div class="paquete-precio">$10 USD</div>
           <div class="paquete-precio-cop">~$37.000 COP</div>
-          <button class="btn-paquete" onclick="alert('Próximamente — conectando Mercado Pago')">Comprar →</button>
+          <button class="btn-paquete" onclick="abrirModal('pro')">Comprar →</button>
         </div>
       </div>
     </div>
@@ -355,7 +367,64 @@
   const CODIGOS = ["CAMARA2026", "JOSUE2026", "INNFOCUS01"];
   const ans = { rg2:'', rg4:'', rg6:'', rg7:'' };
   const loadMsgs = ['Analizando tu idea...','Definiendo la oportunidad...','Construyendo el plan de acción...','Casi listo...'];
-  let msgI = 0, msgInt;
+  let paqueteSeleccionado = '';
+
+  function abrirModal(paquete) {
+    paqueteSeleccionado = paquete;
+    const modal = document.getElementById('modal-pago');
+    const titulo = document.getElementById('modal-titulo');
+    const desc = document.getElementById('modal-desc');
+    if (paquete === 'basico') {
+      titulo.textContent = 'InnFocus Básico — 20 planes';
+      desc.textContent = '$18.500 COP · Sin vencimiento';
+    } else {
+      titulo.textContent = 'InnFocus Pro — 50 planes';
+      desc.textContent = '$37.000 COP · Sin vencimiento';
+    }
+    modal.style.display = 'flex';
+  }
+
+  function cerrarModal() {
+    document.getElementById('modal-pago').style.display = 'none';
+  }
+
+  async function procesarPago() {
+    const nombre = document.getElementById('mp-nombre').value.trim();
+    const email = document.getElementById('mp-email').value.trim();
+    if (!nombre || !email) { alert('Por favor completa nombre y correo.'); return; }
+    const btn = document.querySelector('#modal-pago button');
+    btn.textContent = 'Redirigiendo...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('/.netlify/functions/pago', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ paquete: paqueteSeleccionado, nombre, email })
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Error al procesar el pago. Intenta de nuevo.');
+        btn.textContent = 'Ir a pagar →';
+        btn.disabled = false;
+      }
+    } catch(e) {
+      alert('Error de conexión. Intenta de nuevo.');
+      btn.textContent = 'Ir a pagar →';
+      btn.disabled = false;
+    }
+  }
+
+  // Detectar retorno de Mercado Pago
+  window.addEventListener('load', function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('pago') === 'ok') {
+      alert('¡Pago exitoso! En breve recibirás tu código de acceso por correo. También te lo enviaremos por WhatsApp.');
+    } else if (params.get('pago') === 'error') {
+      alert('El pago no se completó. Puedes intentarlo de nuevo.');
+    }
+  });
 
   function mostrarFormTaller() {
     const f = document.getElementById('form-taller');
