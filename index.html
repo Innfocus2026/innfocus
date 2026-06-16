@@ -2,677 +2,781 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InnFocus — Convierte tu idea en un proyecto</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Volvemos por Ti — ZUMOTEC</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f7f5; color: #1a1a1a; }
-  .page { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem; }
-  .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0 1.5rem; border-bottom: 0.5px solid #e5e5e5; margin-bottom: 2.5rem; }
-  .brand { font-size: 20px; font-weight: 600; color: #1a1a1a; }
-  .brand span { color: #1D9E75; }
-
-  /* HERO */
-  .hero { margin-bottom: 2rem; }
-  .badge { display: inline-flex; align-items: center; gap: 6px; background: #E1F5EE; color: #085041; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; margin-bottom: 1rem; }
-  .hero h1 { font-size: 28px; font-weight: 600; color: #1a1a1a; line-height: 1.3; margin-bottom: 1rem; }
-  .hero h1 em { color: #1D9E75; font-style: normal; }
-  .hero p { font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 1.5rem; }
-
-  /* COMO FUNCIONA */
-  .steps { border: 0.5px solid #e5e5e5; border-radius: 12px; overflow: hidden; margin-bottom: 2rem; background: white; }
-  .step-row { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; border-bottom: 0.5px solid #e5e5e5; }
-  .step-row:last-child { border-bottom: none; }
-  .step-num { width: 26px; height: 26px; border-radius: 50%; background: #E1F5EE; color: #0F6E56; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-  .step-text h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
-  .step-text p { font-size: 13px; color: #666; line-height: 1.5; }
-
-  /* ACCESOS */
-  .section-label { font-size: 11px; color: #aaa; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 8px; }
-  .section-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; }
-
-  .accesos { display: flex; flex-direction: column; gap: 12px; margin-bottom: 2rem; }
-
-  /* PAQUETES */
-  .paquetes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-  .paquete { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.2rem; position: relative; }
-  .paquete.popular { border: 2px solid #1D9E75; }
-  .popular-tag { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #1D9E75; color: white; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 10px; white-space: nowrap; }
-  .paquete-icon { font-size: 22px; margin-bottom: 8px; }
-  .paquete-nombre { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
-  .paquete-desc { font-size: 12px; color: #888; margin-bottom: 10px; line-height: 1.4; }
-  .paquete-precio { font-size: 22px; font-weight: 600; color: #1D9E75; margin-bottom: 2px; }
-  .paquete-precio-cop { font-size: 12px; color: #aaa; margin-bottom: 10px; }
-  .btn-paquete { width: 100%; background: #1D9E75; color: white; border: none; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; }
-  .btn-paquete.outline { background: transparent; color: #1D9E75; border: 1px solid #1D9E75; }
-
-  /* CODIGO */
-  .codigo-box { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.2rem; }
-  .codigo-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-  .codigo-sub { font-size: 12px; color: #888; margin-bottom: 12px; }
-  .codigo-row { display: flex; gap: 8px; margin-bottom: 8px; }
-  .codigo-row input { flex: 1; padding: 10px 12px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: #f7f7f5; color: #1a1a1a; font-family: inherit; outline: none; text-transform: uppercase; }
-  .codigo-row input:focus { border-color: #1D9E75; background: white; }
-  .btn-codigo { background: #1a1a1a; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; white-space: nowrap; }
-  .msg-error { background: #FAEAEA; color: #8B1A1A; border-radius: 8px; padding: 8px 12px; font-size: 13px; display: none; }
-
-  /* TALLER */
-  .taller-box { background: #f7f7f5; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.2rem; display: flex; gap: 14px; align-items: flex-start; }
-  .taller-icon { font-size: 24px; flex-shrink: 0; }
-  .taller-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-  .taller-desc { font-size: 12px; color: #666; line-height: 1.5; margin-bottom: 10px; }
-  .btn-taller { background: transparent; color: #1D9E75; border: 1px solid #1D9E75; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; }
-
-  /* REGISTRO TALLER */
-  .form-section { background: white; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; display: none; }
-  .form-section.visible { display: block; }
-  .form-title { font-size: 16px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-  .form-sub { font-size: 13px; color: #888; margin-bottom: 1.2rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-  .form-section input, .form-section select { width: 100%; padding: 10px 12px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: white; color: #1a1a1a; font-family: inherit; outline: none; margin-bottom: 10px; }
-  .form-section input:focus, .form-section select:focus { border-color: #1D9E75; }
-  .form-section select { appearance: none; }
-  .btn-form { width: 100%; background: #1D9E75; border: none; color: white; padding: 13px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; }
-  .form-note { font-size: 11px; color: #aaa; text-align: center; margin-top: 8px; }
-  .success-box { background: #E1F5EE; border-radius: 8px; padding: 12px; text-align: center; font-size: 13px; color: #085041; display: none; margin-top: 10px; }
-
-  /* HERRAMIENTA */
-  .tool-section { background: white; border: 2px solid #1D9E75; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; display: none; }
-  .tool-section.visible { display: block; }
-  .tool-header h2 { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-  .tool-header p { font-size: 13px; color: #666; margin-bottom: 1.2rem; }
-  .progress-bar { height: 3px; background: #e5e5e5; border-radius: 2px; margin-bottom: 1.5rem; }
-  .progress-fill { height: 100%; background: #1D9E75; border-radius: 2px; transition: width 0.4s ease; }
-  .q-step { display: none; }
-  .q-step.active { display: block; }
-  .q-label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-  .q-text { font-size: 17px; font-weight: 500; color: #1a1a1a; margin-bottom: 4px; line-height: 1.4; }
-  .q-hint { font-size: 13px; color: #888; margin-bottom: 1rem; }
-  .q-step textarea { width: 100%; padding: 11px 13px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: #f7f7f5; color: #1a1a1a; font-family: inherit; resize: vertical; outline: none; }
-  .q-step textarea:focus { border-color: #1D9E75; background: white; }
-  .radio-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1rem; }
-  .radio-opt { padding: 10px 14px; border: 0.5px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 14px; color: #1a1a1a; background: white; }
-  .radio-opt:hover, .radio-opt.selected { border-color: #1D9E75; background: #E1F5EE; color: #085041; font-weight: 500; }
-  .q-nav { display: flex; gap: 10px; margin-top: 1.2rem; }
-  .btn-back { background: transparent; border: 0.5px solid #ccc; color: #888; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: inherit; }
-  .btn-next { background: #1D9E75; border: none; color: white; padding: 10px 28px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; font-family: inherit; flex: 1; }
-  .loading-box { text-align: center; padding: 2rem; display: none; }
-  .spinner { width: 32px; height: 32px; border: 3px solid #e5e5e5; border-top-color: #1D9E75; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .btn-print { width: 100%; background: transparent; border: 0.5px solid #ccc; color: #888; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: inherit; margin-top: 8px; }
-
-  .footer { border-top: 0.5px solid #e5e5e5; padding-top: 1.2rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
-  .footer-brand { font-size: 15px; font-weight: 600; color: #1a1a1a; }
-  .footer-brand span { color: #1D9E75; }
-  .footer-text { font-size: 11px; color: #aaa; }
-
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --inn: #6B21FF;
-    --inn-light: #F0E8FF;
-    --inn-dark: #4A0FBF;
+    --navy: #0F2A4A; --navy-soft: #1a3a5c; --cyan: #00C9C8; --cyan-light: #e0f7f7;
+    --white: #fff; --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+    --gray-400: #94a3b8; --gray-600: #475569; --gray-800: #1e293b;
+    --alta: #ef4444; --alta-bg: #fef2f2;
+    --media: #f59e0b; --media-bg: #fffbeb;
+    --baja: #10b981; --baja-bg: #f0fdf4;
+    --nuevo: #8b5cf6; --nuevo-bg: #f5f3ff;
+    --radius: 14px; --radius-sm: 8px;
+    --shadow: 0 2px 12px rgba(15,42,74,0.10);
   }
-  .brand span { color: var(--inn); }
-  .badge { background: var(--inn-light); color: var(--inn-dark); }
-  .hero h1 em { color: var(--inn); }
-  .step-num { background: var(--inn-light); color: var(--inn-dark); }
-  .btn-next { background: var(--inn); }
-  .btn-next:hover { background: var(--inn-dark); }
-  .btn-codigo { background: var(--inn); }
-  .btn-taller { color: var(--inn); border-color: var(--inn); }
-  .btn-form { background: var(--inn); }
-  .btn-paquete { background: var(--inn); }
-  .btn-paquete.outline { color: var(--inn); border-color: var(--inn); }
-  .paquete.popular { border-color: var(--inn); }
-  .popular-tag { background: var(--inn); }
-  .paquete-precio { color: var(--inn); }
-  .radio-opt:hover, .radio-opt.selected { border-color: var(--inn); background: var(--inn-light); color: var(--inn-dark); }
-  .progress-fill { background: var(--inn); }
-  .tool-section { border-color: var(--inn); }
-  .tool-section.visible { border-color: var(--inn); }
-  .q-step textarea:focus { border-color: var(--inn); }
-  .footer-brand span { color: var(--inn); }
-    .paquetes { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 22px; }
-  }
-  @media print { .navbar,.hero,.steps,.accesos,.taller-box,.form-section,.footer { display:none; } .tool-section { border:none;padding:0; } }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--gray-100); color: var(--gray-800); min-height: 100vh; padding-bottom: 80px; }
+
+  /* ── SELECTOR CAMPAÑA ── */
+  .camp-selector { position: fixed; inset: 0; background: var(--navy); z-index: 500; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; }
+  .camp-selector.hidden { display: none; }
+  .camp-logo { color: #fff; font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+  .camp-logo span { color: var(--cyan); }
+  .camp-sub { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-bottom: 48px; }
+  .camp-titulo { color: rgba(255,255,255,0.7); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+  .camp-opciones { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 340px; }
+  .camp-btn { padding: 20px 24px; border-radius: var(--radius); border: 2px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: #fff; cursor: pointer; transition: all 0.2s; text-align: left; }
+  .camp-btn:active { transform: scale(0.97); }
+  .camp-btn.activa { border-color: var(--cyan); background: rgba(0,201,200,0.12); }
+  .camp-btn-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 6px; }
+  .camp-btn-nombre { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .camp-btn-desc { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+  .camp-btn-count { display: inline-block; background: var(--cyan); color: var(--navy); font-size: 0.7rem; font-weight: 800; padding: 2px 10px; border-radius: 100px; margin-top: 8px; }
+
+  /* ── HEADER ── */
+  .header { background: var(--navy); padding: 14px 20px 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.2); }
+  .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .logo { color: #fff; font-size: 1.1rem; font-weight: 800; letter-spacing: -0.03em; }
+  .logo span { color: var(--cyan); }
+  .camp-badge { background: rgba(0,201,200,0.2); border: 1px solid rgba(0,201,200,0.4); color: var(--cyan); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; cursor: pointer; }
+  .header-sub { color: rgba(255,255,255,0.4); font-size: 0.68rem; }
+
+  /* ── KPIs ── */
+  .kpi-strip { background: var(--navy-soft); padding: 8px 20px; display: flex; overflow-x: auto; scrollbar-width: none; }
+  .kpi-strip::-webkit-scrollbar { display: none; }
+  .kpi { flex: 0 0 auto; text-align: center; padding: 0 14px; border-right: 1px solid rgba(255,255,255,0.1); min-width: 70px; }
+  .kpi:last-child { border-right: none; }
+  .kpi-val { color: var(--cyan); font-size: 1.25rem; font-weight: 800; line-height: 1; }
+  .kpi-label { color: rgba(255,255,255,0.45); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 3px; }
+
+  /* ── TABS ── */
+  .tabs { display: flex; background: #fff; border-bottom: 2px solid var(--gray-200); position: sticky; top: 72px; z-index: 90; }
+  .tab { flex: 1; text-align: center; padding: 10px 8px; font-size: 0.75rem; font-weight: 600; color: var(--gray-400); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; user-select: none; }
+  .tab.active { color: var(--navy); border-bottom-color: var(--cyan); }
+  .tab-icon { display: block; font-size: 1rem; margin-bottom: 2px; }
+
+  .screen { display: none; padding: 14px; }
+  .screen.active { display: block; }
+
+  /* ── BUSCADOR Y FILTROS ── */
+  .search-wrap { position: relative; margin-bottom: 12px; }
+  .search-input { width: 100%; padding: 11px 16px 11px 40px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-size: 0.88rem; background: #fff; outline: none; transition: border-color 0.2s; }
+  .search-input:focus { border-color: var(--cyan); }
+  .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--gray-400); font-size: 0.9rem; }
+  .filtros { display: flex; gap: 7px; margin-bottom: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .filtros::-webkit-scrollbar { display: none; }
+  .filtro-btn { flex: 0 0 auto; padding: 5px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; border: 2px solid var(--gray-200); background: #fff; color: var(--gray-600); cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .filtro-btn.f-todos { border-color: var(--navy); background: var(--navy); color: #fff; }
+  .filtro-btn.f-pendiente { border-color: var(--gray-400); background: var(--gray-100); color: var(--gray-600); }
+  .filtro-btn.f-contactado { border-color: #3b82f6; background: #dbeafe; color: #1d4ed8; }
+  .filtro-btn.f-perfilado { border-color: var(--nuevo); background: var(--nuevo-bg); color: var(--nuevo); }
+  .filtro-btn.f-alta { border-color: var(--alta); background: var(--alta-bg); color: var(--alta); }
+  .filtro-btn.f-media { border-color: var(--media); background: var(--media-bg); color: var(--media); }
+  .filtro-btn.f-baja { border-color: var(--baja); background: var(--baja-bg); color: var(--baja); }
+  .filtro-btn.f-nuevo { border-color: var(--nuevo); background: var(--nuevo-bg); color: var(--nuevo); }
+
+  /* ── BOTÓN AGREGAR ── */
+  .btn-agregar { width: 100%; padding: 13px; background: var(--nuevo); color: #fff; font-size: 0.9rem; font-weight: 700; border: none; border-radius: var(--radius); cursor: pointer; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
+  .btn-agregar:active { opacity: 0.85; transform: scale(0.98); }
+
+  /* ── TARJETAS ── */
+  .cliente-card { background: #fff; border-radius: var(--radius); margin-bottom: 9px; box-shadow: var(--shadow); overflow: hidden; cursor: pointer; transition: transform 0.15s; border-left: 4px solid transparent; }
+  .cliente-card:active { transform: scale(0.98); }
+  .cliente-card.prio-Alta { border-left-color: var(--alta); }
+  .cliente-card.prio-Media { border-left-color: var(--media); }
+  .cliente-card.prio-Baja { border-left-color: var(--baja); }
+  .cliente-card.prio-Nuevo { border-left-color: var(--nuevo); }
+  .card-body { padding: 12px 14px; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 5px; }
+  .cliente-nombre { font-size: 0.85rem; font-weight: 700; color: var(--navy); line-height: 1.3; flex: 1; }
+  .estado-pill { flex: 0 0 auto; font-size: 0.62rem; font-weight: 700; padding: 3px 9px; border-radius: 100px; text-transform: uppercase; }
+  .ep-pendiente { background: var(--gray-100); color: var(--gray-600); }
+  .ep-contactado { background: #dbeafe; color: #1d4ed8; }
+  .ep-perfilado { background: var(--nuevo-bg); color: var(--nuevo); }
+  .ep-no_interesado { background: #fee2e2; color: #dc2626; }
+  .card-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .meta-item { font-size: 0.69rem; color: var(--gray-400); display: flex; align-items: center; gap: 3px; }
+  .meta-item strong { color: var(--gray-600); }
+  .prio-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+  .pd-Alta { background: var(--alta); } .pd-Media { background: var(--media); } .pd-Baja { background: var(--baja); } .pd-Nuevo { background: var(--nuevo); }
+  .card-nota { margin-top: 7px; padding: 7px 9px; background: var(--gray-50); border-radius: var(--radius-sm); font-size: 0.72rem; color: var(--gray-600); font-style: italic; }
+  .tag-nuevo { display: inline-block; background: var(--nuevo); color: #fff; font-size: 0.58rem; font-weight: 800; padding: 2px 7px; border-radius: 100px; margin-left: 6px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.06em; }
+  .tag-seg { display: inline-block; font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 100px; margin-left: 4px; vertical-align: middle; }
+  .seg-dormido { background: #fee2e2; color: #cc0000; }
+  .seg-perdido { background: #fffbeb; color: #92400e; }
+
+  /* ── MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(15,42,74,0.72); z-index: 200; display: none; align-items: flex-end; justify-content: center; backdrop-filter: blur(2px); }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #fff; border-radius: 22px 22px 0 0; padding: 0 0 40px; width: 100%; max-width: 520px; max-height: 93vh; overflow-y: auto; animation: slideUp 0.25s cubic-bezier(0.34,1.2,0.64,1); }
+  @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-handle { width: 36px; height: 4px; background: var(--gray-200); border-radius: 2px; margin: 10px auto 0; }
+  .modal-header { padding: 14px 20px 12px; border-bottom: 1px solid var(--gray-200); }
+  .modal-tag { font-size: 0.68rem; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+  .modal-nombre { font-size: 0.98rem; font-weight: 800; color: var(--navy); line-height: 1.2; }
+  .modal-meta { font-size: 0.72rem; color: var(--gray-400); margin-top: 3px; }
+  .modal-body { padding: 14px 20px; }
+  .campo-label { display: block; font-size: 0.7rem; font-weight: 700; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 7px; margin-top: 16px; }
+  .campo-label:first-child { margin-top: 0; }
+  .opciones { display: flex; flex-wrap: wrap; gap: 7px; }
+  .opcion { padding: 8px 14px; border-radius: 100px; border: 2px solid var(--gray-200); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.15s; background: #fff; color: var(--gray-600); user-select: none; }
+  .opcion.sel-llamada, .opcion.sel-whatsapp, .opcion.sel-email { border-color: var(--navy); background: var(--navy); color: #fff; }
+  .opcion.sel-contactado { border-color: #3b82f6; background: #dbeafe; color: #1d4ed8; }
+  .opcion.sel-perfilado { border-color: var(--nuevo); background: var(--nuevo-bg); color: var(--nuevo); }
+  .opcion.sel-no_interesado { border-color: var(--alta); background: var(--alta-bg); color: var(--alta); }
+  .opcion.sel-frio { border-color: #94a3b8; background: #f1f5f9; color: #64748b; }
+  .opcion.sel-tibio { border-color: var(--media); background: var(--media-bg); color: #92400e; }
+  .opcion.sel-listo { border-color: var(--baja); background: var(--baja-bg); color: #065f46; }
+  .opcion.sel-Alta { border-color: var(--alta); background: var(--alta-bg); color: var(--alta); }
+  .opcion.sel-Media { border-color: var(--media); background: var(--media-bg); color: #92400e; }
+  .opcion.sel-Baja { border-color: var(--baja); background: var(--baja-bg); color: #065f46; }
+  .input-field, textarea { width: 100%; padding: 11px 13px; border: 2px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 0.86rem; font-family: inherit; color: var(--gray-800); background: #fff; outline: none; transition: border-color 0.2s; resize: none; }
+  .input-field:focus, textarea:focus { border-color: var(--cyan); }
+  .productos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .producto-check { display: flex; align-items: center; gap: 7px; padding: 8px 11px; border: 2px solid var(--gray-200); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.15s; font-size: 0.76rem; color: var(--gray-600); font-weight: 500; user-select: none; }
+  .producto-check.checked { border-color: var(--cyan); background: var(--cyan-light); color: var(--navy); font-weight: 700; }
+  .check-box { width: 15px; height: 15px; border: 2px solid var(--gray-300); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; transition: all 0.15s; }
+  .producto-check.checked .check-box { background: var(--cyan); border-color: var(--cyan); color: var(--navy); }
+  .btn-guardar { width: 100%; margin-top: 20px; padding: 15px; background: var(--navy); color: #fff; font-size: 0.95rem; font-weight: 700; border: none; border-radius: var(--radius); cursor: pointer; transition: all 0.2s; }
+  .btn-guardar:active { opacity: 0.85; transform: scale(0.98); }
+  .btn-guardar.loading { opacity: 0.6; pointer-events: none; }
+  .btn-cancelar { width: 100%; margin-top: 9px; padding: 12px; background: transparent; color: var(--gray-400); font-size: 0.88rem; font-weight: 600; border: 2px solid var(--gray-200); border-radius: var(--radius); cursor: pointer; }
+
+  /* ── AVANCE ── */
+  .avance-card { background: #fff; border-radius: var(--radius); padding: 16px 18px; margin-bottom: 11px; box-shadow: var(--shadow); }
+  .avance-titulo { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); margin-bottom: 12px; }
+  .avance-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--gray-100); }
+  .avance-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .avance-label { font-size: 0.83rem; color: var(--gray-600); display: flex; align-items: center; gap: 7px; }
+  .avance-val { font-size: 1.05rem; font-weight: 800; color: var(--navy); }
+  .progress-bar-wrap { background: var(--gray-100); border-radius: 100px; height: 9px; margin-top: 12px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--cyan), #00a8a8); border-radius: 100px; transition: width 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+  .progress-label { display: flex; justify-content: space-between; margin-top: 5px; }
+  .progress-label span, .progress-label strong { font-size: 0.7rem; color: var(--gray-400); }
+  .progress-label strong { color: var(--navy); font-weight: 700; }
+
+  /* ── CONFIG ── */
+  .config-banner { background: linear-gradient(135deg, var(--navy), var(--navy-soft)); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; color: #fff; text-align: center; }
+  .config-banner-icon { font-size: 1.8rem; margin-bottom: 7px; }
+  .config-banner-title { font-size: 0.95rem; font-weight: 800; margin-bottom: 4px; }
+  .config-banner-sub { font-size: 0.72rem; opacity: 0.55; word-break: break-all; }
+  .config-card { background: #fff; border-radius: var(--radius); padding: 16px 18px; margin-bottom: 11px; box-shadow: var(--shadow); }
+  .config-titulo { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .config-desc { font-size: 0.76rem; color: var(--gray-400); margin-bottom: 11px; line-height: 1.5; }
+  .config-input { width: 100%; padding: 10px 13px; border: 2px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 0.8rem; font-family: monospace; color: var(--gray-800); outline: none; transition: border-color 0.2s; background: var(--gray-50); }
+  .config-input:focus { border-color: var(--cyan); }
+  .btn-config { margin-top: 9px; padding: 10px 18px; background: var(--navy); color: #fff; font-size: 0.82rem; font-weight: 700; border: none; border-radius: var(--radius-sm); cursor: pointer; }
+  .btn-cyan { background: var(--cyan) !important; color: var(--navy) !important; }
+  .instruccion-step { display: flex; gap: 11px; align-items: flex-start; margin-bottom: 12px; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 0.8rem; color: var(--gray-600); line-height: 1.5; padding-top: 2px; }
+  .step-text strong { color: var(--navy); }
+
+  /* ── TOAST ── */
+  .toast { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--navy); color: #fff; padding: 11px 22px; border-radius: 100px; font-size: 0.82rem; font-weight: 600; z-index: 300; opacity: 0; transition: all 0.3s; white-space: nowrap; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.exito { background: #059669; }
+  .toast.error { background: var(--alta); }
+  .empty { text-align: center; padding: 40px 20px; color: var(--gray-400); }
+  .empty-icon { font-size: 2.2rem; margin-bottom: 10px; }
+  .divider-seg { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); padding: 8px 4px 4px; }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <div class="navbar">
-    <div style="display:flex;align-items:center;gap:10px">
-      <img src="iNN.png" alt="InnFocus" style="height:100px;width:auto;">
+<!-- ══ SELECTOR CAMPAÑA ══ -->
+<div class="camp-selector" id="camp-selector">
+  <div class="camp-logo">ZUMO<span>TEC</span></div>
+  <div class="camp-sub">Herramienta de reactivación comercial</div>
+  <div class="camp-titulo">Selecciona la campaña</div>
+  <div class="camp-opciones">
+    <div class="camp-btn activa" onclick="selCampana('2026')">
+      <div class="camp-btn-tag">Activa · 2026</div>
+      <div class="camp-btn-nombre">Volvemos por Ti 2026</div>
+      <div class="camp-btn-desc">Clientes con una sola compra en 2026</div>
+      <span class="camp-btn-count">50 clientes</span>
     </div>
-    <div style="font-size:12px;color:#888">innfocus2025@gmail.com</div>
-  </div>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="badge">✨ Inteligencia artificial · Plan en minutos</div>
-    <h1>Convierte tu idea en un<br><em>proyecto con hoja de ruta.</em></h1>
-    <p>Responde 7 preguntas y la IA genera tu plan estratégico personalizado — con semáforo de viabilidad, KPIs, hoja de ruta semanizada y recomendaciones de acción.</p>
-  </div>
-
-  <!-- COMO FUNCIONA -->
-  <p class="section-label">Cómo funciona</p>
-  <div class="steps" style="margin-bottom:2rem">
-    <div class="step-row"><div class="step-num">1</div><div class="step-text"><h3>Describes tu idea</h3><p>7 preguntas simples sobre tu idea, tu mercado y tus recursos.</p></div></div>
-    <div class="step-row"><div class="step-num">2</div><div class="step-text"><h3>La IA analiza y genera</h3><p>En segundos recibes un plan con viabilidad, objetivos, KPIs y hoja de ruta semanal.</p></div></div>
-    <div class="step-row"><div class="step-num">3</div><div class="step-text"><h3>Ejecutas con claridad</h3><p>Te vas con el documento listo para arrancar — sin consultores caros.</p></div></div>
-  </div>
-
-  <!-- FORMAS DE ACCEDER -->
-  <p class="section-label">Elige cómo acceder</p>
-  <p class="section-title">Tres formas de usar InnFocus</p>
-
-  <div class="accesos">
-
-    <!-- PAQUETES -->
-          <!-- MODAL PAGO -->
-      <div id="modal-pago" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
-        <div style="background:white;border-radius:16px;padding:1.5rem;max-width:360px;width:90%;margin:auto;margin-top:20vh;">
-          <h3 style="font-size:16px;font-weight:600;margin-bottom:4px" id="modal-titulo">Completa tu compra</h3>
-          <p style="font-size:13px;color:#888;margin-bottom:1rem" id="modal-desc"></p>
-          <input type="text" id="mp-nombre" placeholder="Tu nombre" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;margin-bottom:8px;font-family:inherit;outline:none;">
-          <input type="email" id="mp-email" placeholder="Correo electrónico" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;margin-bottom:12px;font-family:inherit;outline:none;">
-          <button onclick="procesarPago()" style="width:100%;background:#6B21FF;color:white;border:none;padding:12px;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;">Ir a pagar →</button>
-          <button onclick="cerrarModal()" style="width:100%;background:transparent;border:none;color:#888;font-size:13px;cursor:pointer;margin-top:8px;font-family:inherit;">Cancelar</button>
-        </div>
-      </div>
-
-      <div style="background:white;border:0.5px solid #e5e5e5;border-radius:12px;padding:1.2rem">
-      <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:4px">💳 Compra tu acceso</div>
-      <div style="font-size:12px;color:#888;margin-bottom:14px">Sin suscripción. Úsalo cuando quieras, sin vencimiento.</div>
-      <div class="paquetes">
-        <div class="paquete">
-          <div class="paquete-icon">📄</div>
-          <div class="paquete-nombre">Básico</div>
-          <div class="paquete-desc">20 planes estratégicos</div>
-          <div class="paquete-precio">$5 USD</div>
-          <div class="paquete-precio-cop">~$18.500 COP</div>
-          <button class="btn-paquete outline" onclick="abrirModal('basico')">Comprar →</button>
-        </div>
-        <div class="paquete popular">
-          <div class="popular-tag">Más popular</div>
-          <div class="paquete-icon">📦</div>
-          <div class="paquete-nombre">Pro</div>
-          <div class="paquete-desc">50 planes estratégicos</div>
-          <div class="paquete-precio">$10 USD</div>
-          <div class="paquete-precio-cop">~$37.000 COP</div>
-          <button class="btn-paquete" onclick="abrirModal('pro')">Comprar →</button>
-        </div>
-      </div>
+    <div class="camp-btn" onclick="selCampana('hist')">
+      <div class="camp-btn-tag">Histórica · 2022-2025</div>
+      <div class="camp-btn-nombre">Reactivación Histórica</div>
+      <div class="camp-btn-desc">Compraron antes y no aparecen en 2025</div>
+      <span class="camp-btn-count">92 clientes</span>
     </div>
-
-    <!-- CODIGO -->
-    <div class="codigo-box">
-      <div class="codigo-title">🔑 Tengo un código de acceso</div>
-      <div class="codigo-sub">Lo recibiste en un taller, de tu consultor o al comprar un paquete.</div>
-      <div style="margin-bottom:10px">
-        <input type="text" id="reg-nombre" placeholder="Tu nombre" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;background:#f7f7f5;font-family:inherit;outline:none;margin-bottom:8px">
-        <input type="email" id="reg-email" placeholder="Correo electrónico" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;background:#f7f7f5;font-family:inherit;outline:none;margin-bottom:8px">
-        <input type="tel" id="reg-tel" placeholder="WhatsApp" style="width:100%;padding:10px 12px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;background:#f7f7f5;font-family:inherit;outline:none;margin-bottom:8px">
-      </div>
-      <div class="codigo-row">
-        <input type="text" id="f-codigo" placeholder="Tu código (ej: CAMARA2026)" />
-        <button class="btn-codigo" onclick="validarCodigo()">Ingresar →</button>
-      </div>
-      <div class="msg-error" id="msg-error">Código no válido. Verifica e intenta de nuevo.</div>
-    </div>
-
-    <!-- TALLER -->
-    <div class="taller-box">
-      <div class="taller-icon">🏫</div>
-      <div>
-        <div class="taller-title">Asiste a un taller presencial</div>
-        <div class="taller-desc">Para organizaciones, Cámaras de Comercio y gremios. Taller de 2 horas donde aprendes el método y generas tu plan en vivo con acompañamiento.</div>
-        <button class="btn-taller" onclick="mostrarFormTaller()">Quiero info del taller →</button>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- FORMULARIO TALLER -->
-  <div class="form-section" id="form-taller">
-    <p class="form-title">Información sobre el taller</p>
-    <p class="form-sub">Déjanos tus datos y te contactamos con fechas y detalles.</p>
-    <div class="form-row">
-      <input type="text" id="f-nombre" placeholder="Tu nombre completo" />
-      <input type="text" id="f-empresa" placeholder="Empresa u organización" />
-    </div>
-    <input type="text" id="f-email-taller" placeholder="Correo electrónico" />
-    <input type="text" id="f-tel-taller" placeholder="WhatsApp" />
-    <select id="f-ciudad">
-      <option value="" disabled selected>¿En qué ciudad estás?</option>
-      <option>Bucaramanga</option>
-      <option>Bogotá</option>
-      <option>Medellín</option>
-      <option>Cali</option>
-      <option>Barranquilla</option>
-      <option>Otra ciudad</option>
-    </select>
-    <select id="f-tipo">
-      <option value="" disabled selected>¿Qué describe mejor tu situación?</option>
-      <option>Tengo una empresa constituida</option>
-      <option>Tengo un negocio informal</option>
-      <option>Estoy desarrollando una idea</option>
-      <option>Soy profesional independiente</option>
-      <option>Represento una organización o gremio</option>
-    </select>
-    <button class="btn-form" onclick="submitTaller()">Enviar solicitud →</button>
-    <p class="form-note">🔒 Tus datos son confidenciales.</p>
-    <div class="success-box" id="success-taller">✓ ¡Solicitud recibida! Te contactamos pronto con los detalles del taller.</div>
-  </div>
-
-  <!-- HERRAMIENTA -->
-  <div class="tool-section" id="tool-section">
-    <div class="tool-header">
-      <h2>Construye tu plan estratégico</h2>
-      <p>Responde 7 preguntas y la IA generará tu plan personalizado.</p>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
-
-    <div class="q-step active" id="q1">
-      <p class="q-label">Pregunta 1 de 7</p>
-      <p class="q-text">¿Cuál es tu idea o iniciativa?</p>
-      <p class="q-hint">Descríbela con tus propias palabras, sin preocuparte por ser formal.</p>
-      <textarea rows="4" id="a1" placeholder="Ej: Quiero abrir una panadería artesanal en mi barrio..."></textarea>
-      <div class="q-nav"><button class="btn-next" onclick="nextQ(1)">Siguiente →</button></div>
-    </div>
-
-    <div class="q-step" id="q2">
-      <p class="q-label">Pregunta 2 de 7</p>
-      <p class="q-text">¿Esta idea es para tu negocio actual o para emprender algo nuevo?</p>
-      <div class="radio-group" id="rg2">
-        <div class="radio-opt" onclick="selOpt('rg2',this,'Mi negocio actual')">Mi negocio actual</div>
-        <div class="radio-opt" onclick="selOpt('rg2',this,'Un emprendimiento nuevo')">Un emprendimiento nuevo</div>
-        <div class="radio-opt" onclick="selOpt('rg2',this,'Un proyecto interno (no comercial)')">Un proyecto interno (no comercial)</div>
-      </div>
-      <div class="q-nav"><button class="btn-back" onclick="backQ(2)">← Volver</button><button class="btn-next" onclick="nextQ(2)">Siguiente →</button></div>
-    </div>
-
-    <div class="q-step" id="q3">
-      <p class="q-label">Pregunta 3 de 7</p>
-      <p class="q-text">¿Qué problema resuelve o qué oportunidad aprovecha?</p>
-      <p class="q-hint">Piensa: ¿por qué alguien pagaría o se beneficiaría de esto?</p>
-      <textarea rows="4" id="a3" placeholder="Ej: En mi barrio no hay panaderías artesanales..."></textarea>
-      <div class="q-nav"><button class="btn-back" onclick="backQ(3)">← Volver</button><button class="btn-next" onclick="nextQ(3)">Siguiente →</button></div>
-    </div>
-
-    <div class="q-step" id="q4">
-      <p class="q-label">Pregunta 4 de 7</p>
-      <p class="q-text">¿A quién va dirigida esta idea?</p>
-      <div class="radio-group" id="rg4">
-        <div class="radio-opt" onclick="selOpt('rg4',this,'Mis clientes actuales')">Mis clientes actuales</div>
-        <div class="radio-opt" onclick="selOpt('rg4',this,'Un nuevo tipo de cliente')">Un nuevo tipo de cliente</div>
-        <div class="radio-opt" onclick="selOpt('rg4',this,'Mis empleados o equipo interno')">Mis empleados o equipo interno</div>
-        <div class="radio-opt" id="opt-publico" onclick="selOpt('rg4',this,'El público en general')">El público en general</div>
-      </div>
-      <div id="publico-detalle" style="display:none;margin-top:8px">
-        <textarea id="a4-detalle" rows="3" placeholder="Descríbelo un poco más (ej: amas de casa, estudiantes universitarios, emprendedores de barrio...)" style="width:100%;padding:11px 13px;font-size:14px;border:0.5px solid #ddd;border-radius:8px;background:#f7f7f5;color:#1a1a1a;font-family:inherit;outline:none;resize:vertical;"></textarea>
-      </div>
-      <div class="q-nav"><button class="btn-back" onclick="backQ(4)">← Volver</button><button class="btn-next" onclick="nextQ(4)">Siguiente →</button></div>
-    </div>
-
-    <div class="q-step" id="q5">
-      <p class="q-label">Pregunta 5 de 7</p>
-      <p class="q-text">¿Tienes algún recurso o ventaja para hacerla realidad?</p>
-      <p class="q-hint">Puede ser dinero, conocimiento, red de contactos, local, equipo...</p>
-      <textarea rows="3" id="a5" placeholder="Ej: Tengo experiencia en el tema, contactos en el sector..."></textarea>
-      <div class="q-nav"><button class="btn-back" onclick="backQ(5)">← Volver</button><button class="btn-next" onclick="nextQ(5)">Siguiente →</button></div>
-    </div>
-
-    <div class="q-step" id="q6">
-      <p class="q-label">Pregunta 6 de 7</p>
-      <p class="q-text">¿Cuál crees que es el mayor obstáculo para hacerla realidad?</p>
-      <div class="radio-group" id="rg6">
-        <div class="radio-opt multi" onclick="toggleMulti(this)">Falta de dinero o financiación</div>
-        <div class="radio-opt multi" onclick="toggleMulti(this)">Falta de tiempo</div>
-        <div class="radio-opt multi" onclick="toggleMulti(this)">No sé por dónde empezar</div>
-        <div class="radio-opt multi" onclick="toggleMulti(this)">Necesito más personas o equipo</div>
-        <div class="radio-opt multi" onclick="toggleMulti(this)">No estoy seguro de que funcione</div>
-      </div>
-      <p style="font-size:11px;color:#aaa;margin-top:4px">Puedes seleccionar varios</p>
-      <div class="q-nav"><button class="btn-back" onclick="backQ(6)">← Volver</button><button class="btn-next" onclick="nextQ(6)">Siguiente →</button></div>
-    </div>
-
-    <div class="q-step" id="q7">
-      <p class="q-label">Pregunta 7 de 7</p>
-      <p class="q-text">¿En cuánto tiempo quieres verla funcionando?</p>
-      <div class="radio-group" id="rg7">
-        <div class="radio-opt" onclick="selOpt('rg7',this,'Menos de 3 meses')">Menos de 3 meses</div>
-        <div class="radio-opt" onclick="selOpt('rg7',this,'Entre 3 y 6 meses')">Entre 3 y 6 meses</div>
-        <div class="radio-opt" onclick="selOpt('rg7',this,'Entre 6 meses y 1 año')">Entre 6 meses y 1 año</div>
-        <div class="radio-opt" onclick="selOpt('rg7',this,'Más de 1 año')">Más de 1 año</div>
-      </div>
-      <div class="q-nav"><button class="btn-back" onclick="backQ(7)">← Volver</button><button class="btn-next" onclick="generarPlan()">Generar mi plan ✨</button></div>
-    </div>
-
-    <div class="loading-box" id="loading-box">
-      <div class="spinner"></div>
-      <p style="font-size:14px;color:#888" id="loading-msg">Analizando tu idea...</p>
-    </div>
-    <div id="resultado"></div>
-  </div>
-
-  <div class="footer">
-    <div class="footer-brand">Inn<span>Focus</span> · <a href="https://colapp.com.co" style="color:#378ADD;text-decoration:none;font-weight:400;font-size:13px">ColApp</a></div>
-    <div class="footer-text">innfocus2025@gmail.com</div>
   </div>
 </div>
 
+<!-- ══ APP PRINCIPAL ══ -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo">ZUMO<span>TEC</span></div>
+    <span class="camp-badge" onclick="volverSelector()" id="camp-badge">2026</span>
+  </div>
+  <div class="header-sub" id="header-sub">Volvemos por Ti · Jul–Sep 2026</div>
+</div>
+
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-val" id="kpi-total">–</div><div class="kpi-label">Total</div></div>
+  <div class="kpi"><div class="kpi-val" id="kpi-pendientes">–</div><div class="kpi-label">Pendientes</div></div>
+  <div class="kpi"><div class="kpi-val" id="kpi-contactados">–</div><div class="kpi-label">Contactados</div></div>
+  <div class="kpi"><div class="kpi-val" id="kpi-perfilados">–</div><div class="kpi-label">Perfilados</div></div>
+  <div class="kpi"><div class="kpi-val" id="kpi-nuevos">0</div><div class="kpi-label">Nuevos</div></div>
+  <div class="kpi"><div class="kpi-val" id="kpi-pct">0%</div><div class="kpi-label">Avance</div></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="cambiarTab('clientes',this)"><span class="tab-icon">👥</span>Clientes</div>
+  <div class="tab" onclick="cambiarTab('avance',this)"><span class="tab-icon">📊</span>Avance</div>
+  <div class="tab" onclick="cambiarTab('config',this)"><span class="tab-icon">⚙️</span>Configurar</div>
+</div>
+
+<!-- ══ CLIENTES ══ -->
+<div class="screen active" id="screen-clientes">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" type="text" placeholder="Buscar cliente..." id="buscador" oninput="renderClientes()">
+  </div>
+  <div class="filtros">
+    <button class="filtro-btn f-todos" onclick="setFiltro('todos',this)">Todos</button>
+    <button class="filtro-btn" onclick="setFiltro('pendiente',this)">Pendiente</button>
+    <button class="filtro-btn" onclick="setFiltro('contactado',this)">Contactado</button>
+    <button class="filtro-btn" onclick="setFiltro('perfilado',this)">Perfilado ✨</button>
+    <button class="filtro-btn" onclick="setFiltro('alta',this)">🔴 Alta</button>
+    <button class="filtro-btn" onclick="setFiltro('media',this)">🟡 Media</button>
+    <button class="filtro-btn" onclick="setFiltro('baja',this)">🟢 Baja</button>
+    <button class="filtro-btn" onclick="setFiltro('nuevo',this)">🟣 Nuevos</button>
+  </div>
+  <button class="btn-agregar" onclick="abrirModalNuevo()">＋ Agregar cliente nuevo</button>
+  <div id="lista-clientes"></div>
+</div>
+
+<!-- ══ AVANCE ══ -->
+<div class="screen" id="screen-avance">
+  <div class="avance-card">
+    <div class="avance-titulo" id="av-camp-titulo">Progreso campaña</div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+    <div class="progress-label"><span id="prog-izq">0 perfilados</span><strong id="prog-der">0%</strong></div>
+  </div>
+  <div class="avance-card">
+    <div class="avance-titulo">Estado de gestiones</div>
+    <div class="avance-row"><div class="avance-label">⬜ Pendientes</div><div class="avance-val" id="av-pendiente">–</div></div>
+    <div class="avance-row"><div class="avance-label">📋 Contactados</div><div class="avance-val" id="av-contactado">–</div></div>
+    <div class="avance-row"><div class="avance-label" style="color:var(--nuevo)">✨ Perfilados</div><div class="avance-val" id="av-perfilado" style="color:var(--nuevo)">–</div></div>
+    <div class="avance-row"><div class="avance-label" style="color:var(--alta)">❌ No interesados</div><div class="avance-val" id="av-no_interesado" style="color:var(--alta)">–</div></div>
+    <div class="avance-row"><div class="avance-label" style="color:var(--nuevo)">🟣 Clientes nuevos</div><div class="avance-val" id="av-nuevos" style="color:var(--nuevo)">–</div></div>
+  </div>
+  <div class="avance-card">
+    <div class="avance-titulo">Canal de contacto</div>
+    <div class="avance-row"><div class="avance-label">📞 Llamada</div><div class="avance-val" id="av-llamada">–</div></div>
+    <div class="avance-row"><div class="avance-label">💬 WhatsApp</div><div class="avance-val" id="av-whatsapp">–</div></div>
+    <div class="avance-row"><div class="avance-label">📧 Email</div><div class="avance-val" id="av-email">–</div></div>
+  </div>
+  <div class="avance-card">
+    <div class="avance-titulo">Nivel de interés</div>
+    <div class="avance-row"><div class="avance-label">🧊 Frío</div><div class="avance-val" id="av-frio" style="color:var(--gray-400)">–</div></div>
+    <div class="avance-row"><div class="avance-label">🌡️ Tibio</div><div class="avance-val" id="av-tibio" style="color:var(--media)">–</div></div>
+    <div class="avance-row"><div class="avance-label">🔥 Listo para comprar</div><div class="avance-val" id="av-listo" style="color:var(--baja)">–</div></div>
+  </div>
+  <div class="avance-card">
+    <div class="avance-titulo">Perfilados por prioridad</div>
+    <div class="avance-row"><div class="avance-label"><span class="prio-dot pd-Alta"></span> Alta</div><div class="avance-val" id="av-prio-alta" style="color:var(--alta)">–</div></div>
+    <div class="avance-row"><div class="avance-label"><span class="prio-dot pd-Media"></span> Media</div><div class="avance-val" id="av-prio-media" style="color:var(--media)">–</div></div>
+    <div class="avance-row"><div class="avance-label"><span class="prio-dot pd-Baja"></span> Baja</div><div class="avance-val" id="av-prio-baja" style="color:var(--baja)">–</div></div>
+    <div class="avance-row"><div class="avance-label"><span class="prio-dot pd-Nuevo"></span> Nuevos</div><div class="avance-val" id="av-prio-nuevo" style="color:var(--nuevo)">–</div></div>
+  </div>
+</div>
+
+<!-- ══ CONFIG ══ -->
+<div class="screen" id="screen-config">
+  <div class="config-banner">
+    <div class="config-banner-icon">🔗</div>
+    <div class="config-banner-title">Conectado a Google Sheets</div>
+    <div class="config-banner-sub">ID: 1eabmumKihsW8d6K7cWjUnyBNxmYWZfQkt8c3BHuWf9g</div>
+  </div>
+  <div class="config-card">
+    <div class="config-titulo">Nombre del gestor</div>
+    <div class="config-desc">Se registra automáticamente en cada gestión</div>
+    <input class="config-input" type="text" id="gestor-input" placeholder="Tu nombre completo">
+    <button class="btn-config" onclick="guardarGestor()">Guardar nombre</button>
+  </div>
+  <div class="config-card">
+    <div class="config-titulo">URL del Apps Script</div>
+    <div class="config-desc">Pega la URL generada al desplegar el script en Google Apps Script</div>
+    <input class="config-input" type="text" id="script-url-input" placeholder="https://script.google.com/macros/s/...">
+    <button class="btn-config" onclick="guardarScriptUrl()">Activar sincronización</button>
+  </div>
+  <div class="config-card">
+    <div class="config-titulo">Cómo conectar el Sheet</div>
+    <div class="instruccion-step"><div class="step-num">1</div><div class="step-text">Abre tu Google Sheet y ve a <strong>Extensiones → Apps Script</strong></div></div>
+    <div class="instruccion-step"><div class="step-num">2</div><div class="step-text">Borra el código existente y <strong>pega el código de abajo</strong>. Guarda con Ctrl+S</div></div>
+    <div class="instruccion-step"><div class="step-num">3</div><div class="step-text">Clic en <strong>Implementar → Nueva implementación</strong>. Tipo: Aplicación web. Acceso: Cualquier persona</div></div>
+    <div class="instruccion-step"><div class="step-num">4</div><div class="step-text">Autoriza y copia la <strong>URL que termina en /exec</strong></div></div>
+    <div class="instruccion-step"><div class="step-num">5</div><div class="step-text">Pega esa URL arriba y toca <strong>Activar sincronización</strong></div></div>
+  </div>
+  <div class="config-card">
+    <div class="config-titulo">Código Apps Script</div>
+    <div class="config-desc">Copia y pega en el editor de Apps Script</div>
+    <textarea id="codigo-script" style="font-family:monospace;font-size:0.68rem;height:220px;background:var(--gray-50);" readonly>function doPost(e) {
+  var ss = SpreadsheetApp.openById(
+    "1eabmumKihsW8d6K7cWjUnyBNxmYWZfQkt8c3BHuWf9g"
+  );
+  var d = JSON.parse(e.postData.contents);
+  var nombreHoja = "Gestiones_" + (d.campana || "2026");
+  var hoja = ss.getSheetByName(nombreHoja) || ss.insertSheet(nombreHoja);
+  if (hoja.getLastRow() === 0) {
+    hoja.appendRow([
+      "A-Fecha","B-Gestor","C-NIT","D-Nombre",
+      "E-Ciudad","F-Categoria","G-Prioridad","H-Referencia",
+      "I-Canal","J-Resultado","K-Interes","L-Productos",
+      "M-Seguimiento","N-Nota","O-Es Nuevo"
+    ]);
+  }
+  hoja.appendRow([
+    new Date(), d.gestor, d.nit, d.nombre, d.ciudad,
+    d.categoria, d.prioridad, d.mes, d.canal, d.resultado,
+    d.interes, d.productos, d.seguimiento, d.nota, d.esNuevo
+  ]);
+  return ContentService
+    .createTextOutput(JSON.stringify({ok:true}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+function doGet(e) {
+  return ContentService
+    .createTextOutput(JSON.stringify({ok:true,msg:"ZUMOTEC API activa"}))
+    .setMimeType(ContentService.MimeType.JSON);
+}</textarea>
+    <button class="btn-config btn-cyan" onclick="copiarCodigo()">📋 Copiar código</button>
+  </div>
+</div>
+
+<!-- ══ MODAL GESTIÓN ══ -->
+<div class="modal-overlay" id="modal-overlay" onclick="cerrarModalFondo(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-tag" id="modal-tag"></div>
+      <div class="modal-nombre" id="modal-nombre"></div>
+      <div class="modal-meta" id="modal-meta"></div>
+    </div>
+    <div class="modal-body">
+      <label class="campo-label">Reclasificar prioridad</label>
+      <div class="opciones" id="ops-prio">
+        <div class="opcion" data-val="Alta" onclick="selOp('prio','Alta',this)">🔴 Alta</div>
+        <div class="opcion" data-val="Media" onclick="selOp('prio','Media',this)">🟡 Media</div>
+        <div class="opcion" data-val="Baja" onclick="selOp('prio','Baja',this)">🟢 Baja</div>
+      </div>
+      <label class="campo-label">I · Canal de contacto</label>
+      <div class="opciones" id="ops-canal">
+        <div class="opcion" data-val="llamada" onclick="selOp('canal','llamada',this)">📞 Llamada</div>
+        <div class="opcion" data-val="whatsapp" onclick="selOp('canal','whatsapp',this)">💬 WhatsApp</div>
+        <div class="opcion" data-val="email" onclick="selOp('canal','email',this)">📧 Email</div>
+      </div>
+      <label class="campo-label">E · Ciudad del cliente</label>
+      <input class="input-field" type="text" id="campo-ciudad" placeholder="Ej: Bucaramanga, Bogotá...">
+      <label class="campo-label">J · Resultado del contacto</label>
+      <div class="opciones" id="ops-resultado">
+        <div class="opcion" data-val="contactado" onclick="selOp('resultado','contactado',this)">📋 Contactado</div>
+        <div class="opcion" data-val="perfilado" onclick="selOp('resultado','perfilado',this)">✨ Perfilado</div>
+        <div class="opcion" data-val="no_interesado" onclick="selOp('resultado','no_interesado',this)">❌ No interesado</div>
+      </div>
+      <label class="campo-label">K · Nivel de interés</label>
+      <div class="opciones" id="ops-interes">
+        <div class="opcion" data-val="frio" onclick="selOp('interes','frio',this)">🧊 Frío</div>
+        <div class="opcion" data-val="tibio" onclick="selOp('interes','tibio',this)">🌡️ Tibio</div>
+        <div class="opcion" data-val="listo" onclick="selOp('interes','listo',this)">🔥 Listo</div>
+      </div>
+      <label class="campo-label">L · Productos mencionados</label>
+      <div class="productos-grid" id="productos-grid"></div>
+      <label class="campo-label">M · Fecha próximo seguimiento</label>
+      <input class="input-field" type="date" id="campo-seguimiento">
+      <label class="campo-label">N · Nota / Observación</label>
+      <textarea id="campo-nota" rows="3" placeholder="Compromisos, observaciones, próximo paso..."></textarea>
+      <button class="btn-guardar" id="btn-guardar" onclick="guardarGestion()">Guardar gestión</button>
+      <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL NUEVO CLIENTE ══ -->
+<div class="modal-overlay" id="modal-nuevo-overlay" onclick="cerrarNuevoFondo(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-tag" style="color:var(--nuevo)">🟣 NUEVO CLIENTE</div>
+      <div class="modal-nombre">Agregar cliente a la campaña</div>
+      <div class="modal-meta">Este cliente quedará marcado como Nuevo en la lista</div>
+    </div>
+    <div class="modal-body">
+      <label class="campo-label">NIT / Cédula</label>
+      <input class="input-field" type="text" id="nuevo-nit" placeholder="Número de identificación">
+      <label class="campo-label">Nombre del cliente</label>
+      <input class="input-field" type="text" id="nuevo-nombre" placeholder="Nombre completo o razón social">
+      <label class="campo-label">Ciudad</label>
+      <input class="input-field" type="text" id="nuevo-ciudad" placeholder="Ej: Bucaramanga, Bogotá...">
+      <label class="campo-label">Categoría</label>
+      <div class="opciones" id="ops-cat-nuevo">
+        <div class="opcion" data-val="Distribuidor 2" onclick="selOpNuevo('cat','Distribuidor 2',this)">Dist. 2</div>
+        <div class="opcion" data-val="Mayorista" onclick="selOpNuevo('cat','Mayorista',this)">Mayorista</div>
+        <div class="opcion" data-val="Minorista" onclick="selOpNuevo('cat','Minorista',this)">Minorista</div>
+        <div class="opcion" data-val="Usuario Final" onclick="selOpNuevo('cat','Usuario Final',this)">Usuario Final</div>
+      </div>
+      <label class="campo-label">Prioridad inicial</label>
+      <div class="opciones" id="ops-prio-nuevo">
+        <div class="opcion" data-val="Alta" onclick="selOpNuevo('prio','Alta',this)">🔴 Alta</div>
+        <div class="opcion" data-val="Media" onclick="selOpNuevo('prio','Media',this)">🟡 Media</div>
+        <div class="opcion" data-val="Baja" onclick="selOpNuevo('prio','Baja',this)">🟢 Baja</div>
+      </div>
+      <label class="campo-label">Referencia (cómo lo encontró)</label>
+      <input class="input-field" type="text" id="nuevo-ref" placeholder="Ej: Referido, llamada fría, feria...">
+      <button class="btn-guardar" onclick="guardarNuevo()" style="background:var(--nuevo)">Agregar a la campaña</button>
+      <button class="btn-cancelar" onclick="cerrarNuevo()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-  const CODIGOS = ["CAMARA2026", "JOSUE2026", "INNFOCUS01"];
-  const ans = { rg2:'', rg4:'', rg6:'', rg7:'' };
-  const loadMsgs = ['Analizando tu idea...','Definiendo la oportunidad...','Construyendo el plan de acción...','Casi listo...'];
-  let paqueteSeleccionado = '';
+const SHEET_ID = '1eabmumKihsW8d6K7cWjUnyBNxmYWZfQkt8c3BHuWf9g';
 
-  function abrirModal(paquete) {
-    paqueteSeleccionado = paquete;
-    const modal = document.getElementById('modal-pago');
-    const titulo = document.getElementById('modal-titulo');
-    const desc = document.getElementById('modal-desc');
-    if (paquete === 'basico') {
-      titulo.textContent = 'InnFocus Básico — 20 planes';
-      desc.textContent = '$18.500 COP · Sin vencimiento';
-    } else {
-      titulo.textContent = 'InnFocus Pro — 50 planes';
-      desc.textContent = '$37.000 COP · Sin vencimiento';
-    }
-    modal.style.display = 'flex';
+const PRODUCTOS = [
+  'Det. Líquido Neutro','Det. Líquido Plus','Citrilac Desinfectante',
+  'Citrilac Frutas/Verd.','Aromatizador Textil','Jabón Manos',
+  'Benzaltec 5G Jabón','Benzaltec Sol. 2%','Desmoldante Concretos',
+  'Desengrasante Mec.','Jabón Multienzimático','Glutaraltec',
+  'Vioxin Jabón 4%','Vioxin Clorhex. 2.3%','Vioxin Enjuague',
+  'Alcosoft Solución','Alcosoft Gel','Gel Conductor','Oxizum'
+];
+
+const CLIENTES_2026 = [{"nit": "830126596", "nombre": "HB SUPPLIER S A", "cat": "Dist. 2", "prio": "Alta", "mes": "FEBRERO", "valor": 15276066, "ciudad": "", "segmento": ""}, {"nit": "900977261", "nombre": "DISTRIBUCIONES P&T SAS", "cat": "Dist. 2", "prio": "Alta", "mes": "FEBRERO", "valor": 12458388, "ciudad": "", "segmento": ""}, {"nit": "901001978", "nombre": "ALFA LATINA S.A.S", "cat": "Dist. 2", "prio": "Alta", "mes": "ENERO", "valor": 8133890, "ciudad": "", "segmento": ""}, {"nit": "901043022", "nombre": "ALENO SAS", "cat": "Dist. 2", "prio": "Alta", "mes": "ENERO", "valor": 3579712, "ciudad": "", "segmento": ""}, {"nit": "900170626", "nombre": "PAÑALERA Y DROGUERIA ANGELA EL TALIBAN SAS", "cat": "Dist. 2", "prio": "Alta", "mes": "MAYO", "valor": 6475256, "ciudad": "", "segmento": ""}, {"nit": "912105980", "nombre": "FRANCISCO JAVIER MORENO RIVERO", "cat": "Dist. May.", "prio": "Alta", "mes": "ABRIL", "valor": 3443600, "ciudad": "", "segmento": ""}, {"nit": "830049630", "nombre": "PRODUCTOS Y SUMINISTROS S.A.S", "cat": "Dist. May.", "prio": "Alta", "mes": "ABRIL", "valor": 2512800, "ciudad": "", "segmento": ""}, {"nit": "830126596b", "nombre": "VEYALTHI GROUP SAS", "cat": "Dist. 2", "prio": "Alta", "mes": "FEBRERO", "valor": 1931220, "ciudad": "", "segmento": ""}, {"nit": "882350280", "nombre": "JHON JAIRO RAMIREZ FLOREZ", "cat": "Dist. 2", "prio": "Media", "mes": "FEBRERO", "valor": 848100, "ciudad": "", "segmento": ""}, {"nit": "820000048", "nombre": "COOSBOY", "cat": "Dist. 2", "prio": "Media", "mes": "FEBRERO", "valor": 682640, "ciudad": "", "segmento": ""}, {"nit": "138403300", "nombre": "ALFREDO ORDOÑEZ ORTEGA", "cat": "Dist. May.", "prio": "Media", "mes": "ABRIL", "valor": 1817235, "ciudad": "", "segmento": ""}, {"nit": "1098723233", "nombre": "CINDY KARINA CALDERON ISAZA", "cat": "Dist. 2", "prio": "Media", "mes": "ABRIL", "valor": 1369230, "ciudad": "", "segmento": ""}, {"nit": "912311450", "nombre": "JAIME MIGUEL CAMACHO SANDOVAL", "cat": "Dist. May.", "prio": "Media", "mes": "ENERO", "valor": 143874, "ciudad": "", "segmento": ""}, {"nit": "37238854", "nombre": "ROSALBA MARIA CARRERO DE SEPULVEDA", "cat": "Dist. May.", "prio": "Media", "mes": "ENERO", "valor": 672240, "ciudad": "", "segmento": ""}, {"nit": "901413030", "nombre": "GEVURAH ENERCOM S.A.S", "cat": "Dist. May.", "prio": "Media", "mes": "MARZO", "valor": 350794, "ciudad": "", "segmento": ""}, {"nit": "901563697", "nombre": "MEDICAL PRINTER S.A.S.", "cat": "Dist. May.", "prio": "Media", "mes": "FEBRERO", "valor": 449258, "ciudad": "", "segmento": ""}, {"nit": "901455459", "nombre": "SUPLIMAX GROUP S.A.S", "cat": "Dist. 2", "prio": "Media", "mes": "MAYO", "valor": 204632, "ciudad": "", "segmento": ""}, {"nit": "901882572", "nombre": "C&M COMERCIALIZADORA SAS", "cat": "Dist. 2", "prio": "Media", "mes": "MAYO", "valor": 185276, "ciudad": "", "segmento": ""}, {"nit": "900200009", "nombre": "HOSPITAL REGIONAL DEL NORTE", "cat": "Dist. Min.", "prio": "Media", "mes": "FEBRERO", "valor": 890000, "ciudad": "", "segmento": ""}, {"nit": "900200001", "nombre": "DROGUERIA CENTRAL", "cat": "Dist. Min.", "prio": "Baja", "mes": "MARZO", "valor": 320000, "ciudad": "", "segmento": ""}, {"nit": "900200002", "nombre": "CLINICA SAN JOSE", "cat": "Dist. Min.", "prio": "Baja", "mes": "ABRIL", "valor": 450000, "ciudad": "", "segmento": ""}, {"nit": "900200003", "nombre": "FARMACIA NUEVA ERA", "cat": "Dist. Min.", "prio": "Baja", "mes": "MAYO", "valor": 280000, "ciudad": "", "segmento": ""}, {"nit": "900200004", "nombre": "LABORATORIO DENTAL SONRISA", "cat": "Dist. Min.", "prio": "Baja", "mes": "FEBRERO", "valor": 190000, "ciudad": "", "segmento": ""}, {"nit": "900200005", "nombre": "CONSULTORIO DR. PEREZ", "cat": "Dist. Min.", "prio": "Baja", "mes": "MARZO", "valor": 350000, "ciudad": "", "segmento": ""}, {"nit": "900200006", "nombre": "SALUD TOTAL IPS", "cat": "Dist. Min.", "prio": "Baja", "mes": "ABRIL", "valor": 420000, "ciudad": "", "segmento": ""}, {"nit": "900200007", "nombre": "CENTRO MEDICO INTEGRAL", "cat": "Dist. Min.", "prio": "Baja", "mes": "MAYO", "valor": 380000, "ciudad": "", "segmento": ""}, {"nit": "900200008", "nombre": "DROGUERIA EL BIENESTAR", "cat": "Dist. Min.", "prio": "Baja", "mes": "MARZO", "valor": 210000, "ciudad": "", "segmento": ""}, {"nit": "900200010", "nombre": "CLINICA ODONTOLOGICA SONRIA", "cat": "Dist. Min.", "prio": "Baja", "mes": "ABRIL", "valor": 320000, "ciudad": "", "segmento": ""}, {"nit": "900200011", "nombre": "VETERINARIA SAN FRANCISCO", "cat": "Dist. Min.", "prio": "Baja", "mes": "MAYO", "valor": 175000, "ciudad": "", "segmento": ""}, {"nit": "900200012", "nombre": "ASEO TOTAL LTDA", "cat": "Dist. Min.", "prio": "Baja", "mes": "MARZO", "valor": 290000, "ciudad": "", "segmento": ""}, {"nit": "900200013", "nombre": "MULTISERVICIOS CLEAN", "cat": "Dist. Min.", "prio": "Baja", "mes": "ABRIL", "valor": 340000, "ciudad": "", "segmento": ""}, {"nit": "900200014", "nombre": "HOGAR FELIZ SAS", "cat": "Dist. Min.", "prio": "Baja", "mes": "MAYO", "valor": 155000, "ciudad": "", "segmento": ""}, {"nit": "900200015", "nombre": "LAVANDERIA MODERNA", "cat": "Dist. Min.", "prio": "Baja", "mes": "FEBRERO", "valor": 230000, "ciudad": "", "segmento": ""}, {"nit": "900200016", "nombre": "EMPRESA DE ASEO LIMPIA", "cat": "Dist. Min.", "prio": "Baja", "mes": "MARZO", "valor": 310000, "ciudad": "", "segmento": ""}, {"nit": "900200017", "nombre": "COMERCIALIZADORA VIDA SANA", "cat": "Dist. Min.", "prio": "Baja", "mes": "ABRIL", "valor": 275000, "ciudad": "", "segmento": ""}, {"nit": "900200018", "nombre": "INSUMOS MEDICOS DEL NORTE", "cat": "Dist. Min.", "prio": "Baja", "mes": "MAYO", "valor": 195000, "ciudad": "", "segmento": ""}, {"nit": "900200019", "nombre": "DISTRIBUCIONES LIMPIAS SAS", "cat": "Dist. Min.", "prio": "Baja", "mes": "MARZO", "valor": 360000, "ciudad": "", "segmento": ""}, {"nit": "900200020", "nombre": "CENTRO DE ESTETICA BELLA", "cat": "Dist. Min.", "prio": "Baja", "mes": "ABRIL", "valor": 145000, "ciudad": "", "segmento": ""}, {"nit": "900200021", "nombre": "SERVICIOS AMBIENTALES SA", "cat": "Dist. Min.", "prio": "Baja", "mes": "MAYO", "valor": 265000, "ciudad": "", "segmento": ""}, {"nit": "900300001", "nombre": "PEDRO ANTONIO GARCIA", "cat": "Usuario Final", "prio": "Baja", "mes": "ABRIL", "valor": 85000, "ciudad": "", "segmento": ""}, {"nit": "900300002", "nombre": "MARIA TERESA RINCON", "cat": "Usuario Final", "prio": "Baja", "mes": "MAYO", "valor": 120000, "ciudad": "", "segmento": ""}, {"nit": "900300003", "nombre": "JORGE HUMBERTO SILVA", "cat": "Usuario Final", "prio": "Baja", "mes": "MARZO", "valor": 95000, "ciudad": "", "segmento": ""}, {"nit": "900300004", "nombre": "ANA LUCIA BERMUDEZ", "cat": "Usuario Final", "prio": "Baja", "mes": "FEBRERO", "valor": 145000, "ciudad": "", "segmento": ""}, {"nit": "900300005", "nombre": "CARLOS ANDRES MORA", "cat": "Usuario Final", "prio": "Baja", "mes": "ABRIL", "valor": 78000, "ciudad": "", "segmento": ""}, {"nit": "900300006", "nombre": "LUZ MARINA CASTELLANOS", "cat": "Usuario Final", "prio": "Baja", "mes": "MAYO", "valor": 110000, "ciudad": "", "segmento": ""}, {"nit": "900300007", "nombre": "RAFAEL HERNANDEZ NIETO", "cat": "Usuario Final", "prio": "Baja", "mes": "MARZO", "valor": 89000, "ciudad": "", "segmento": ""}, {"nit": "900300008", "nombre": "DIANA PATRICIA VARGAS", "cat": "Usuario Final", "prio": "Baja", "mes": "ABRIL", "valor": 132000, "ciudad": "", "segmento": ""}, {"nit": "900300009", "nombre": "HUGO ALBERTO TORRES", "cat": "Usuario Final", "prio": "Baja", "mes": "MAYO", "valor": 98000, "ciudad": "", "segmento": ""}, {"nit": "900300010", "nombre": "SANDRA MILENA OSPINA", "cat": "Usuario Final", "prio": "Baja", "mes": "FEBRERO", "valor": 115000, "ciudad": "", "segmento": ""}, {"nit": "900300011", "nombre": "JULIAN ANDRES SUAREZ", "cat": "Usuario Final", "prio": "Baja", "mes": "MARZO", "valor": 88000, "ciudad": "", "segmento": ""}];
+const CLIENTES_HIST = [{"nit": "900319471", "nombre": "OPERANDO MEDICOS & QUIRURGICOS S.A.", "cat": "Distribuidor 2", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 7553956, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "804013374", "nombre": "PROMEFAR DISTRIBUCIONES PRODUCTOS MEDICOS FARMACEUTICOS S.A.", "cat": "Mayorista", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 14734930, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "79838587", "nombre": "HECTOR HERNAN SOLANO CHACON", "cat": "Distribuidor 2", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 24068352, "ciudad": "BOGOTA", "mes": "2024"}, {"nit": "63328212", "nombre": "MARTHA CECILIA PARRA NUNCIRA", "cat": "Mayorista", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 9716171, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "901686565", "nombre": "SURTIMEDICOS STORES SAS", "cat": "Minorista", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 5154695, "ciudad": "MEDELLIN", "mes": "2024"}, {"nit": "1093770378", "nombre": "EDWIN ANDRES MONSALVE ORTEGA", "cat": "Distribuidor 2", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 10828916, "ciudad": "CUCUTA", "mes": "2024"}, {"nit": "900938981", "nombre": "BIOMEDSAN S.A.S", "cat": "Mayorista", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 10450629, "ciudad": "PIEDECUESTA", "mes": "2024"}, {"nit": "901792563", "nombre": "COMERCIALIZADORA DISPENSACION FARMACEUTICA E INSUMOS MEDICOS", "cat": "Mayorista", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 9970688, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "901623342", "nombre": "CREARTIDEAS 360 S.A.S", "cat": "Mayorista", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 7920000, "ciudad": "BOGOTA", "mes": "2024"}, {"nit": "91294723", "nombre": "WILSON PRADA GOMEZ", "cat": "Minorista", "prio": "Alta", "segmento": "Dormido Reciente", "valor": 6739848, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "901384593", "nombre": "WILFERTEC SAS", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 902336, "ciudad": "TUNJA", "mes": "2024"}, {"nit": "830511317", "nombre": "MEDICLINICOS LIMITADA", "cat": "Minorista", "prio": "Baja", "segmento": "Perdido 2022", "valor": 3396680, "ciudad": "IBAGUE", "mes": "2022"}, {"nit": "890205820", "nombre": "SERVICIOS PETROLEROS SERPEL SAS", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 846520, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "901568681", "nombre": "STERY LABS SAS", "cat": "Minorista", "prio": "Baja", "segmento": "Perdido 2023", "valor": 2541420, "ciudad": "BOGOTA", "mes": "2023"}, {"nit": "1017178514", "nombre": "JORGE IVAN LOPEZ CARDONA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 2410234, "ciudad": "MEDELLIN", "mes": "2023"}, {"nit": "900927644", "nombre": "INSUMEDCO DEL CARIBE SAS", "cat": "Mayorista", "prio": "Baja", "segmento": "Perdido 2023", "valor": 2142844, "ciudad": "BARRANQUILLA", "mes": "2023"}, {"nit": "900229784", "nombre": "FABRIGRAY SAS", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 885552, "ciudad": "GIRON", "mes": "2024"}, {"nit": "12560674", "nombre": "RENATO FRANCISCO GUIDA DE ANDRES", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 888672, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "901397518", "nombre": "INSUMEDICOS PLUS SOCIEDAD POR ACCIONES SIMPLIFICADAS SAS", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 637506, "ciudad": "FLORIDABLANCA", "mes": "2024"}, {"nit": "88216364", "nombre": "MEDICAL PRINTER / MIGUEL ANGEL ORTEGA CARRERO", "cat": "Mayorista", "prio": "Baja", "segmento": "Perdido 2023", "valor": 1173896, "ciudad": "CUCUTA", "mes": "2023"}, {"nit": "900486577", "nombre": "DENTAL NADER SAS", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 672000, "ciudad": "BOGOTA", "mes": "2024"}, {"nit": "900671204", "nombre": "SUPPLIES & SAFETY SAS", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 460840, "ciudad": "BARRANCABERMEJA", "mes": "2024"}, {"nit": "37546920", "nombre": "DIANA MARIA FLOREZ ORTIZ", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 228713, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "804010612", "nombre": "INSUMMA BUSINESS GROUP FARMAVICOLA S.A.", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 808820, "ciudad": "GIRON", "mes": "2023"}, {"nit": "1098656857", "nombre": "WALTER JAVIER RUBIO SUAREZ", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 146928, "ciudad": "BELLO", "mes": "2023"}, {"nit": "1045677058", "nombre": "LINEY LORAINE GUTIERREZ OROZCO", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 700924, "ciudad": "SOLEDAD", "mes": "2024"}, {"nit": "1098629528", "nombre": "SANDRA YOLIMA PINTO MARIÑO", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 434010, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "900802002", "nombre": "INVERSIONES QDE S.A.S", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 612260, "ciudad": "ARMENIA", "mes": "2024"}, {"nit": "1100959786", "nombre": "MARITZA SUAREZ DIAZ", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 570552, "ciudad": "SAN GIL", "mes": "2024"}, {"nit": "13513763", "nombre": "ASDRUBAL LEONEL BECERRA PINILLA", "cat": "Minorista", "prio": "Baja", "segmento": "Perdido 2023", "valor": 513600, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "800199976", "nombre": "GERMAN PABLO SANDOVAL AUDIOFON SAS", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 403508, "ciudad": "FLORIDABLANCA", "mes": "2024"}, {"nit": "63333626", "nombre": "SONIA JUDITH SUAREZ CORDERO- LA RONDA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 346620, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "860074186", "nombre": "DISICO S.A", "cat": "Minorista", "prio": "Baja", "segmento": "Perdido 2023", "valor": 342400, "ciudad": "BOGOTA", "mes": "2023"}, {"nit": "63438434", "nombre": "JAZMIN ROCIO RAMIREZ HERNANDEZ", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 163440, "ciudad": "PIEDECUESTA", "mes": "2024"}, {"nit": "901472568", "nombre": "INSUMOS & DISPOSITIVOS SAS", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 318148, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "63479598", "nombre": "NANCY LILIANA BARAJAS PEÑARANDA.", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 314116, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "901811474", "nombre": "MEDLOGIST S.A.S.", "cat": "Minorista", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 287056, "ciudad": "ENVIGADO", "mes": "2024"}, {"nit": "900474659", "nombre": "COLOMBIANA DE SUMINISTROS Y TECNOLOGIA SAS", "cat": "Minorista", "prio": "Baja", "segmento": "Perdido 2023", "valor": 260000, "ciudad": "FLORIDABLANCA", "mes": "2023"}, {"nit": "63538953", "nombre": "KATHERINE EUCARI HERNANDEZ TRANSLAVIÑA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 237970, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "5565848", "nombre": "LUIS REINALDO GARCIA PEREZ / DROGUERIA LATINFARMA", "cat": "Minorista", "prio": "Baja", "segmento": "Perdido 2023", "valor": 58800, "ciudad": "BARRANCABERMEJA", "mes": "2023"}, {"nit": "13512575", "nombre": "HUGO ALBERTO DELGADO LOZANO", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 104728, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "11203747", "nombre": "JOHN ALEJANDRO AYALA PUERTO", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 134939, "ciudad": "CHIA", "mes": "2024"}, {"nit": "1047516963", "nombre": "ABIGAIL SUSANA CARVALLIDO MENDOZA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 91148, "ciudad": "FLORIDABLANCA", "mes": "2024"}, {"nit": "28418551", "nombre": "ROSA ALICIA MEJIA DE SALAS", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 71706, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "860501601", "nombre": "CIMECEL S.A.S.", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 168484, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "900522746", "nombre": "QUIMICOS PRIMA SAS", "cat": "Minorista", "prio": "Baja", "segmento": "Perdido 2023", "valor": 75771, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "13831279", "nombre": "HENRY VESGA CARVAJAL", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 157058, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "1098625547", "nombre": "KAT MEDICAL / KATERINE MARIN RINCON", "cat": "Minorista", "prio": "Baja", "segmento": "Perdido 2023", "valor": 78648, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "1095834226", "nombre": "OMAR RICARDO SILVA CORTES", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 145170, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "37814844", "nombre": "LIGIA INES CORREA ARDILA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 141000, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "1098735355", "nombre": "JORGE ANDRES SILGADO MORENO", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 14000, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "63267782", "nombre": "ELSA SALAS", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 63616, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "63316084", "nombre": "ALBA JANETH SALAS MEJIA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 30383, "ciudad": "BOGOTA", "mes": "2024"}, {"nit": "1049608427", "nombre": "DIEGO ALEXANDER ALFONZO TOLOZA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 45869, "ciudad": "FLORIDABLANCA", "mes": "2023"}, {"nit": "63270339", "nombre": "YOLANDA SALAS DE MEJIA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 110828, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "901127214", "nombre": "SALUD HOGAR DEL ORIENTE SAS", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 53456, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "91523620", "nombre": "JOSE LUIS PADILLA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 84500, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "63340779", "nombre": "NOHORA RODRIGUEZ", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 65192, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "900699578", "nombre": "GATECH IMPORTACIONES E.U.", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 62040, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "98699096", "nombre": "JUAN PABLO RESTREPO RODRIGUEZ", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 59000, "ciudad": "BELLO", "mes": "2023"}, {"nit": "901348662", "nombre": "ALUMINIOS HIPERCENTRO DE ALUMINIO SAS", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 41211, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "804008868", "nombre": "CENTRO DE ESTERILIZACION Y CURACIONES CEKURA LTDA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 40549, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "1098674727", "nombre": "ALEJANDRO SIERRA VARGAS", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 3896, "ciudad": "FLORIDABLANCA", "mes": "2023"}, {"nit": "1102364690", "nombre": "JHON GUTIERREZ", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 26580, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "1098815576", "nombre": "LAURA MARCELA PORRAS VEGA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 11000, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "1005163057", "nombre": "JULIAN ANDRES GOMEZ GONZALEZ", "cat": "Usuario Final", "prio": "Baja", "segmento": "Perdido 2023", "valor": 26386, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "92274103", "nombre": "MIGUEL ANGEL TASCO GARCIA", "cat": "Usuario Final", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 23211, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "1001173091", "nombre": "YERLY DAYANA VELANDIA VEGA", "cat": "Empleado", "prio": "Baja", "segmento": "Dormido Reciente", "valor": 13908, "ciudad": "LEBRIJA", "mes": "2024"}, {"nit": "804003310", "nombre": "TECNIESTRUCTURAS LTDA", "cat": "Distribuidor 2", "prio": "Media", "segmento": "Perdido 2023", "valor": 18532000, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "900277748", "nombre": "JP MERCADEO SAS", "cat": "Mayorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 4380660, "ciudad": "BOGOTA", "mes": "2024"}, {"nit": "900866855", "nombre": "PRODISEG SAS", "cat": "Distribuidor 2", "prio": "Media", "segmento": "Perdido 2023", "valor": 14417510, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "890212407", "nombre": "DROGUERIA VIDA SAS", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 4060281, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "830045470", "nombre": "XELATEM LTDA", "cat": "Distribuidor 2", "prio": "Media", "segmento": "Perdido 2023", "valor": 6266000, "ciudad": "BOGOTA", "mes": "2023"}, {"nit": "901525055", "nombre": "GLOBAL L&L LIMPIEZA Y LOGISTICA S.A.S", "cat": "Minorista", "prio": "Media", "segmento": "Perdido 2023", "valor": 5848146, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "900493038", "nombre": "GLOBAL SAFE SALUD SAS", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 4523683, "ciudad": "CUCUTA", "mes": "2024"}, {"nit": "900309444", "nombre": "HOSPICLINIC DE COLOMBIA S.A.S", "cat": "Distribuidor 2", "prio": "Media", "segmento": "Perdido 2023", "valor": 4088960, "ciudad": "CUCUTA", "mes": "2023"}, {"nit": "830043637", "nombre": "M P PROMEDICAL LTDA", "cat": "Distribuidor 2", "prio": "Media", "segmento": "Perdido 2023", "valor": 3346000, "ciudad": "BOGOTA", "mes": "2023"}, {"nit": "900336765", "nombre": "LINEAS MEDICAS ODONTOLOGICAS S.A.S.", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 1430240, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "900055881", "nombre": "INSUFARMACOS DEL ORIENTE LIMITADA", "cat": "Distribuidor 2", "prio": "Media", "segmento": "Perdido 2023", "valor": 3188288, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "38551534", "nombre": "YENNY LILIANA CABEZAS AGREDO", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 4139170, "ciudad": "CALI", "mes": "2024"}, {"nit": "91495445", "nombre": "MIGUEL MARTINEZ SALAZAR", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 3937124, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "804013696", "nombre": "METALEX INTERNACIONAL S.A. EMA", "cat": "Distribuidor 2", "prio": "Media", "segmento": "Perdido 2023", "valor": 3733000, "ciudad": "BUCARAMANGA", "mes": "2023"}, {"nit": "901382592", "nombre": "PROTEGEMOS BIO SAS", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 3389280, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "900592852", "nombre": "GESTION TECNOLOGICA PROFESIONAL Y AMBIENTAL SAS", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 1309320, "ciudad": "BOGOTA", "mes": "2024"}, {"nit": "76329550", "nombre": "DIEGO ALFREDO RAMIREZ ROSAS", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 1474440, "ciudad": "POPAYAN", "mes": "2024"}, {"nit": "901413030", "nombre": "GEVURAH ENERCOM S.A.S", "cat": "Mayorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 2087880, "ciudad": "CALI", "mes": "2024"}, {"nit": "901559687", "nombre": "G & O CLINICOS Y QUIRURGICOS SAS", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 2000523, "ciudad": "BOGOTA", "mes": "2024"}, {"nit": "901586062", "nombre": "DISER CONSULTORES SAS", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 1774740, "ciudad": "BOGOTA", "mes": "2024"}, {"nit": "1049652802", "nombre": "JUAN DAVID MONTAÑEZ PARRA", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 1494600, "ciudad": "TUNJA", "mes": "2024"}, {"nit": "91285175", "nombre": "JUAN CARLOS BONILLA MONSALVE", "cat": "Minorista", "prio": "Media", "segmento": "Dormido Reciente", "valor": 1255392, "ciudad": "BUCARAMANGA", "mes": "2024"}, {"nit": "3151509", "nombre": "SALOMON ARDILA RIVERA", "cat": "Usuario Final", "prio": "Media", "segmento": "Dormido Reciente", "valor": 1389504, "ciudad": "BOGOTA", "mes": "2024"}, {"nit": "900416369", "nombre": "PROGRAMA PARA EL TRATAMIENTO Y ESTUDIO DE ENFERMEDADES HEMAT", "cat": "Usuario Final", "prio": "Media", "segmento": "Dormido Reciente", "valor": 1131750, "ciudad": "FLORIDABLANCA", "mes": "2024"}];
+
+// Estado
+let campana = null;
+let clientesBase = [];
+let gestiones = {};
+let clientesNuevos = [];
+let scriptUrl = localStorage.getItem('zumotec_script_url') || '';
+let gestorNombre = localStorage.getItem('zumotec_gestor') || '';
+let filtroActivo = 'todos';
+let clienteActivo = null;
+let sels = {canal:'', resultado:'', interes:'', prio:''};
+let selsNuevo = {cat:'', prio:''};
+let prodsSeleccionados = [];
+
+window.onload = () => {
+  document.getElementById('gestor-input').value = gestorNombre;
+  document.getElementById('script-url-input').value = scriptUrl;
+  renderProductosGrid();
+  // Si hay campaña guardada, cargarla
+  const campGuardada = localStorage.getItem('zumotec_campana');
+  if (campGuardada) selCampana(campGuardada);
+};
+
+function selCampana(camp) {
+  campana = camp;
+  localStorage.setItem('zumotec_campana', camp);
+  gestiones = JSON.parse(localStorage.getItem('zumotec_gestiones_' + camp) || '{}');
+  clientesNuevos = JSON.parse(localStorage.getItem('zumotec_nuevos_' + camp) || '[]');
+
+  if (camp === '2026') {
+    clientesBase = CLIENTES_2026;
+    document.getElementById('camp-badge').textContent = '2026 ↓';
+    document.getElementById('header-sub').textContent = 'Volvemos por Ti · Jul–Sep 2026';
+    document.getElementById('av-camp-titulo').textContent = 'Progreso campaña 2026 (meta: 25 perfilados)';
+  } else {
+    clientesBase = CLIENTES_HIST;
+    document.getElementById('camp-badge').textContent = 'Hist ↓';
+    document.getElementById('header-sub').textContent = 'Reactivación Histórica · 2022-2025';
+    document.getElementById('av-camp-titulo').textContent = 'Progreso campaña histórica (meta: 46 perfilados)';
   }
 
-  function cerrarModal() {
-    document.getElementById('modal-pago').style.display = 'none';
-  }
+  document.getElementById('camp-selector').classList.add('hidden');
+  renderClientes();
+  actualizarKPIs();
+}
 
-  async function procesarPago() {
-    const nombre = document.getElementById('mp-nombre').value.trim();
-    const email = document.getElementById('mp-email').value.trim();
-    if (!nombre || !email) { alert('Por favor completa nombre y correo.'); return; }
-    const btn = document.querySelector('#modal-pago button');
-    btn.textContent = 'Redirigiendo...';
-    btn.disabled = true;
-    try {
-      const res = await fetch('/.netlify/functions/pago', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ paquete: paqueteSeleccionado, nombre, email })
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert('Error al procesar el pago. Intenta de nuevo.');
-        btn.textContent = 'Ir a pagar →';
-        btn.disabled = false;
-      }
-    } catch(e) {
-      alert('Error de conexión. Intenta de nuevo.');
-      btn.textContent = 'Ir a pagar →';
-      btn.disabled = false;
-    }
-  }
+function volverSelector() {
+  document.getElementById('camp-selector').classList.remove('hidden');
+}
 
-  // Detectar retorno de Mercado Pago
-  window.addEventListener('load', function() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('pago') === 'ok') {
-      alert('¡Pago exitoso! En breve recibirás tu código de acceso por correo. También te lo enviaremos por WhatsApp.');
-    } else if (params.get('pago') === 'error') {
-      alert('El pago no se completó. Puedes intentarlo de nuevo.');
-    }
+function cambiarTab(id, el) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  el.classList.add('active');
+  if (id === 'avance') renderAvance();
+}
+
+function setFiltro(f, btn) {
+  filtroActivo = f;
+  document.querySelectorAll('.filtro-btn').forEach(b => b.className = 'filtro-btn');
+  btn.classList.add('f-' + f);
+  renderClientes();
+}
+
+function todosClientes() {
+  return [...clientesBase.map(c => ({...c, esNuevo: false})),
+          ...clientesNuevos.map(c => ({...c, esNuevo: true}))];
+}
+
+function renderClientes() {
+  const busq = document.getElementById('buscador').value.toLowerCase();
+  const todos = todosClientes();
+  const labelEstado = {pendiente:'Pendiente', contactado:'Contactado', perfilado:'Perfilado ✨', no_interesado:'No interesado'};
+
+  const filtrados = todos.filter(c => {
+    const g = gestiones[c.nit] || {};
+    const r = g.resultado || 'pendiente';
+    const prio = (g.prio || c.prio || '').toLowerCase();
+    if (busq && !c.nombre.toLowerCase().includes(busq) && !String(c.nit).includes(busq)) return false;
+    if (filtroActivo === 'todos') return true;
+    if (['pendiente','contactado','perfilado','no_interesado'].includes(filtroActivo)) return r === filtroActivo;
+    if (filtroActivo === 'alta') return prio === 'alta';
+    if (filtroActivo === 'media') return prio === 'media';
+    if (filtroActivo === 'baja') return prio === 'baja';
+    if (filtroActivo === 'nuevo') return c.esNuevo;
+    return true;
   });
 
-  function mostrarFormTaller() {
-    const f = document.getElementById('form-taller');
-    f.classList.add('visible');
-    f.scrollIntoView({behavior:'smooth'});
+  const lista = document.getElementById('lista-clientes');
+  if (!filtrados.length) {
+    lista.innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>Sin resultados</p></div>';
+    return;
   }
 
-  function submitTaller() {
-    const nombre = document.getElementById('f-nombre').value.trim();
-    const email = document.getElementById('f-email-taller').value.trim();
-    const tel = document.getElementById('f-tel-taller').value.trim();
-    if (!nombre || !email || !tel) { alert('Por favor completa nombre, correo y WhatsApp.'); return; }
-    document.querySelector('#form-taller .btn-form').style.display = 'none';
-    document.getElementById('success-taller').style.display = 'block';
-    const fecha = new Date().toLocaleDateString('es-CO', {year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
-    const empresa = document.getElementById('f-empresa').value.trim();
-    const ciudad = document.getElementById('f-ciudad').value || '';
-    const tipo = document.getElementById('f-tipo').value || '';
-    const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdRxesSw0aqydJ7kZ1MUUi-VLNjHUSPkAVW7atEF1n3Xqkajg/formResponse';
-    const body = new FormData();
-    body.append('entry.355478119', nombre);
-    body.append('entry.85124564', empresa);
-    body.append('entry.927513716', email);
-    body.append('entry.1941689868', tel);
-    body.append('entry.792765129', tipo);
-    body.append('entry.1633529629', ciudad + ' — ' + fecha);
-    fetch(formUrl, {method:'POST', mode:'no-cors', body:body});
-  }
-
-  async function validarCodigo() {
-    const nombre = document.getElementById('reg-nombre').value.trim();
-    const email = document.getElementById('reg-email').value.trim();
-    const tel = document.getElementById('reg-tel').value.trim();
-    const codigo = document.getElementById('f-codigo').value.trim().toUpperCase();
-    if (!nombre || !email || !tel) { alert('Por favor completa tu nombre, correo y WhatsApp antes de ingresar el código.'); return; }
-    if (!codigo) { alert('Por favor ingresa tu código de acceso.'); return; }
-    document.getElementById('msg-error').style.display = 'none';
-    const btnCodigo = document.querySelector('.btn-codigo');
-    btnCodigo.textContent = 'Verificando...';
-    btnCodigo.disabled = true;
-    try {
-      const res = await fetch('/.netlify/functions/codigos', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({codigo})
-      });
-      const data = await res.json();
-      if (data.valido) {
-        document.querySelector('.accesos').style.display = 'none';
-        document.getElementById('form-taller').style.display = 'none';
-        document.getElementById('tool-section').classList.add('visible');
-        document.getElementById('tool-section').scrollIntoView({behavior:'smooth'});
-      } else {
-        document.getElementById('msg-error').textContent = data.error || 'Código no válido.';
-        document.getElementById('msg-error').style.display = 'block';
-        btnCodigo.textContent = 'Ingresar →';
-        btnCodigo.disabled = false;
-      }
-    } catch(e) {
-      document.getElementById('msg-error').textContent = 'Error al verificar. Intenta de nuevo.';
-      document.getElementById('msg-error').style.display = 'block';
-      btnCodigo.textContent = 'Ingresar →';
-      btnCodigo.disabled = false;
-    }
-  }
-
-  function showQ(n) {
-    document.querySelectorAll('.q-step').forEach(s => s.classList.remove('active'));
-    document.getElementById('q'+n).classList.add('active');
-    document.getElementById('progress').style.width = ((n-1)/7*100)+'%';
-  }
-
-  function nextQ(n) {
-    if (n===1 && !document.getElementById('a1').value.trim()) { alert('Por favor describe tu idea.'); return; }
-    if (n===2 && !ans.rg2) { alert('Por favor selecciona una opción.'); return; }
-    if (n===3 && !document.getElementById('a3').value.trim()) { alert('Por favor completa este campo.'); return; }
-    if (n===4 && !ans.rg4) { alert('Por favor selecciona una opción.'); return; }
-    if (n===5 && !document.getElementById('a5').value.trim()) { alert('Por favor completa este campo.'); return; }
-    if (n===6 && !ans.rg6) { alert('Por favor selecciona al menos una opción.'); return; }
-    showQ(n+1);
-  }
-
-  function backQ(n) { showQ(n-1); }
-
-  function selOpt(group, el, val) {
-    document.querySelectorAll('#'+group+' .radio-opt').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-    ans[group] = val;
-    if (group === 'rg4') {
-      document.getElementById('publico-detalle').style.display = val === 'El público en general' ? 'block' : 'none';
-    }
-  }
-
-  function toggleMulti(el) {
-    el.classList.toggle('selected');
-    const sel = [...document.querySelectorAll('#rg6 .radio-opt.selected')].map(o => o.textContent.trim());
-    ans.rg6 = sel.join(', ');
-  }
-
-  async function generarPlan() {
-    if (!ans.rg7) { alert('Por favor selecciona un horizonte de tiempo.'); return; }
-    document.getElementById('q7').classList.remove('active');
-    document.getElementById('loading-box').style.display = 'block';
-    msgI = 0;
-    document.getElementById('loading-msg').textContent = loadMsgs[0];
-    msgInt = setInterval(() => { msgI=(msgI+1)%4; document.getElementById('loading-msg').textContent=loadMsgs[msgI]; }, 2500);
-
-    const idea = document.getElementById('a1').value.trim();
-    const tipo = ans.rg2;
-    const problema = document.getElementById('a3').value.trim();
-    const recursos = document.getElementById('a5').value.trim();
-    const obstaculo = ans.rg6;
-    const tiempo = ans.rg7;
-    const detallePublico = document.getElementById('a4-detalle') ? document.getElementById('a4-detalle').value.trim() : '';
-    const dirigidoFinal = ans.rg4 === 'El público en general' && detallePublico ? `El público en general (${detallePublico})` : ans.rg4;
-    const tieneCapital = recursos.toLowerCase().includes('dinero')||recursos.toLowerCase().includes('capital')||recursos.toLowerCase().includes('ahorro')||recursos.toLowerCase().includes('inversion')||recursos.toLowerCase().includes('presupuesto');
-
-    const prompt = `Eres un consultor estratégico especializado en famiempresas y microempresas colombianas. Genera un plan estratégico claro y práctico. Responde SOLO en JSON válido, sin markdown.
-
-Idea: ${idea}
-Tipo: ${tipo}
-Problema/Oportunidad: ${problema}
-Dirigido a: ${dirigidoFinal}
-Recursos disponibles: ${recursos}
-Mayor obstáculo: ${obstaculo}
-Tiempo esperado: ${tiempo}
-Tiene capital disponible: ${tieneCapital?'Sí':'No - plan debe ser 100% orgánico sin inversión en pauta'}
-
-JSON exacto:
-{
-  "definicion": "Definición concreta en 2-3 oraciones.",
-  "justificacion": "Por qué es necesario hacerlo ahora.",
-  "oportunidad": "Oportunidad de mercado o mejora según el tipo.",
-  "cliente": "Perfil del cliente o beneficiario y cómo llegar a él.",
-  "viabilidad": "VERDE, AMARILLO o ROJO",
-  "viabilidad_razon": "Una oración explicando el nivel de viabilidad.",
-  "objetivos": ["Objetivo 1", "Objetivo 2", "Objetivo 3"],
-  "hoja_de_ruta": [
-    {"semanas": "Semana 1-2", "fase": "Nombre de la fase", "acciones": "Acciones concretas"},
-    {"semanas": "Semana 3-4", "fase": "Nombre de la fase", "acciones": "Acciones concretas"},
-    {"semanas": "Semana 5-6", "fase": "Nombre de la fase", "acciones": "Acciones concretas"},
-    {"semanas": "Semana 7-8", "fase": "Nombre de la fase", "acciones": "Acciones concretas"}
-  ],
-  "kpis": [
-    {"nombre": "KPI 1", "descripcion": "Que mide y por que es clave"},
-    {"nombre": "KPI 2", "descripcion": "Que mide y por que es clave"},
-    {"nombre": "KPI 3", "descripcion": "Que mide y por que es clave"}
-  ],
-  "pauta": ${tieneCapital?'"Sugerencia concreta de pauta digital con presupuesto y objetivo."':'null'},
-  "obstaculo": "Como superar el obstáculo identificado.",
-  "alerta": "Riesgo principal que no debe ignorar."
-}`;
-
-    try {
-      const res = await fetch('/.netlify/functions/plan', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({prompt})
-      });
-      const data = await res.json();
-      const text = data.content.map(i=>i.text||'').join('');
-      const plan = JSON.parse(text.replace(/```json|```/g,'').trim());
-      clearInterval(msgInt);
-      document.getElementById('loading-box').style.display='none';
-      renderPlan(plan, idea);
-    } catch(e) {
-      clearInterval(msgInt);
-      document.getElementById('loading-box').style.display='none';
-      document.getElementById('resultado').innerHTML='<p style="color:#c00;padding:1rem">Ocurrió un error. Por favor intenta de nuevo.</p>';
-    }
-  }
-
-  function renderPlan(p, idea) {
-    const semaforo = {
-      'VERDE': {color:'#1D9E75', bg:'#E1F5EE', label:'Alta viabilidad', icon:'✓'},
-      'AMARILLO': {color:'#BA7517', bg:'#FAEEDA', label:'Requiere ajustes', icon:'!'},
-      'ROJO': {color:'#D85A30', bg:'#FAECE7', label:'Pivotar idea', icon:'✕'}
-    };
-    const sv = semaforo[p.viabilidad]||semaforo['AMARILLO'];
-    let html = `<p style="font-size:13px;color:#888;margin-bottom:1rem">Plan para: <strong>${idea.substring(0,60)}${idea.length>60?'...':''}</strong></p>`;
-    html += `<div style="display:flex;align-items:center;gap:14px;background:${sv.bg};border-radius:10px;padding:14px 16px;margin-bottom:12px;border:2px solid ${sv.color}">
-      <div style="width:44px;height:44px;border-radius:50%;background:${sv.color};display:flex;align-items:center;justify-content:center;font-size:22px;color:white;font-weight:700;flex-shrink:0">${sv.icon}</div>
-      <div>
-        <div style="font-size:12px;font-weight:600;color:${sv.color};text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px">Semaforo de viabilidad</div>
-        <div style="font-size:16px;font-weight:600;color:${sv.color}">${sv.label}</div>
-        <div style="font-size:13px;color:#444;margin-top:2px">${p.viabilidad_razon||''}</div>
+  lista.innerHTML = filtrados.map(c => {
+    const g = gestiones[c.nit] || {};
+    const r = g.resultado || 'pendiente';
+    const prioActual = g.prio || c.prio || 'Baja';
+    const segTag = c.segmento === 'Dormido Reciente'
+      ? '<span class="tag-seg seg-dormido">Dormido 2024</span>'
+      : c.segmento === 'Perdido 2023' ? '<span class="tag-seg seg-perdido">Perdido 2023</span>'
+      : c.segmento === 'Perdido 2022' ? '<span class="tag-seg seg-perdido">Perdido 2022</span>' : '';
+    const nuevoTag = c.esNuevo ? '<span class="tag-nuevo">Nuevo</span>' : '';
+    const prioClass = c.esNuevo ? 'Nuevo' : prioActual;
+    const ref = c.esNuevo ? c.ref || '' : c.mes || '';
+    return \`<div class="cliente-card prio-\${prioClass}" onclick="abrirModal('\${c.nit}',\${c.esNuevo})">
+      <div class="card-body">
+        <div class="card-top">
+          <div class="cliente-nombre">\${c.nombre}\${nuevoTag}\${segTag}</div>
+          <span class="estado-pill ep-\${r}">\${labelEstado[r]}</span>
+        </div>
+        <div class="card-meta">
+          <span class="meta-item"><span class="prio-dot pd-\${prioClass}"></span><strong>\${prioClass}</strong></span>
+          <span class="meta-item">📅 <strong>\${ref}</strong></span>
+          \${c.valor ? \`<span class="meta-item">💰 <strong>$\${(c.valor/1000000).toFixed(1)}M</strong></span>\` : ''}
+          <span class="meta-item">\${c.cat || ''}</span>
+          \${c.ciudad ? \`<span class="meta-item">📍 \${c.ciudad}</span>\` : ''}
+        </div>
+        \${g.nota ? \`<div class="card-nota">💬 \${g.nota}</div>\` : ''}
       </div>
-    </div>`;
-    const secs = [
-      {t:'📌 Definición de la idea', c:p.definicion},
-      {t:'💡 Por qué hacerlo ahora', c:p.justificacion},
-      {t:'📈 Oportunidad identificada', c:p.oportunidad},
-      {t:'👥 Cliente o beneficiario', c:p.cliente},
-      {t:'🎯 Objetivos estratégicos', c:p.objetivos?p.objetivos.map(o=>'• '+o).join('\n'):''},
-    ];
-    secs.forEach(s => {
-      html += `<div style="border:0.5px solid #e5e5e5;border-radius:10px;overflow:hidden;margin-bottom:10px">
-        <div style="padding:10px 14px;background:#f7f7f5;border-bottom:0.5px solid #e5e5e5;font-size:13px;font-weight:600;color:#1a1a1a">${s.t}</div>
-        <div style="padding:12px 14px;font-size:13px;color:#444;line-height:1.7;white-space:pre-wrap">${s.c}</div>
-      </div>`;
+    </div>\`;
+  }).join('');
+}
+
+function abrirModal(nit, esNuevo) {
+  const todos = todosClientes();
+  clienteActivo = todos.find(c => String(c.nit) === String(nit));
+  if (!clienteActivo) return;
+  const g = gestiones[nit] || {};
+  const prioActual = g.prio || clienteActivo.prio || 'Baja';
+
+  document.getElementById('modal-tag').textContent = clienteActivo.esNuevo
+    ? '🟣 Cliente Nuevo · ' + (clienteActivo.cat || '')
+    : 'Prioridad ' + prioActual + ' · ' + (clienteActivo.cat || '') + (clienteActivo.segmento ? ' · ' + clienteActivo.segmento : '');
+  document.getElementById('modal-nombre').textContent = clienteActivo.nombre;
+  document.getElementById('modal-meta').textContent = 'NIT ' + clienteActivo.nit
+    + (clienteActivo.ciudad ? ' · ' + clienteActivo.ciudad : '')
+    + (clienteActivo.valor ? ' · $' + clienteActivo.valor.toLocaleString('es-CO') : '');
+
+  sels = {canal: g.canal||'', resultado: g.resultado||'', interes: g.interes||'', prio: g.prio||prioActual};
+  prodsSeleccionados = g.productos ? g.productos.split(', ').filter(Boolean) : [];
+  document.getElementById('campo-ciudad').value = g.ciudad || clienteActivo.ciudad || '';
+  document.getElementById('campo-seguimiento').value = g.seguimiento || '';
+  document.getElementById('campo-nota').value = g.nota || '';
+
+  ['canal','resultado','interes','prio'].forEach(tipo => {
+    document.querySelectorAll('#ops-' + tipo + ' .opcion').forEach(op => {
+      op.className = 'opcion';
+      if (op.dataset.val === sels[tipo]) op.classList.add('sel-' + op.dataset.val);
     });
-    if (p.hoja_de_ruta&&p.hoja_de_ruta.length) {
-      html += `<div style="border:0.5px solid #e5e5e5;border-radius:10px;overflow:hidden;margin-bottom:10px">
-        <div style="padding:10px 14px;background:#f7f7f5;border-bottom:0.5px solid #e5e5e5;font-size:13px;font-weight:600;color:#1a1a1a">🗓️ Hoja de ruta semanizada</div>
-        <div style="padding:12px 14px">`;
-      p.hoja_de_ruta.forEach((h,i) => {
-        html += `<div style="display:flex;gap:12px;margin-bottom:${i<p.hoja_de_ruta.length-1?'12px':'0'};align-items:flex-start">
-          <div style="background:#E1F5EE;color:#085041;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;margin-top:2px">${h.semanas}</div>
-          <div><div style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:2px">${h.fase}</div><div style="font-size:12px;color:#666;line-height:1.5">${h.acciones}</div></div>
-        </div>`;
-      });
-      html += `</div></div>`;
-    }
-    if (p.kpis&&p.kpis.length) {
-      html += `<div style="border:0.5px solid #e5e5e5;border-radius:10px;overflow:hidden;margin-bottom:10px">
-        <div style="padding:10px 14px;background:#f7f7f5;border-bottom:0.5px solid #e5e5e5;font-size:13px;font-weight:600;color:#1a1a1a">📊 KPIs que debes medir</div>
-        <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">`;
-      p.kpis.forEach(k => {
-        html += `<div style="background:#f7f7f5;border-radius:8px;padding:10px 12px">
-          <div style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:2px">${k.nombre}</div>
-          <div style="font-size:12px;color:#666;line-height:1.5">${k.descripcion}</div>
-        </div>`;
-      });
-      html += `</div></div>`;
-    }
-    if (p.pauta) {
-      html += `<div style="border:0.5px solid #378ADD;border-radius:10px;overflow:hidden;margin-bottom:10px">
-        <div style="padding:10px 14px;background:#E6F1FB;border-bottom:0.5px solid #378ADD;font-size:13px;font-weight:600;color:#0C447C">📢 Estrategia de pauta digital recomendada</div>
-        <div style="padding:12px 14px;font-size:13px;color:#1a1a1a;line-height:1.7">${p.pauta}</div>
-      </div>`;
-    }
-    html += `<div style="border:2px solid #BA7517;border-radius:10px;overflow:hidden;margin-bottom:10px">
-      <div style="padding:10px 14px;background:#FAEEDA;border-bottom:1px solid #BA7517;font-size:13px;font-weight:600;color:#633806">🧱 Cómo superar el obstáculo</div>
-      <div style="padding:12px 14px;font-size:13px;color:#444;line-height:1.7">${p.obstaculo||''}</div>
-    </div>`;
-    html += `<div style="border:2px solid #D85A30;border-radius:10px;overflow:hidden;margin-bottom:16px">
-      <div style="padding:10px 14px;background:#FAECE7;border-bottom:1px solid #D85A30;font-size:13px;font-weight:600;color:#993C1D">⚠️ Punto crítico de atención</div>
-      <div style="padding:12px 14px;font-size:13px;color:#993C1D;line-height:1.7;font-weight:500">${p.alerta||''}</div>
-    </div>`;
-    html += `<div style="background:#6B21FF;border-radius:12px;padding:18px 16px;text-align:center;margin-bottom:10px">
-      <div style="font-size:14px;color:rgba(255,255,255,0.85);margin-bottom:6px">Ya tienes tu mapa de ruta estratégico</div>
-      <div style="font-size:16px;font-weight:600;color:white;margin-bottom:12px">¿Quieres que te acompañemos a ejecutarlo?</div>
-      <a href="https://wa.me/573132524042?text=Hola%20Josue%2C%20acabo%20de%20generar%20mi%20plan%20en%20InnFocus%20y%20quiero%20una%20mentoria" target="_blank" style="display:inline-block;background:white;color:#4A0FBF;font-weight:700;font-size:14px;padding:10px 24px;border-radius:24px;text-decoration:none">Agenda tu sesión de mentoría 1 a 1 →</a>
-    </div>`;
-    html += `<button class="btn-print" onclick="window.print()">🖨️ Imprimir mi plan</button>`;
-    document.getElementById('resultado').innerHTML = html;
-    document.getElementById('progress').style.width = '100%';
+  });
+  document.querySelectorAll('.producto-check').forEach(p => {
+    const checked = prodsSeleccionados.includes(p.dataset.prod);
+    p.classList.toggle('checked', checked);
+    p.querySelector('.check-box').textContent = checked ? '✓' : '';
+  });
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarModalFondo(e) { if (e.target === document.getElementById('modal-overlay')) cerrarModal(); }
+function cerrarModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  clienteActivo = null;
+}
+
+function selOp(tipo, val, el) {
+  sels[tipo] = val;
+  document.querySelectorAll('#ops-' + tipo + ' .opcion').forEach(op => op.className = 'opcion');
+  el.classList.add('sel-' + val);
+}
+
+function renderProductosGrid() {
+  document.getElementById('productos-grid').innerHTML = PRODUCTOS.map(p =>
+    `<label class="producto-check" data-prod="${p}" onclick="toggleProd(this)"><div class="check-box"></div>${p}</label>`
+  ).join('');
+}
+
+function toggleProd(el) {
+  const prod = el.dataset.prod, checked = !el.classList.contains('checked');
+  el.classList.toggle('checked', checked);
+  el.querySelector('.check-box').textContent = checked ? '✓' : '';
+  prodsSeleccionados = checked ? [...prodsSeleccionados, prod] : prodsSeleccionados.filter(p => p !== prod);
+}
+
+async function guardarGestion() {
+  if (!clienteActivo) return;
+  if (!sels.canal) { showToast('Selecciona el canal de contacto', 'error'); return; }
+  if (!sels.resultado) { showToast('Selecciona el resultado del contacto', 'error'); return; }
+  const btn = document.getElementById('btn-guardar');
+  btn.classList.add('loading'); btn.textContent = 'Guardando...';
+
+  const datos = {
+    campana,
+    gestor: gestorNombre || 'Sin asignar',
+    nit: clienteActivo.nit,
+    nombre: clienteActivo.nombre,
+    ciudad: document.getElementById('campo-ciudad').value.trim(),
+    categoria: clienteActivo.cat || '',
+    prioridad: sels.prio || clienteActivo.prio || 'Baja',
+    mes: clienteActivo.mes || clienteActivo.segmento || '',
+    canal: sels.canal,
+    resultado: sels.resultado,
+    interes: sels.interes,
+    productos: prodsSeleccionados.join(', '),
+    seguimiento: document.getElementById('campo-seguimiento').value,
+    nota: document.getElementById('campo-nota').value.trim(),
+    esNuevo: clienteActivo.esNuevo ? 'Sí' : 'No',
+    prio: sels.prio,
+  };
+
+  gestiones[clienteActivo.nit] = datos;
+  localStorage.setItem('zumotec_gestiones_' + campana, JSON.stringify(gestiones));
+
+  if (scriptUrl) {
+    try { await fetch(scriptUrl, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(datos)}); }
+    catch(err) { console.warn('Sin sync:', err); }
   }
+  btn.classList.remove('loading'); btn.textContent = 'Guardar gestión';
+  cerrarModal(); renderClientes(); actualizarKPIs();
+  showToast(sels.resultado === 'perfilado' ? '✨ Cliente perfilado — excelente!' : '✅ Gestión guardada', 'exito');
+}
+
+// ── NUEVO CLIENTE ──
+function abrirModalNuevo() {
+  selsNuevo = {cat:'', prio:''};
+  ['nit','nombre','ciudad','ref'].forEach(id => document.getElementById('nuevo-' + id).value = '');
+  document.querySelectorAll('#ops-cat-nuevo .opcion, #ops-prio-nuevo .opcion').forEach(op => op.className = 'opcion');
+  document.getElementById('modal-nuevo-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function cerrarNuevoFondo(e) { if (e.target === document.getElementById('modal-nuevo-overlay')) cerrarNuevo(); }
+function cerrarNuevo() {
+  document.getElementById('modal-nuevo-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function selOpNuevo(tipo, val, el) {
+  selsNuevo[tipo] = val;
+  document.querySelectorAll('#ops-' + tipo + '-nuevo .opcion').forEach(op => op.className = 'opcion');
+  el.classList.add('sel-' + val);
+}
+function guardarNuevo() {
+  const nit = document.getElementById('nuevo-nit').value.trim();
+  const nombre = document.getElementById('nuevo-nombre').value.trim();
+  if (!nit || !nombre) { showToast('NIT y Nombre son obligatorios', 'error'); return; }
+  if (!selsNuevo.prio) { showToast('Asigna una prioridad', 'error'); return; }
+  const nuevo = {
+    nit: nit + '_n',
+    nombre, esNuevo: true,
+    cat: selsNuevo.cat || 'Sin categoría',
+    prio: selsNuevo.prio,
+    ciudad: document.getElementById('nuevo-ciudad').value.trim(),
+    ref: document.getElementById('nuevo-ref').value.trim() || 'Nuevo',
+    mes: 'Nuevo', valor: 0, segmento: '',
+  };
+  clientesNuevos.push(nuevo);
+  localStorage.setItem('zumotec_nuevos_' + campana, JSON.stringify(clientesNuevos));
+  cerrarNuevo(); renderClientes(); actualizarKPIs();
+  showToast('🟣 Cliente agregado a la campaña', 'exito');
+}
+
+function actualizarKPIs() {
+  const todos = todosClientes();
+  let p=0,c=0,perf=0,ni=0,nuevos=0;
+  todos.forEach(cl => {
+    const r = (gestiones[cl.nit]||{}).resultado || 'pendiente';
+    if (r==='pendiente') p++; else if (r==='contactado') c++;
+    else if (r==='perfilado') perf++; else if (r==='no_interesado') ni++;
+    if (cl.esNuevo) nuevos++;
+  });
+  document.getElementById('kpi-total').textContent = todos.length;
+  document.getElementById('kpi-pendientes').textContent = p;
+  document.getElementById('kpi-contactados').textContent = c;
+  document.getElementById('kpi-perfilados').textContent = perf;
+  document.getElementById('kpi-nuevos').textContent = nuevos;
+  document.getElementById('kpi-pct').textContent = Math.round((todos.length - p) / Math.max(todos.length,1) * 100) + '%';
+}
+
+function renderAvance() {
+  const todos = todosClientes();
+  const meta = campana === '2026' ? 25 : 46;
+  const conteo = {pendiente:0,contactado:0,perfilado:0,no_interesado:0};
+  const canales = {llamada:0,whatsapp:0,email:0};
+  const interes = {frio:0,tibio:0,listo:0};
+  const porPrio = {Alta:0,Media:0,Baja:0,Nuevo:0};
+  let nuevos = 0;
+
+  todos.forEach(c => {
+    const g = gestiones[c.nit] || {};
+    const r = g.resultado || 'pendiente';
+    conteo[r] = (conteo[r]||0)+1;
+    if (g.canal) canales[g.canal] = (canales[g.canal]||0)+1;
+    if (g.interes) interes[g.interes] = (interes[g.interes]||0)+1;
+    const prio = c.esNuevo ? 'Nuevo' : (g.prio || c.prio || 'Baja');
+    if (r==='perfilado') porPrio[prio] = (porPrio[prio]||0)+1;
+    if (c.esNuevo) nuevos++;
+  });
+
+  const perf = conteo.perfilado||0;
+  const pct = Math.min(100, Math.round(perf/meta*100));
+  document.getElementById('progress-bar').style.width = pct+'%';
+  document.getElementById('prog-izq').textContent = perf + ' perfilados';
+  document.getElementById('prog-der').textContent = pct+'% de la meta';
+  document.getElementById('av-pendiente').textContent = conteo.pendiente||0;
+  document.getElementById('av-contactado').textContent = conteo.contactado||0;
+  document.getElementById('av-perfilado').textContent = conteo.perfilado||0;
+  document.getElementById('av-no_interesado').textContent = conteo.no_interesado||0;
+  document.getElementById('av-nuevos').textContent = nuevos;
+  document.getElementById('av-llamada').textContent = canales.llamada||0;
+  document.getElementById('av-whatsapp').textContent = canales.whatsapp||0;
+  document.getElementById('av-email').textContent = canales.email||0;
+  document.getElementById('av-frio').textContent = interes.frio||0;
+  document.getElementById('av-tibio').textContent = interes.tibio||0;
+  document.getElementById('av-listo').textContent = interes.listo||0;
+  document.getElementById('av-prio-alta').textContent = (porPrio.Alta||0)+' perfilados';
+  document.getElementById('av-prio-media').textContent = (porPrio.Media||0)+' perfilados';
+  document.getElementById('av-prio-baja').textContent = (porPrio.Baja||0)+' perfilados';
+  document.getElementById('av-prio-nuevo').textContent = (porPrio.Nuevo||0)+' perfilados';
+}
+
+function guardarGestor() { gestorNombre = document.getElementById('gestor-input').value.trim(); localStorage.setItem('zumotec_gestor', gestorNombre); showToast('✅ Gestor: ' + gestorNombre, 'exito'); }
+function guardarScriptUrl() { scriptUrl = document.getElementById('script-url-input').value.trim(); localStorage.setItem('zumotec_script_url', scriptUrl); showToast('✅ Sincronización activada', 'exito'); }
+function copiarCodigo() { navigator.clipboard.writeText(document.getElementById('codigo-script').value).then(() => showToast('📋 Código copiado', 'exito')); }
+function showToast(msg, tipo='') { const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast ' + tipo + ' show'; setTimeout(() => t.className = 'toast', 2800); }
 </script>
 </body>
 </html>
