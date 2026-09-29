@@ -20,7 +20,11 @@ exports.handler = async function(event) {
       return { statusCode: 400, headers, body: JSON.stringify({ valido: false, error: 'Código requerido' }) };
     }
 
-    // Leer códigos desde variable de entorno
+    const codigoUp = codigo.toUpperCase().trim();
+    const siteId = process.env.INNFOCUS_SITE_ID;
+    const token = process.env.NETLIFY_TOKEN;
+
+    // === PASO 1: Buscar en variable de entorno (códigos manuales) ===
     const codigosEnv = process.env.CODIGOS_ACTIVOS || '';
     const codigosMap = {};
     codigosEnv.split(',').forEach(item => {
@@ -28,15 +32,35 @@ exports.handler = async function(event) {
       if (cod) codigosMap[cod.toUpperCase()] = parseInt(usos) || 0;
     });
 
-    const codigoUp = codigo.toUpperCase().trim();
+    let usosMaximos = null;
 
-    if (!(codigoUp in codigosMap)) {
-      return { statusCode: 200, headers, body: JSON.stringify({ valido: false, error: 'Código no válido' }) };
+    if (codigoUp in codigosMap) {
+      // Código manual encontrado en env
+      usosMaximos = codigosMap[codigoUp];
+    } else {
+      // === PASO 2: Buscar en Blobs (códigos generados por compra) ===
+      const regUrl = `https://api.netlify.com/api/v1/blobs/${siteId}/innfocus-codigos/REGISTRO_${codigoUp}`;
+      try {
+        const regRes = await fetch(regUrl, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (regRes.ok) {
+          const registro = await regRes.json();
+          usosMaximos = registro.usos || 0;
+        }
+      } catch(e) {
+        // No se encontró registro
+      }
     }
 
-    // Leer usos actuales desde Netlify Blobs via REST API
-    const siteId = process.env.INNFOCUS_SITE_ID;
-    const token = process.env.NETLIFY_TOKEN;
+    if (usosMaximos === null) {
+      return {
+        statusCode: 200, headers,
+        body: JSON.stringify({ valido: false, error: 'Código no válido' })
+      };
+    }
+
+    // === PASO 3: Verificar y actualizar conteo de usos ===
     const blobUrl = `https://api.netlify.com/api/v1/blobs/${siteId}/innfocus-codigos/${codigoUp}`;
 
     let usosActuales = 0;
@@ -52,7 +76,6 @@ exports.handler = async function(event) {
       usosActuales = 0;
     }
 
-    const usosMaximos = codigosMap[codigoUp];
     const usosRestantes = usosMaximos - usosActuales;
 
     if (usosRestantes <= 0) {
@@ -62,7 +85,7 @@ exports.handler = async function(event) {
       };
     }
 
-    // Guardar nuevo conteo
+    // Incrementar conteo
     await fetch(blobUrl, {
       method: 'PUT',
       headers: {
