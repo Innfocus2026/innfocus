@@ -106,6 +106,21 @@
   .footer-brand span { color: #1D9E75; }
   .footer-text { font-size: 11px; color: #aaa; }
 
+  /* MODAL PAGO */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-overlay.visible { display: flex; }
+  .modal-box { background: white; border-radius: 16px; padding: 1.8rem; width: 100%; max-width: 420px; }
+  .modal-titulo { font-size: 17px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .modal-sub { font-size: 13px; color: #888; margin-bottom: 1.2rem; line-height: 1.5; }
+  .modal-paquete-tag { display: inline-block; background: var(--inn-light); color: var(--inn-dark); font-size: 12px; font-weight: 600; padding: 3px 12px; border-radius: 20px; margin-bottom: 1.2rem; }
+  .modal-input { width: 100%; padding: 11px 13px; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; background: #f7f7f5; color: #1a1a1a; font-family: inherit; outline: none; margin-bottom: 10px; }
+  .modal-input:focus { border-color: var(--inn); background: white; }
+  .btn-ir-mp { width: 100%; background: var(--inn); color: white; border: none; padding: 13px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; margin-top: 4px; }
+  .btn-ir-mp:disabled { opacity: 0.6; cursor: default; }
+  .btn-cancelar-modal { width: 100%; background: transparent; color: #aaa; border: none; padding: 10px; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit; margin-top: 6px; }
+  .modal-error { background: #FAEAEA; color: #8B1A1A; border-radius: 8px; padding: 8px 12px; font-size: 13px; display: none; margin-bottom: 10px; }
+  .modal-note { font-size: 11px; color: #aaa; text-align: center; margin-top: 8px; }
+
   :root {
     --inn: #6B21FF;
     --inn-light: #F0E8FF;
@@ -131,6 +146,7 @@
   .tool-section.visible { border-color: var(--inn); }
   .q-step textarea:focus { border-color: var(--inn); }
   .footer-brand span { color: var(--inn); }
+  @media (max-width: 500px) {
     .paquetes { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .hero h1 { font-size: 22px; }
@@ -139,6 +155,22 @@
 </style>
 </head>
 <body>
+
+<!-- MODAL PAGO -->
+<div class="modal-overlay" id="modal-pago">
+  <div class="modal-box">
+    <div class="modal-titulo">Completa tu compra</div>
+    <div class="modal-sub">Después del pago te enviaremos el código de acceso a tu correo. Solo toma unos segundos.</div>
+    <div class="modal-paquete-tag" id="modal-paquete-tag">Paquete Básico · 20 planes</div>
+    <div class="modal-error" id="modal-error"></div>
+    <input class="modal-input" type="text" id="mp-nombre" placeholder="Tu nombre completo" autocomplete="name" />
+    <input class="modal-input" type="email" id="mp-email" placeholder="Correo electrónico (recibirás el código aquí)" autocomplete="email" />
+    <button class="btn-ir-mp" id="btn-ir-mp" onclick="irAMercadoPago()">Pagar con Mercado Pago →</button>
+    <button class="btn-cancelar-modal" onclick="cerrarModal()">Cancelar</button>
+    <p class="modal-note">🔒 Pago seguro vía Mercado Pago · Todas las tarjetas</p>
+  </div>
+</div>
+
 <div class="page">
 
   <div class="navbar">
@@ -180,7 +212,7 @@
           <div class="paquete-desc">20 planes estratégicos</div>
           <div class="paquete-precio">$5 USD</div>
           <div class="paquete-precio-cop">~$18.500 COP</div>
-          <button class="btn-paquete outline" onclick="alert('Próximamente — conectando Mercado Pago')">Comprar →</button>
+          <button class="btn-paquete outline" onclick="abrirModal('basico')">Comprar →</button>
         </div>
         <div class="paquete popular">
           <div class="popular-tag">Más popular</div>
@@ -189,7 +221,7 @@
           <div class="paquete-desc">50 planes estratégicos</div>
           <div class="paquete-precio">$10 USD</div>
           <div class="paquete-precio-cop">~$37.000 COP</div>
-          <button class="btn-paquete" onclick="alert('Próximamente — conectando Mercado Pago')">Comprar →</button>
+          <button class="btn-paquete" onclick="abrirModal('pro')">Comprar →</button>
         </div>
       </div>
     </div>
@@ -352,11 +384,70 @@
 </div>
 
 <script>
-  const CODIGOS = ["CAMARA2026", "JOSUE2026", "INNFOCUS01"];
   const ans = { rg2:'', rg4:'', rg6:'', rg7:'' };
   const loadMsgs = ['Analizando tu idea...','Definiendo la oportunidad...','Construyendo el plan de acción...','Casi listo...'];
   let msgI = 0, msgInt;
+  let paqueteSeleccionado = '';
 
+  // ====== MODAL MERCADO PAGO ======
+  function abrirModal(paquete) {
+    paqueteSeleccionado = paquete;
+    const tags = { basico: 'Paquete Básico · 20 planes · ~$18.500 COP', pro: 'Paquete Pro · 50 planes · ~$37.000 COP' };
+    document.getElementById('modal-paquete-tag').textContent = tags[paquete];
+    document.getElementById('modal-error').style.display = 'none';
+    document.getElementById('mp-nombre').value = '';
+    document.getElementById('mp-email').value = '';
+    document.getElementById('btn-ir-mp').disabled = false;
+    document.getElementById('btn-ir-mp').textContent = 'Pagar con Mercado Pago →';
+    document.getElementById('modal-pago').classList.add('visible');
+  }
+
+  function cerrarModal() {
+    document.getElementById('modal-pago').classList.remove('visible');
+  }
+
+  // Cerrar modal al hacer clic fuera
+  document.getElementById('modal-pago').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModal();
+  });
+
+  async function irAMercadoPago() {
+    const nombre = document.getElementById('mp-nombre').value.trim();
+    const email = document.getElementById('mp-email').value.trim();
+    const errEl = document.getElementById('modal-error');
+    errEl.style.display = 'none';
+
+    if (!nombre) { errEl.textContent = 'Por favor ingresa tu nombre.'; errEl.style.display = 'block'; return; }
+    if (!email || !email.includes('@')) { errEl.textContent = 'Por favor ingresa un correo válido.'; errEl.style.display = 'block'; return; }
+
+    const btn = document.getElementById('btn-ir-mp');
+    btn.disabled = true;
+    btn.textContent = 'Redirigiendo...';
+
+    try {
+      const res = await fetch('/.netlify/functions/pagos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paquete: paqueteSeleccionado, nombre, email })
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        errEl.textContent = 'Error al iniciar el pago. Intenta de nuevo.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Pagar con Mercado Pago →';
+      }
+    } catch(e) {
+      errEl.textContent = 'Error de conexión. Intenta de nuevo.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Pagar con Mercado Pago →';
+    }
+  }
+
+  // ====== CÓDIGO DE ACCESO ======
   function mostrarFormTaller() {
     const f = document.getElementById('form-taller');
     f.classList.add('visible');
@@ -422,6 +513,7 @@
     }
   }
 
+  // ====== CUESTIONARIO ======
   function showQ(n) {
     document.querySelectorAll('.q-step').forEach(s => s.classList.remove('active'));
     document.getElementById('q'+n).classList.add('active');
